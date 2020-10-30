@@ -28,9 +28,4 @@ class UserProviderTest extends TestCase
         $this->assertTrue(Artisan::call('make:admin', ['user' => 0]) == 0);
     }
 
-    /** @test * */
-    public function user_finder_test(){
-
-    }
-
 }

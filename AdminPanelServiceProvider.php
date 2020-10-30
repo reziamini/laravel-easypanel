@@ -3,18 +3,13 @@
 
 namespace AdminPanel;
 
-
-use AdminPanel\Commands\DeleteAdmin;
-use AdminPanel\Commands\Install;
-use AdminPanel\Commands\MakeAdmin;
-use AdminPanel\Http\Livewire\TODO\TodoSingle;
+use AdminPanel\Commands\{DeleteAdmin, Install, MakeAdmin};
+use AdminPanel\Http\Livewire\Todo\Create;
+use AdminPanel\Http\Livewire\Todo\Lists;
+use AdminPanel\Http\Livewire\Todo\Single;
 use AdminPanel\Http\Middleware\isAdmin;
-use AdminPanel\Support\Contract\TodoFacade;
-use AdminPanel\Support\Contract\UserProviderFacade;
-use AdminPanel\Support\Contract\AuthFacade;
-use Illuminate\Routing\Router;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\ServiceProvider;
+use AdminPanel\Support\Contract\{UserProviderFacade, AuthFacade};
+use Illuminate\{Routing\Router, Support\Facades\Blade, Support\Facades\Route, Support\ServiceProvider};
 use Livewire\Livewire;
 
 class AdminPanelServiceProvider extends ServiceProvider
@@ -31,29 +26,15 @@ class AdminPanelServiceProvider extends ServiceProvider
 
         $this->registerMiddlewareAlias();
 
-        $this->loadViewsFrom(__DIR__.'resources/view', 'admin');
-        $this->loadLiveiwreComponent();
+        $this->loadViewsFrom(__DIR__.'resources/views', 'admin');
+
+        $this->loadLivewireComponent();
 
         if(!$this->app->routesAreCached()) {
             $this->defineRoutes();
         }
 
-        $this->publishes([
-            __DIR__.'/config/admin_panel_config.php' => config_path('admin_panel.php')
-        ], 'admin-panel-config');
-
-        $this->publishes([
-            __DIR__.'/resources/view' => resource_path('/views/vendor/admin')
-        ], 'admin-panel-views');
-
-        $this->publishes([
-            __DIR__.'/resources/assets' => public_path('/assets/vendor/admin'),
-            __DIR__.'/resources/dist' => public_path('/dist/vendor/admin')
-        ], 'admin-panel-styles');
-
-        $this->publishes([
-            __DIR__.'/database/migrations/2020_10_27_115952_create_todos_table.php' => base_path('/database/migrations/2020_10_27_115952_create_todos_table.php')
-        ], 'admin-panel-migrations');
+        $this->mergePublishes();
 
         $this->commands([
             MakeAdmin::class,
@@ -67,7 +48,7 @@ class AdminPanelServiceProvider extends ServiceProvider
     {
         $routeName = str_replace('/', '.', config('admin_panel.route_prefix'));
         Route::prefix(config('admin_panel.route_prefix'))
-            ->middleware(['web', 'auth', isAdmin::class])
+            ->middleware(['web', 'auth', 'isAdmin'])
             ->name($routeName.'.')
             ->group(__DIR__ . '/routes.php');
     }
@@ -83,7 +64,6 @@ class AdminPanelServiceProvider extends ServiceProvider
         }*/
         AuthFacade::shouldProxyTo(config('admin_panel.auth_class'));
         UserProviderFacade::shouldProxyTo(config('admin_panel.admin_provider_class'));
-        TodoFacade::shouldProxyTo(config('admin_panel.todo_model'));
     }
 
     private function registerMiddlewareAlias()
@@ -92,9 +72,23 @@ class AdminPanelServiceProvider extends ServiceProvider
         $router->aliasMiddleware('isAdmin', isAdmin::class);
     }
 
-    private function loadLiveiwreComponent()
+    private function loadLivewireComponent()
     {
-        Livewire::component('todo-single', TodoSingle::class);
+        Livewire::component('admin::livewire.todo.single', Single::class);
+        Livewire::component('admin::livewire.todo.create', Create::class);
+        Livewire::component('admin::livewire.todo.lists', Lists::class);
+    }
+
+
+    private function mergePublishes()
+    {
+        $this->publishes([__DIR__ . '/config/admin_panel_config.php' => config_path('admin_panel.php')], 'admin-panel-config');
+
+        $this->publishes([__DIR__ . '/resources/views' => resource_path('/views/vendor/admin')], 'admin-panel-views');
+
+        $this->publishes([__DIR__ . '/resources/assets' => public_path('/assets/vendor/admin'), __DIR__ . '/resources/dist' => public_path('/dist/vendor/admin')], 'admin-panel-styles');
+
+        $this->publishes([__DIR__ . '/database/migrations/2020_10_27_115952_create_todos_table.php' => base_path('/database/migrations/' . date('Y_m_d') . '_99999_create_todos_table.php')], 'admin-panel-migrations');
     }
 
 }

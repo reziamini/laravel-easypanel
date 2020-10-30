@@ -4,7 +4,6 @@ return [
 
     // Enable the todo feature
     'todo' => true,
-    'todo_model' => \App\Models\Todo::class,
 
     // How to authenticate admin
     // You may use other ways to authenticate a admin (tables or ..) you can manage it with this class
