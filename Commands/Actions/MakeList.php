@@ -5,19 +5,21 @@ namespace AdminPanel\Commands\Actions;
 
 
 use Illuminate\Console\GeneratorCommand;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\File;
 use InvalidArgumentException;
 
 class MakeList extends GeneratorCommand
 {
 
-    protected $name = 'crud:list';
+    use StubParser;
 
+    protected $name = 'crud:list';
     private $path;
 
     protected function buildClass($name)
     {
         $stub = parent::buildClass($name);
-
         $stub = $this->replaceModel($stub);
 
         return $stub;
@@ -41,40 +43,28 @@ class MakeList extends GeneratorCommand
         return __DIR__.'/../stub/list.stub';
     }
 
-    private function replaceModel($stub)
+    public function buildBlade()
     {
-        $modelNamespace = $this->parseModel($this->getConfig('model'));
-        $modelName = $this->getModelName($modelNamespace);
+        $stub = $this->files->get(__DIR__ . '/../stub/blade/list.blade.stub');
+        $newStub = $this->parseBlade($stub);
 
-        $array = [
-            '{{ modelName }}' => $modelName,
-            '{{ modelNamespace }}' => $modelNamespace,
-            '{{ model }}' => strtolower($modelName),
-        ];
+        $path = $this->viewPath("livewire/admin/{$this->getNameInput()}/list.blade.php");
 
-        return str_replace(array_keys($array), array_values($array), $stub);
-    }
-
-    private function parseModel($model)
-    {
-        if (preg_match('([^A-Za-z0-9_/\\\\])', $model)) {
-            throw new InvalidArgumentException('Model name contains invalid characters.');
+        if (! $this->files->isDirectory(dirname($path))) {
+            $this->files->makeDirectory(dirname($path), 0755, true);
         }
 
-        return $this->qualifyModel($model);
+        $this->files->put($path, $newStub);
     }
 
-    private function getConfig($key){
-        $action = $this->getNameInput();
-
-        return config('admin_panel.actions.'.$action.'.'.$key);
-    }
-
-    private function getModelName($modelNamespace)
+    public function handle()
     {
-        $array = explode('\\', $modelNamespace);
+        parent::handle();
 
-        return end($array);
+        $this->buildBlade();
+
+        Artisan::call('crud:single', [
+            'name' => $this->getNameInput()
+        ]);
     }
-
 }

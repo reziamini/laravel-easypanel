@@ -18,7 +18,7 @@ class Lists extends Component
     {
         $data = {{ modelName }}::query()->latest()->paginate(config('admin_panel.pagination_count', 15));
 
-        return view('livewire.admin.{{ model }}.create', [
+        return view('livewire.admin.{{ model }}.lists', [
             '{{ model }}s' => $data
         ])->layout('admin::layouts.app');
     }
