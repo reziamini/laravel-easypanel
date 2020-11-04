@@ -3,13 +3,14 @@
 
 namespace AdminPanel;
 
-use AdminPanel\Commands\{DeleteAdmin, Install, MakeAdmin};
+use AdminPanel\Commands\{Actions\MakeCreate, Actions\MakeList, Actions\MakeUpdate, DeleteAdmin, Install, MakeAdmin};
+use AdminPanel\Http\Livewire\TestCrud;
 use AdminPanel\Http\Livewire\Todo\Create;
 use AdminPanel\Http\Livewire\Todo\Lists;
 use AdminPanel\Http\Livewire\Todo\Single;
 use AdminPanel\Http\Middleware\isAdmin;
 use AdminPanel\Support\Contract\{UserProviderFacade, AuthFacade};
-use Illuminate\{Routing\Router, Support\Facades\Blade, Support\Facades\Route, Support\ServiceProvider};
+use Illuminate\{Routing\Router, Support\Facades\Route, Support\ServiceProvider};
 use Livewire\Livewire;
 
 class AdminPanelServiceProvider extends ServiceProvider
@@ -39,7 +40,10 @@ class AdminPanelServiceProvider extends ServiceProvider
         $this->commands([
             MakeAdmin::class,
             DeleteAdmin::class,
-            Install::class
+            Install::class,
+            MakeCreate::class,
+            MakeUpdate::class,
+            MakeList::class
         ]);
 
     }
@@ -77,6 +81,7 @@ class AdminPanelServiceProvider extends ServiceProvider
         Livewire::component('admin::livewire.todo.single', Single::class);
         Livewire::component('admin::livewire.todo.create', Create::class);
         Livewire::component('admin::livewire.todo.lists', Lists::class);
+        Livewire::component('admin::livewire.test-crud', TestCrud::class);
     }
 
 
