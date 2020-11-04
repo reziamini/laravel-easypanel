@@ -3,8 +3,13 @@
 
 namespace AdminPanel;
 
-use AdminPanel\Commands\{Actions\MakeCreate, Actions\MakeList, Actions\MakeUpdate, DeleteAdmin, Install, MakeAdmin};
-use AdminPanel\Http\Livewire\TestCrud;
+use AdminPanel\Commands\{Actions\MakeCreate,
+    Actions\MakeList,
+    Actions\MakeSingle,
+    Actions\MakeUpdate,
+    DeleteAdmin,
+    Install,
+    MakeAdmin};
 use AdminPanel\Http\Livewire\Todo\Create;
 use AdminPanel\Http\Livewire\Todo\Lists;
 use AdminPanel\Http\Livewire\Todo\Single;
@@ -43,7 +48,8 @@ class AdminPanelServiceProvider extends ServiceProvider
             Install::class,
             MakeCreate::class,
             MakeUpdate::class,
-            MakeList::class
+            MakeList::class,
+            MakeSingle::class,
         ]);
 
     }
@@ -81,7 +87,6 @@ class AdminPanelServiceProvider extends ServiceProvider
         Livewire::component('admin::livewire.todo.single', Single::class);
         Livewire::component('admin::livewire.todo.create', Create::class);
         Livewire::component('admin::livewire.todo.lists', Lists::class);
-        Livewire::component('admin::livewire.test-crud', TestCrud::class);
     }
 
 
