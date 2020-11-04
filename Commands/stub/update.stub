@@ -1,0 +1,42 @@
+<?php
+
+namespace {{ namespace }};
+
+use {{ modelNamespace }};
+use Livewire\Component;
+
+class Update extends Component
+{
+    public ${{ model }};
+
+    {{ properties }}
+    protected $rules = [
+        {{ rules }}
+    ];
+
+    public function mount({{ modelName }} ${{ model }}){
+        $this->{{ model }} = ${{ model }};
+    }
+
+    public function updated($input)
+    {
+        $this->validateOnly($input);
+    }
+
+    public function update()
+    {
+        $this->validate();
+        $this->dispatchBrowserEvent('show-message', ['type' => 'success', 'message' => '{{ modelName }} was updated.']);
+
+        $this->{{ model }}->update([
+            {{ fields }}
+        ]);
+    }
+
+    public function render()
+    {
+        return view('livewire.admin.{{ model }}.update', [
+            '{{ model }}' => $this->{{ model }}
+        ])->layout('admin::layouts.app');
+    }
+}
