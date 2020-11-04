@@ -5,7 +5,6 @@ namespace AdminPanel\Commands;
 
 
 use AdminPanel\AdminPanelServiceProvider;
-use AdminPanel\Support\Contract\UserProviderFacade;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 
@@ -40,5 +39,4 @@ class Install extends Command
         ]);
         $this->alert("Admin panel was installed successfully");
     }
-
 }
