@@ -102,8 +102,9 @@ trait StubParser
     {
         $fields = $this->getConfig('fields');
         $str = '';
+        $modelName = strtolower($modelName);
         foreach ($fields as $key => $field) {
-            $str .= '<td> $'.$modelName.'->'.$key.' </td>\n';
+            $str .= '<td> $'.$modelName.'->'.$key." </td>\n";
         }
 
         return $str;
