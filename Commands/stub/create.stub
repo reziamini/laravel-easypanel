@@ -1,0 +1,39 @@
+<?php
+
+namespace {{ namespace }};
+
+use {{ modelNamespace }};
+use Livewire\Component;
+
+class Create extends Component
+{
+
+    {{ properties }}
+    protected $rules = [
+        {{ rules }}
+    ];
+
+    public function updated($input)
+    {
+        $this->validateOnly($input);
+    }
+
+    public function create()
+    {
+        $this->validate();
+
+        $this->dispatchBrowserEvent('show-message', ['type' => 'success', 'message' => '{{ modelName }} was created.']);
+
+        {{ modelName }}::create([
+            {{ fields }}
+        ]);
+
+        $this->reset();
+    }
+
+    public function render()
+    {
+        return view('livewire.admin.{{ model }}.create')
+            ->layout('admin::layouts.app');
+    }
+}
