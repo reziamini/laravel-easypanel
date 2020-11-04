@@ -21,6 +21,8 @@ return [
     // Admin panel routes prefix
     'route_prefix' => 'admin',
 
+    // Count of pagination in CRUD lists
+    'pagination_count' => 20,
 
     // CRUD manager
     'actions' => [
@@ -29,12 +31,30 @@ return [
             'create' => true,
             'edit' => true,
             'delete' => true,
+            'validation' => [
+                'title' => 'required|unique:articles|min:20',
+                'photo' => 'required',
+            ],
+            'fields' => [
+                'title' => 'text',
+                'content' => 'textarea',
+                'photo' => 'file',
+            ],
         ],
         'article' => [
             'model' => \App\Models\Article::class,
             'create' => true,
             'edit' => true,
             'delete' => true,
+            'validation' => [
+                'title' => 'required|unique:articles|min:20',
+                'photo' => 'required',
+            ],
+            'fields' => [
+                'title' => 'text',
+                'content' => 'textarea',
+                'photo' => 'file',
+            ],
         ],
     ],
 ];
