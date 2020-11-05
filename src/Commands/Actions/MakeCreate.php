@@ -34,7 +34,7 @@ class MakeCreate extends GeneratorCommand
 
     protected function getStub()
     {
-        return __DIR__.'/../stub/create.stub';
+        return __DIR__ . '/../stub/create.stub';
     }
 
     private function buildBlade()

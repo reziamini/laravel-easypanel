@@ -14,11 +14,6 @@ class Create extends Component
         'title' => 'required|min:8|unique:todos',
     ];
 
-    public function mount()
-    {
-        //dd(';das');
-    }
-
     public function updatedTitle()
     {
         $this->validateOnly('title');
@@ -34,8 +29,8 @@ class Create extends Component
             'title' => $this->title,
             'user_id' => auth()->user()->id
         ]);
-        $this->reset();
 
+        $this->reset();
     }
 
     public function render()

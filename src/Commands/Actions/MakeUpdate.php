@@ -33,7 +33,7 @@ class MakeUpdate extends GeneratorCommand
 
     protected function getStub()
     {
-        return __DIR__.'/../stub/update.stub';
+        return __DIR__ . '/../stub/update.stub';
     }
 
     private function buildBlade()

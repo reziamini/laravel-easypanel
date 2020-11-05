@@ -1,9 +1,8 @@
 <?php
 
-use AdminPanel\Http\Livewire\TestCrud;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', "admin::test")->name('home');
+Route::view('/', "admin::home")->name('home');
 
 Route::post('/logout', function (){
     auth()->logout();
@@ -11,12 +10,22 @@ Route::post('/logout', function (){
 })->name('logout');
 
 foreach (config('admin_panel.actions') as $prefix => $value){
-    Route::get($prefix, TestCrud::class)->name($prefix);
+    $name = ucfirst($prefix);
+    $livewireNamespace = "App\\Http\\Livewire\\Admin\\$name";
+    Route::prefix($prefix)->name($prefix.'.')->group(function () use ($livewireNamespace, $value, $prefix){
+        Route::get('/',  $livewireNamespace."\\Lists")->name('lists');
+        if($value['create']){
+            Route::get('/create', $livewireNamespace."\\Create")->name('create');
+        }
+        if($value['update']){
+            Route::get('/update/{'.$prefix.'}',  $livewireNamespace."\\Update")->name('update');
+        }
+    });
 }
 
 if(config('admin_panel.todo')){
-    Route::prefix('todo')->group(function (){
-        Route::get('/', \AdminPanel\Http\Livewire\Todo\Lists::class);
-        Route::get('/create', \AdminPanel\Http\Livewire\Todo\Create::class);
+    Route::prefix('todo')->name('todo.')->group(function (){
+        Route::get('/', \AdminPanel\Http\Livewire\Todo\Lists::class)->name('lists');
+        Route::get('/create', \AdminPanel\Http\Livewire\Todo\Create::class)->name('create');
     });
 }

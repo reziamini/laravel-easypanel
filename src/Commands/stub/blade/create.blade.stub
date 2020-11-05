@@ -1,0 +1,19 @@
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Create {{ modelName }}</h3>
+    </div>
+
+    <form class="form-horizontal" wire:submit.prevent="create" enctype="multipart/form-data">
+
+        <div class="card-body">
+
+            {{ inputs }}
+
+        </div>
+
+        <div class="card-footer">
+            <button type="submit" class="btn btn-info">Create</button>
+            <a href="{{ route('admin.{{ model }}.lists') }}" class="btn btn-default float-left">Cancel</a>
+        </div>
+    </form>
+</div>

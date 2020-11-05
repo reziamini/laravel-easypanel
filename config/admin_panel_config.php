@@ -3,7 +3,11 @@
 return [
 
     // Enable the todo feature
+    // it needs connection to db to run migration
     'todo' => true,
+
+    // Your user Model
+    'user_model' => App\Models\User::class,
 
     // How to authenticate admin
     // You may use other ways to authenticate a admin (tables or ..) you can manage it with this class
@@ -26,34 +30,22 @@ return [
 
     // CRUD manager
     'actions' => [
+        // must be equals with your model name but with lower case words
         'user' => [
-            'model' => \App\Models\User::class,
-            'create' => true,
-            'edit' => true,
-            'delete' => true,
-            'validation' => [
-                'title' => 'required|unique:articles|min:20',
-                'photo' => 'required',
-            ],
-            'fields' => [
-                'title' => 'text',
-                'content' => 'textarea',
-                'photo' => 'file',
-            ],
-        ],
-        'article' => [
             'model' => \App\Models\Article::class,
+            // searchable field, if you dont want search feature, remove it
+            'search' => 'title',
             'create' => true,
-            'edit' => true,
+            'update' => true,
             'delete' => true,
             'validation' => [
-                'title' => 'required|unique:articles|min:20',
-                'photo' => 'required',
+                'title' => 'required',
+                'content' => 'required|min:30',
             ],
+            // Write every fields in your db which you want to show
             'fields' => [
                 'title' => 'text',
                 'content' => 'textarea',
-                'photo' => 'file',
             ],
         ],
     ],

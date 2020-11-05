@@ -34,7 +34,7 @@ class MakeList extends GeneratorCommand
 
     protected function getStub()
     {
-        return __DIR__.'/../stub/lists.stub';
+        return __DIR__ . '/../stub/lists.stub';
     }
 
     public function buildBlade()

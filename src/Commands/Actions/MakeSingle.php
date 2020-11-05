@@ -45,7 +45,7 @@ class MakeSingle extends GeneratorCommand
 
     protected function getStub()
     {
-        return __DIR__.'/../stub/single.stub';
+        return __DIR__ . '/../stub/single.stub';
     }
 
     public function handle()
