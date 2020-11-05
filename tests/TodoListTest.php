@@ -1,14 +1,13 @@
 <?php
 
 
-namespace AdminPanel\tests;
+namespace AdminPanelTest;
 
 
 use AdminPanel\Http\Livewire\Todo\Create;
 use AdminPanel\Http\Livewire\Todo\Single;
 use AdminPanel\Models\Todo;
 use Livewire\Livewire;
-use Tests\TestCase;
 
 class TodoListTest extends TestCase
 {

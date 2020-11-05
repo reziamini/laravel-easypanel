@@ -1,13 +1,12 @@
 <?php
 
 
-namespace AdminPanel\tests;
+namespace AdminPanelTest;
 
 
 use AdminPanel\Support\Contract\UserProviderFacade;
 use App\Models\User;
 use Illuminate\Support\Facades\Artisan;
-use Tests\TestCase;
 
 class UserProviderTest extends TestCase
 {

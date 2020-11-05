@@ -1,12 +1,10 @@
 <?php
 
 
-namespace AdminPanel\tests;
+namespace AdminPanelTest;
 
 
 use AdminPanel\Support\Contract\AuthFacade;
-
-use Tests\TestCase;
 
 class RouteDefinedTest extends TestCase
 {
