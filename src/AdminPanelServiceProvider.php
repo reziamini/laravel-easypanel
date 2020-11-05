@@ -24,7 +24,7 @@ class AdminPanelServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/config/admin_panel_config.php', 'admin_panel');
+        $this->mergeConfigFrom(__DIR__ . '/../config/admin_panel_config.php', 'admin_panel');
         $this->defineFacades();
         $this->bindCommands();
     }
@@ -34,7 +34,7 @@ class AdminPanelServiceProvider extends ServiceProvider
         if(!$this->app->runningInConsole()) {
             $this->registerMiddlewareAlias();
 
-            $this->loadViewsFrom(__DIR__ . 'resources/views', 'admin');
+            $this->loadViewsFrom(__DIR__ . '/../resources/views', 'admin');
 
             if (!$this->app->routesAreCached()) {
                 $this->defineRoutes();
@@ -47,11 +47,11 @@ class AdminPanelServiceProvider extends ServiceProvider
 
     private function defineRoutes()
     {
-        $routeName = str_replace('/', '.', config('admin_panel.route_prefix'));
+        $routeName = getRouteName();
         Route::prefix(config('admin_panel.route_prefix'))
             ->middleware(['web', 'auth', 'isAdmin'])
             ->name($routeName.'.')
-            ->group(__DIR__ . '/routes.php');
+            ->group(__DIR__ . '/../routes.php');
     }
 
     private function defineFacades()
@@ -76,13 +76,13 @@ class AdminPanelServiceProvider extends ServiceProvider
 
     private function mergePublishes()
     {
-        $this->publishes([__DIR__ . '/config/admin_panel_config.php' => config_path('admin_panel.php')], 'admin-panel-config');
+        $this->publishes([__DIR__ . '/../config/admin_panel_config.php' => config_path('admin_panel.php')], 'admin-panel-config');
 
-        $this->publishes([__DIR__ . '/resources/views' => resource_path('/views/vendor/admin')], 'admin-panel-views');
+        $this->publishes([__DIR__ . '/../resources/views' => resource_path('/views/vendor/admin')], 'admin-panel-views');
 
-        $this->publishes([__DIR__ . '/resources/assets' => public_path('/assets/vendor/admin'), __DIR__ . '/resources/dist' => public_path('/dist/vendor/admin')], 'admin-panel-styles');
+        $this->publishes([__DIR__ . '/../resources/assets' => public_path('/assets/vendor/admin'), __DIR__ . '/../resources/dist' => public_path('/dist/vendor/admin')], 'admin-panel-styles');
 
-        $this->publishes([__DIR__ . '/database/migrations/2020_10_27_115952_create_todos_table.php' => base_path('/database/migrations/' . date('Y_m_d') . '_99999_create_todos_table.php')], 'admin-panel-migrations');
+        $this->publishes([__DIR__ . '/../database/migrations/todos_table.php' => base_path('/database/migrations/' . date('Y_m_d') . '_99999_create_todos_table.php')], 'admin-panel-migrations');
     }
 
     private function bindCommands()
