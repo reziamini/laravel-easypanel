@@ -38,7 +38,7 @@ class Install extends Command
             '--tag' => 'easy-panel-migrations'
         ]);
 
-        if(config('easy_panel.actions')) {
+        /*if(config('easy_panel.actions')) {
             $this->line("Creating CRUDs...");
             $result = $this->confirm("Do you want to create CRUDs ?", 'yes');
             if ($result) {
@@ -47,7 +47,7 @@ class Install extends Command
                     Artisan::call('crud:all', ['name' => $action]);
                 }
             }
-        }
+        }*/
 
         $this->info("It was install fully. If you update your CRUDs, Make sure you rerun this command...");
     }
