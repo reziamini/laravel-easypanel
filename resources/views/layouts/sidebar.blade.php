@@ -6,8 +6,8 @@
             <ul id="sidebarnav">
                 <li class="nav-small-cap"><span class="hide-menu">Applications</span></li>
 
-                <li class="sidebar-item @isActive(getRouteName()'.home', 'selected')">
-                    <a class="sidebar-link @isActive(getRouteName()'.home', 'active') " href="ticket-list.html" aria-expanded="false">
+                <li class="sidebar-item @isActive(getRouteName().'.home', 'selected')">
+                    <a class="sidebar-link @isActive(getRouteName().'.home', 'active') " href="ticket-list.html" aria-expanded="false">
                         <i data-feather="home" class="feather-icon"></i>
                         <span class="hide-menu">Home</span>
                     </a>
