@@ -1,7 +1,22 @@
-#Laravel Easy Panel
+# Laravel Easy Panel
 
 A flexible and beautiful admin panel based on Livewire with lots of feature.
 
+# Features :
+
+- Create CRUD in config file.
+- Manage route prefix and addresses
+- Beautiful UI/UX with AdminMart template
+- Add/remove Admins with command line
+- Every UserProviders and Authentication classes are customizable and you can change them 
+- You can create your own routes and customize our views and components
+- Manage pagination count
+- Real time validation with [Livewire](https://github.com/livewire/livewire)
+- Customize every actions in your project
+- A small and beautiful TODO (You can disable it in your config)
+- Create a nice and responsive view based on your data in config file for every CRUDs
+- Custom validation based on config file
+ 
 # How to install :
 
 First of all you must install package with composer :
