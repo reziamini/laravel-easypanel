@@ -1,9 +1,9 @@
 <?php
 
 
-namespace AdminPanel;
+namespace EasyPanel;
 
-use AdminPanel\Commands\{Actions\MakeCreate,
+use EasyPanel\Commands\{Actions\MakeCreate,
     Actions\MakeList,
     Actions\MakeSingle,
     Actions\MakeUpdate,
@@ -11,15 +11,15 @@ use AdminPanel\Commands\{Actions\MakeCreate,
     DeleteAdmin,
     Install,
     MakeAdmin};
-use AdminPanel\Http\Livewire\Todo\Create;
-use AdminPanel\Http\Livewire\Todo\Lists;
-use AdminPanel\Http\Livewire\Todo\Single;
-use AdminPanel\Http\Middleware\isAdmin;
-use AdminPanel\Support\Contract\{UserProviderFacade, AuthFacade};
+use EasyPanel\Http\Livewire\Todo\Create;
+use EasyPanel\Http\Livewire\Todo\Lists;
+use EasyPanel\Http\Livewire\Todo\Single;
+use EasyPanel\Http\Middleware\isAdmin;
+use EasyPanel\Support\Contract\{UserProviderFacade, AuthFacade};
 use Illuminate\{Routing\Router, Support\Facades\Route, Support\ServiceProvider};
 use Livewire\Livewire;
 
-class AdminPanelServiceProvider extends ServiceProvider
+class EasyPanelServiceProvider extends ServiceProvider
 {
 
     public function register()
@@ -39,9 +39,10 @@ class AdminPanelServiceProvider extends ServiceProvider
             if (!$this->app->routesAreCached()) {
                 $this->defineRoutes();
             }
+
+            $this->loadLivewireComponent();
         }
 
-        $this->loadLivewireComponent();
         $this->mergePublishes();
     }
 
@@ -51,7 +52,7 @@ class AdminPanelServiceProvider extends ServiceProvider
         Route::prefix(config('admin_panel.route_prefix'))
             ->middleware(['web', 'auth', 'isAdmin'])
             ->name($routeName.'.')
-            ->group(__DIR__ . '/../routes.php');
+            ->group(__DIR__ . '/routes.php');
     }
 
     private function defineFacades()
@@ -82,7 +83,7 @@ class AdminPanelServiceProvider extends ServiceProvider
 
         $this->publishes([__DIR__ . '/../resources/assets' => public_path('/assets/vendor/admin'), __DIR__ . '/../resources/dist' => public_path('/dist/vendor/admin')], 'admin-panel-styles');
 
-        $this->publishes([__DIR__ . '/../database/migrations/todos_table.php' => base_path('/database/migrations/' . date('Y_m_d') . '_99999_create_todos_table.php')], 'admin-panel-migrations');
+        $this->publishes([__DIR__ . '/../database/migrations/2020_09_05_99999_create_todos_table.php' => base_path('/database/migrations/' . date('Y_m_d') . '_99999_create_todos_table.php')], 'admin-panel-migrations');
     }
 
     private function bindCommands()
