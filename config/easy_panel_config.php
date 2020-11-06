@@ -31,7 +31,7 @@ return [
     // CRUD manager
     'actions' => [
         // must be equals with your model name but with lower case words
-        'user' => [
+        /*'article' => [
             'model' => \App\Models\Article::class,
             // searchable field, if you dont want search feature, remove it
             'search' => 'title',
@@ -47,6 +47,6 @@ return [
                 'title' => 'text',
                 'content' => 'textarea',
             ],
-        ],
+        ],*/
     ],
 ];
