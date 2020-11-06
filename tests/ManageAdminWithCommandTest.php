@@ -5,12 +5,12 @@ namespace AdminPanelTest;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Artisan;
 
-class RouteDefinedTest extends TestCase
+class ManageAdminWithCommandTest extends TestCase
 {
     use RefreshDatabase;
+
     /** @test * */
     public function create_admin_with_command(){
-
         Artisan::call('make:admin', [
             'user' => $this->user->id
         ]);
@@ -27,6 +27,7 @@ class RouteDefinedTest extends TestCase
             'user' => $this->user->id,
             '--force' => true
         ]);
+
         $this->assertFalse( (bool) $this->user->refresh()->is_superuser);
     }
 
