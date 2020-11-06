@@ -1,21 +1,21 @@
 <?php
 
-
 namespace AdminPanelTest;
-
 
 use AdminPanel\AdminPanelServiceProvider;
 
-class TestCase extends \Orchestra\Testbench\TestCase
+abstract class TestCase extends \Orchestra\Testbench\TestCase
 {
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->withoutExceptionHandling();
+
+        $this->loadMigrationsFrom(__DIR__.'/Dependencies/database/migrations');
+        $this->withFactories(__DIR__.'/Dependencies/database/factories');
     }
 
-    protected function getApplicationProviders($app)
+    protected function getPackageProviders($app)
     {
         return [
             AdminPanelServiceProvider::class

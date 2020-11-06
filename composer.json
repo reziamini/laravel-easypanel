@@ -10,12 +10,14 @@
     ],
     "require": {
         "php": "^7.2.5",
-        "illuminate/support": "^6.0|^7.0|^8.0",
+        "illuminate/support": "^5.7|^6.0|^7.0|^8.0",
         "rezaamini-ir/laravel-easyblade" : "v0.1.7",
+        "laravel/framework": "^6.0|^7.0|^8.0",
         "livewire/livewire": "^2.3"
     },
     "require-dev": {
-        "orchestra/testbench": "~3.7|^4.0|^5.0|^6.0"
+        "orchestra/testbench": "~3.7|^4.0|^5.0|^6.0",
+        "laravel/legacy-factories": "^1.0.4"
     },
     "autoload": {
         "psr-4": {
@@ -28,6 +30,7 @@
             "AdminPanelTest\\" : "tests/"
         }
     },
+
     "extra": {
         "laravel" : {
             "providers" : [
