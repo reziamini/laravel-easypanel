@@ -1,8 +1,8 @@
 <?php
 
-namespace AdminPanel\Http\Livewire\Todo;
+namespace EasyPanel\Http\Livewire\Todo;
 
-use AdminPanel\Models\Todo;
+use EasyPanel\Models\Todo;
 use Livewire\Component;
 use Livewire\WithPagination;
 

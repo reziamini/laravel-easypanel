@@ -1,6 +1,6 @@
 <?php
 
-namespace AdminPanel\Support\User;
+namespace EasyPanel\Support\User;
 
 class UserProvider
 {
@@ -9,20 +9,20 @@ class UserProvider
     {
         $user = $this->findUser($id);
         $user->update([
-            config('admin_panel.column') => 1
+            config('easy_panel.column') => true
         ]);
     }
 
     public function findUser($id)
     {
-        return config('admin_panel.user_model')::query()->findOrFail($id);
+        return config('easy_panel.user_model')::query()->findOrFail($id);
     }
 
     public function deleteAdmin($id)
     {
         $user = $this->findUser($id);
         $user->update([
-            config('admin_panel.column') => 0
+            config('easy_panel.column') => false
         ]);
     }
 

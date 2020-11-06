@@ -1,11 +1,11 @@
 <?php
 
 
-namespace AdminPanel\Support\Auth;
+namespace EasyPanel\Support\Auth;
 
 
 
-use AdminPanel\Support\Contract\UserProviderFacade;
+use EasyPanel\Support\Contract\UserProviderFacade;
 
 class ColumnAuth
 {
@@ -14,7 +14,7 @@ class ColumnAuth
     {
         $user = UserProviderFacade::findUser($userId);
 
-        return $user->{config('admin_panel.column')};
+        return $user->{config('easy_panel.column')};
     }
 
 }

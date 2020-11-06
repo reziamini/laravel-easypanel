@@ -1,7 +1,7 @@
 <?php
 
 
-namespace AdminPanelTest\Dependencies;
+namespace EasyPanelTest\Dependencies;
 use Orchestra\Testbench\Concerns\WithFactories;
 
 class User extends \Illuminate\Foundation\Auth\User

@@ -1,10 +1,10 @@
 <?php
 
 
-namespace AdminPanelTest;
+namespace EasyPanelTest;
 
 
-use AdminPanel\Http\Middleware\isAdmin;
+use EasyPanel\Http\Middleware\isAdmin;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class MiddlewareTest extends TestCase

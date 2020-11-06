@@ -1,9 +1,9 @@
 <?php
 
-namespace AdminPanel\Http\Livewire\Todo;
+namespace EasyPanel\Http\Livewire\Todo;
 
-use AdminPanel\Models\Todo;
-use AdminPanel\Support\Contract\TodoFacade;
+use EasyPanel\Models\Todo;
+use EasyPanel\Support\Contract\TodoFacade;
 use App\Models\Article;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Route;

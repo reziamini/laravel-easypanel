@@ -1,6 +1,6 @@
 <tr x-data="{ modalIsOpen : false }">
     {{ data }}
-    @if(config('admin_panel.actions.{{ model }}.delete'))
+    @if(config('easy_panel.actions.{{ model }}.delete'))
         <td>
             <button @click.prevent="modalIsOpen = true" class="btn text-danger mt-1">
                 <i class="icon-trash"></i>

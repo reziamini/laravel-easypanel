@@ -15,5 +15,5 @@
         <li>Custom validation based on config file</li>
     </ul>
 
-    <p>Check document out : <a href="https://github.com/rezaamini-ir/laravel-adminpanel">Github repo</a></p>
+    <p>Check document out : <a href="https://github.com/rezaamini-ir/laravel-EasyPanel">Github repo</a></p>
 @endcomponent

@@ -1,12 +1,8 @@
 <?php
 
-
-namespace AdminPanel\Commands\Actions;
-
+namespace EasyPanel\Commands\Actions;
 
 use Illuminate\Console\GeneratorCommand;
-use Illuminate\Filesystem\Filesystem;
-use InvalidArgumentException;
 
 class MakeUpdate extends GeneratorCommand
 {

@@ -1,11 +1,11 @@
 <?php
 
 
-namespace AdminPanel\Support\Contract;
+namespace EasyPanel\Support\Contract;
 
 
 
-use AdminPanel\Support\User\UserProvider;
+use EasyPanel\Support\User\UserProvider;
 
 /**
  * @method static makeAdmin(int $id)

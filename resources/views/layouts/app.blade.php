@@ -42,7 +42,7 @@
                 <!-- Logo -->
                 <div class="navbar-brand">
                     <a href="@route(getRouteName().'.home')">
-                        <span class="logo-text">AdminPanel</span>
+                        <span class="logo-text">EasyPanel</span>
                     </a>
                 </div>
                 <!-- End Logo -->
@@ -64,13 +64,13 @@
                 <!-- ============================================================== -->
                 <ul class="navbar-nav float-left mr-auto ml-3 pl-1">
                     <!-- Notification -->
-                    @if(config('admin_panel.todo'))
+                    @if(config('easy_panel.todo'))
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle pl-md-3 position-relative" href="javascript:void(0)"
                            id="bell" role="button" data-toggle="dropdown" aria-haspopup="true"
                            aria-expanded="false">
                             <span><i data-feather="bell" class="svg-icon"></i></span>
-                            <span class="badge badge-primary notify-no rounded-circle">{{ \AdminPanel\Models\Todo::where('user_id', auth()->user()->id)->count() }}</span>
+                            <span class="badge badge-primary notify-no rounded-circle">{{ \EasyPanel\Models\Todo::where('user_id', auth()->user()->id)->count() }}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-left mailbox animated bounceInDown">
                             <ul class="list-style-none">
@@ -157,7 +157,7 @@
         <!-- End Container fluid  -->
 
         <!-- footer -->
-        <footer class="footer text-center text-muted">Adminmart Template, AdminPanel Package.</a>.</footer>
+        <footer class="footer text-center text-muted">Adminmart Template, EasyPanel Package.</a>.</footer>
         <!-- End footer -->
     </div>
 </div>

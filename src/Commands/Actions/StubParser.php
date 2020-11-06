@@ -1,7 +1,7 @@
 <?php
 
 
-namespace AdminPanel\Commands\Actions;
+namespace EasyPanel\Commands\Actions;
 
 
 use InvalidArgumentException;
@@ -66,8 +66,8 @@ trait StubParser
 
     protected function getConfig($key){
         $action = $this->getNameInput();
-        if(config('admin_panel.actions.'.$action.'.'.$key)){
-            return config('admin_panel.actions.'.$action.'.'.$key);
+        if(config('easy_panel.actions.'.$action.'.'.$key)){
+            return config('easy_panel.actions.'.$action.'.'.$key);
         }
 
         throw new CommandNotFoundException("There is no {$action} in config file");

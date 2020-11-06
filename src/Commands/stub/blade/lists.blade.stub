@@ -9,7 +9,7 @@
                     <div class="col-md-4 right-0">
                         <a href="{{ route('admin.{{ model }}.create') }}" class="btn btn-success">Create {{ modelName }}</a>
                     </div>
-                    @if(config('admin_panel.actions.{{ model }}.search'))
+                    @if(config('easy_panel.actions.{{ model }}.search'))
                     <div class="col-md-4">
                         <div class="input-group">
                             <input type="text" class="form-control" wire:model="search" placeholder="Search" value="{{ request('search') }}">

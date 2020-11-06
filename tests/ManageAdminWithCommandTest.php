@@ -1,6 +1,6 @@
 <?php
 
-namespace AdminPanelTest;
+namespace EasyPanelTest;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Artisan;

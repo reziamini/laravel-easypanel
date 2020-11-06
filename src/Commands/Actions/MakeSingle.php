@@ -1,11 +1,10 @@
 <?php
 
 
-namespace AdminPanel\Commands\Actions;
+namespace EasyPanel\Commands\Actions;
 
 
 use Illuminate\Console\GeneratorCommand;
-use InvalidArgumentException;
 
 class MakeSingle extends GeneratorCommand
 {

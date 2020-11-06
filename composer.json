@@ -1,5 +1,5 @@
 {
-    "name": "rezaamini-ir/laravel-adminpanel",
+    "name": "rezaamini-ir/laravel-easypanel",
     "license": "MIT",
     "description": "An admin panel based on livewire",
     "authors": [
@@ -21,20 +21,20 @@
     },
     "autoload": {
         "psr-4": {
-            "AdminPanel\\" : "src/"
+            "EasyPanel\\" : "src/"
         },
         "files": ["src/helpers.php"]
     },
     "autoload-dev": {
         "psr-4": {
-            "AdminPanelTest\\" : "tests/"
+            "EasyPanelTest\\" : "tests/"
         }
     },
 
     "extra": {
         "laravel" : {
             "providers" : [
-                "AdminPanel\\AdminPanelServiceProvider"
+                "EasyPanel\\EasyPanelServiceProvider"
             ]
         }
     },

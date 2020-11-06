@@ -1,8 +1,8 @@
 <?php
 
-namespace AdminPanelTest;
+namespace EasyPanelTest;
 
-use AdminPanel\Support\Contract\UserProviderFacade;
+use EasyPanel\Support\Contract\UserProviderFacade;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class UserProviderFacadeTest extends TestCase

@@ -1,4 +1,4 @@
-@foreach(\AdminPanel\Models\Todo::where('user_id', auth()->user()->id)->where('checked', false)->get() as $todo)
+@foreach(\EasyPanel\Models\Todo::where('user_id', auth()->user()->id)->where('checked', false)->get() as $todo)
 <a href="javascript:void(0)" class="message-item d-flex align-items-center border-bottom px-3 py-2">
     <span class="btn btn-info rounded-circle btn-circle">
         <i data-feather="settings" class="text-white"></i>

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace AdminPanel\Support\Auth;
+namespace EasyPanel\Support\Auth;
 
 
 class TestModeAuth

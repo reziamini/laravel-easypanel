@@ -1,6 +1,6 @@
 <?php
 
-namespace AdminPanel\Models;
+namespace EasyPanel\Models;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,7 +14,7 @@ class Todo extends Model
 
     public function admin()
     {
-        return $this->belongsTo(config('admin_panel.user_model'));
+        return $this->belongsTo(config('easy_panel.user_model'));
     }
 
 }

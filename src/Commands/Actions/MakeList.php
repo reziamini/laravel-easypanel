@@ -1,14 +1,11 @@
 <?php
 
 
-namespace AdminPanel\Commands\Actions;
+namespace EasyPanel\Commands\Actions;
 
 
 use Illuminate\Console\GeneratorCommand;
-use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\File;
-use InvalidArgumentException;
 
 class MakeList extends GeneratorCommand
 {

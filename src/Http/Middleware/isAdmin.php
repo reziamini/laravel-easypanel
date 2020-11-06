@@ -1,10 +1,10 @@
 <?php
 
 
-namespace AdminPanel\Http\Middleware;
+namespace EasyPanel\Http\Middleware;
 
 
-use AdminPanel\Support\Contract\AuthFacade;
+use EasyPanel\Support\Contract\AuthFacade;
 use Closure;
 
 class isAdmin
@@ -16,7 +16,7 @@ class isAdmin
             return $next($request);
         }
 
-        return redirect(config('admin_panel.redirect_unauthorized'));
+        return redirect(config('easy_panel.redirect_unauthorized'));
     }
 
 }

@@ -1,10 +1,10 @@
 <?php
 
 
-namespace AdminPanel\Commands;
+namespace EasyPanel\Commands;
 
 
-use AdminPanel\Support\Contract\UserProviderFacade;
+use EasyPanel\Support\Contract\UserProviderFacade;
 use Illuminate\Console\Command;
 
 class DeleteAdmin extends Command

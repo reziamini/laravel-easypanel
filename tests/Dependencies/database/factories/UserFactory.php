@@ -4,7 +4,7 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
 use Faker\Generator as Faker;
-use AdminPanelTest\Dependencies\User;
+use EasyPanelTest\Dependencies\User;
 
 $factory->define(User::class, function (Faker $faker, $parameters) {
     return [

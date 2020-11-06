@@ -26,10 +26,10 @@ class Lists extends Component
     {
         $data = {{ modelName }}::query();
 
-        if(config('admin_panel.actions.{{ model }}.search')){
-            $data->where(config('admin_panel.actions.{{ model }}.search'), 'like', '%'.$this->search.'%');
+        if(config('easy_panel.actions.{{ model }}.search')){
+            $data->where(config('easy_panel.actions.{{ model }}.search'), 'like', '%'.$this->search.'%');
         }
-        $data = $data->latest()->paginate(config('admin_panel.pagination_count', 15));
+        $data = $data->latest()->paginate(config('easy_panel.pagination_count', 15));
 
         return view('livewire.admin.{{ model }}.lists', [
             '{{ model }}s' => $data

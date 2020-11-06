@@ -1,10 +1,10 @@
 <?php
 
 
-namespace AdminPanel\Commands;
+namespace EasyPanel\Commands;
 
 
-use AdminPanel\Support\Contract\UserProviderFacade;
+use EasyPanel\Support\Contract\UserProviderFacade;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Exception\CommandNotFoundException;
 
@@ -17,10 +17,10 @@ class CreateAll extends Command
 
     public function handle()
     {
-        $names = $this->argument('name') ? [$this->argument('name')] : array_keys(config('admin_panel.actions', []));
+        $names = $this->argument('name') ? [$this->argument('name')] : array_keys(config('easy_panel.actions', []));
 
         foreach ($names as $name) {
-            $config = config('admin_panel.actions.' . $name);
+            $config = config('easy_panel.actions.' . $name);
             if(!$config) {
                 throw new CommandNotFoundException("There is no {$name} in config file");
             }

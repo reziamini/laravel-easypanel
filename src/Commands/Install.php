@@ -1,10 +1,10 @@
 <?php
 
 
-namespace AdminPanel\Commands;
+namespace EasyPanel\Commands;
 
 
-use AdminPanel\AdminPanelServiceProvider;
+use EasyPanel\EasyPanelServiceProvider;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 
@@ -19,31 +19,31 @@ class Install extends Command
     {
         $this->line("Installing Admin panel ...");
         Artisan::call('vendor:publish', [
-            '--provider' => AdminPanelServiceProvider::class,
-            '--tag' => 'admin-panel-styles'
+            '--provider' => EasyPanelServiceProvider::class,
+            '--tag' => 'easy-panel-styles'
         ]);
 
         Artisan::call('vendor:publish', [
-            '--provider' => AdminPanelServiceProvider::class,
-            '--tag' => 'admin-panel-views'
+            '--provider' => EasyPanelServiceProvider::class,
+            '--tag' => 'easy-panel-views'
         ]);
 
         Artisan::call('vendor:publish', [
-            '--provider' => AdminPanelServiceProvider::class,
-            '--tag' => 'admin-panel-config'
+            '--provider' => EasyPanelServiceProvider::class,
+            '--tag' => 'easy-panel-config'
         ]);
 
         Artisan::call('vendor:publish', [
-            '--provider' => AdminPanelServiceProvider::class,
-            '--tag' => 'admin-panel-migrations'
+            '--provider' => EasyPanelServiceProvider::class,
+            '--tag' => 'easy-panel-migrations'
         ]);
 
-        if(config('admin_panel.actions')) {
+        if(config('easy_panel.actions')) {
             $this->line("Creating CRUDs...");
             $result = $this->confirm("Do you want to create CRUDs ?", 'yes');
             if ($result) {
                 $this->line("Admin panel was installed successfully, Let me create your CRUDs");
-                foreach (config('admin_panel.actions') as $action => $value) {
+                foreach (config('easy_panel.actions') as $action => $value) {
                     Artisan::call('crud:all', ['name' => $action]);
                 }
             }

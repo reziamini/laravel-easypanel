@@ -1,7 +1,7 @@
 <?php
 
 
-namespace AdminPanel\Support\Contract;
+namespace EasyPanel\Support\Contract;
 
 
 use Illuminate\Support\Facades\Facade;

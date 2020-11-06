@@ -1,7 +1,7 @@
 <?php
 
 
-namespace AdminPanel\Support\User;
+namespace EasyPanel\Support\User;
 
 
 class TestModeUserProvider
