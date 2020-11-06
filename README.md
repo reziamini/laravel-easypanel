@@ -2,7 +2,7 @@
 
 A flexible and beautiful admin panel based on Livewire with lots of feature.
 
-# Features :
+# Features:
 
 - Create CRUD in config file.
 - Manage route prefix and addresses
@@ -17,7 +17,7 @@ A flexible and beautiful admin panel based on Livewire with lots of feature.
 - Create a nice and responsive view based on your data in config file for every CRUDs
 - Custom validation based on config file
  
-# How to install :
+# How to install:
 
 First of all you must install package with composer :
 ```bash
@@ -28,15 +28,15 @@ Next you should publish config, migration and views just with one command :
 php artisan install:admin
 ``` 
 
-If You need to add TODO feature in your project you should run this command out to create todo table :
+If You need to add TODO feature in your project you should run this command out to create todo table:
 ```bash
-pp artisan migrate
+php artisan migrate
 ```
 and you don't want this option please set `todo` key in your config to `false`
 
 Congratulations. now You have installed the package.
 
-## Configurations :
+## Configurations:
 
 After run the `install:admin` command you are able to edit config file in `config/easy_panel.php`
 There are lots of feature in config file you can edit or manage.
@@ -61,10 +61,10 @@ After run this command you are able to edit and customize your CRUD in your proj
 - PHP Components address : `app/Http/Livewire/Admin/[ActionKey]`
 - Blade Components address : `resources/views/livewire/admin/[actionKey]`
 
-## What we use in this package :
+## What we use in this package:
 - [AdminMart Template](https://adminmart.com/)
 - [Livewire](https://github.com/livewire/livewire)
 - [Laravel EasyBlade](https://github.com/rezaamini-ir/laravel-easyblade)
 
-## Contribution : 
+## Contribution: 
 If you feel you can improve our package You are free to pull request & submit issue :)
