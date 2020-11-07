@@ -46,6 +46,11 @@ return [
             'fields' => [
                 'title' => 'text',
                 'content' => 'textarea',
+                'image' => 'file'
+            ],
+            // which kind of data should be showed in list page
+            'show' => [
+                'title', 'content'
             ],
         ],*/
     ],

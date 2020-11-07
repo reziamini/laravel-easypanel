@@ -127,11 +127,11 @@ trait StubParser
 
     protected function parseDataInBlade($modelName)
     {
-        $fields = $this->getConfig('fields');
+        $fields = $this->getConfig('show');
         $str = '';
         $modelName = strtolower($modelName);
-        foreach ($fields as $key => $field) {
-            $str .= '<td> {{ $'.$modelName.'->'.$key." }} </td>\n";
+        foreach ($fields as $value) {
+            $str .= '<td> {{ $'.$modelName.'->'.$value." }} </td>\n";
         }
 
         return $str;
