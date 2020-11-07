@@ -1,6 +1,7 @@
 # Laravel Easy Panel
-
 A flexible and beautiful admin panel based on Livewire with lots of feature.
+
+<img src="https://linkpicture.com/q/Screenshot-2020-11-07-201015.png"> 
 
 # Features:
 
