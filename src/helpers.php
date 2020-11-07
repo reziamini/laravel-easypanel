@@ -3,7 +3,9 @@
 if(! function_exists('getRouteName'))
 {
     function getRouteName(){
-        $routeName = str_replace('/', '.', config('easy_panel.route_prefix'));
+        $routeName = config('easy_panel.route_prefix');
+        $routeName = trim($routeName, '/');
+        $routeName = str_replace('/', '.', $routeName);
         return $routeName;
     }
 }
