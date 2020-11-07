@@ -23,7 +23,7 @@ return [
     'redirect_unauthorized' => '/',
 
     // Admin panel routes prefix
-    'route_prefix' => 'admin',
+    'route_prefix' => 'admin', //  http://localhost/admin
 
     // Count of pagination in CRUD lists
     'pagination_count' => 20,
