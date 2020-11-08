@@ -4,6 +4,7 @@ namespace EasyPanelTest;
 
 use EasyPanel\EasyPanelServiceProvider;
 use EasyPanelTest\Dependencies\User;
+use Livewire\LivewireServiceProvider;
 
 abstract class TestCase extends \Orchestra\Testbench\TestCase
 {
@@ -26,7 +27,8 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     protected function getPackageProviders($app)
     {
         return [
-            EasyPanelServiceProvider::class
+            EasyPanelServiceProvider::class,
+            LivewireServiceProvider::class
         ];
     }
 }
