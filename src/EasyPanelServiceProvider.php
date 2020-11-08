@@ -16,12 +16,11 @@ use EasyPanel\Http\Livewire\Todo\Lists;
 use EasyPanel\Http\Livewire\Todo\Single;
 use EasyPanel\Http\Middleware\isAdmin;
 use EasyPanel\Support\Contract\{UserProviderFacade, AuthFacade};
-use Illuminate\{Routing\Router, Support\Facades\File, Support\Facades\Route, Support\ServiceProvider, Support\Str};
+use Illuminate\{Routing\Router, Support\Facades\Route, Support\ServiceProvider};
 use Livewire\Livewire;
 
 class EasyPanelServiceProvider extends ServiceProvider
 {
-
     public function register()
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/easy_panel_config.php', 'easy_panel');
@@ -34,14 +33,14 @@ class EasyPanelServiceProvider extends ServiceProvider
         if(!$this->app->runningInConsole()) {
             $this->registerMiddlewareAlias();
 
-            $this->loadViewsFrom(__DIR__ . '/../resources/views', 'admin');
-
             if (!$this->app->routesAreCached()) {
                 $this->defineRoutes();
             }
 
             $this->loadLivewireComponent();
         }
+
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'admin');
 
         $this->mergePublishes();
     }
@@ -74,7 +73,6 @@ class EasyPanelServiceProvider extends ServiceProvider
         Livewire::component('admin::livewire.todo.lists', Lists::class);
     }
 
-
     private function mergePublishes()
     {
         $this->publishes([__DIR__ . '/../config/easy_panel_config.php' => config_path('easy_panel.php')], 'easy-panel-config');
@@ -83,7 +81,7 @@ class EasyPanelServiceProvider extends ServiceProvider
 
         $this->publishes([__DIR__ . '/../resources/assets' => public_path('/assets/vendor/admin'), __DIR__ . '/../resources/dist' => public_path('/dist/vendor/admin')], 'easy-panel-styles');
 
-        $this->publishes([__DIR__ . '/../database/migrations/2020_09_05_99999_create__todos_table.php' => base_path('/database/migrations/' . date('Y_m_d') . '_99999_create__admin_todos_table.php')], 'easy-panel-migrations');
+        $this->publishes([__DIR__ . '/../database/migrations/2020_09_05_99999_create_todos_table.php' => base_path('/database/migrations/' . date('Y_m_d') . '_99999_create_admin_todos_table.php')], 'easy-panel-migrations');
     }
 
     private function bindCommands()
@@ -99,5 +97,4 @@ class EasyPanelServiceProvider extends ServiceProvider
             CreateAll::class
         ]);
     }
-
 }
