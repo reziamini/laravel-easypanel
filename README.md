@@ -62,6 +62,13 @@ After run this command you are able to edit and customize your CRUD in your proj
 - PHP Components address : `app/Http/Livewire/Admin/[ActionKey]`
 - Blade Components address : `resources/views/livewire/admin/[actionKey]`
 
+### What does every key in config file ?
+
+- The first one is `todo` and it gives a `boolean` value. if You set it to `true` You will have a TODO list in your panel
+- The second one is `user_model`, if You have a different model for users of you don't use from Laravel 8.x you should pass your own user model in this key.
+
+As i said at top, EasyPanel is so flexible, You can pass your `UserProvider` or `Auth` class in config file. Image you have a separate table for admins and You don't use column for authenticate admins, You can write your own UserProvider and your own Auth class and pass it to config to use it.
+
 ## What we use in this package:
 - [AdminMart Template](https://adminmart.com/)
 - [Livewire](https://github.com/livewire/livewire)
