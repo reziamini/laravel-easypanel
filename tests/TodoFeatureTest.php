@@ -3,6 +3,7 @@
 namespace EasyPanelTest;
 
 use EasyPanel\Http\Livewire\Todo\Create;
+use EasyPanel\Http\Livewire\Todo\Single;
 use EasyPanel\Models\Todo;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
@@ -36,6 +37,20 @@ class TodoFeatureTest extends TestCase
             ->set('title', '')
             ->call('create')
             ->assertHasErrors('title');
+    }
+
+    /** @test * */
+    public function remove_a_todo(){
+        $todo = Todo::create([
+            'title' => 'Test Todo',
+            'user_id' => $this->user->id
+        ]);
+
+        Livewire::test(Single::class, ['todo' => $todo])
+            ->call('delete')
+            ->assertDispatchedBrowserEvent('show-message');
+
+        $this->assertDatabaseMissing('todos', ['title' => 'Test Todo']);
     }
 
 }
