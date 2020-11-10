@@ -30,14 +30,16 @@
     </div>
 </div>
 
-<div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
+<div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+     data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
 
     <!-- Topbar header - style you can find in pages.scss -->
     <header class="topbar" data-navbarbg="skin6">
         <nav class="navbar top-navbar navbar-expand-md">
             <div class="navbar-header" data-logobg="skin6">
                 <!-- This is for the sidebar toggle which is visible on mobile only -->
-                <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
+                <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i
+                            class="ti-menu ti-close"></i></a>
 
                 <!-- Logo -->
                 <div class="navbar-brand">
@@ -52,7 +54,7 @@
                 <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)"
                    data-toggle="collapse" data-target="#navbarSupportedContent"
                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i
-                        class="ti-more"></i></a>
+                            class="ti-more"></i></a>
             </div>
             <!-- ============================================================== -->
             <!-- End Logo -->
@@ -65,32 +67,33 @@
                 <ul class="navbar-nav float-left mr-auto ml-3 pl-1">
                     <!-- Notification -->
                     @if(config('easy_panel.todo'))
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle pl-md-3 position-relative" href="javascript:void(0)"
-                           id="bell" role="button" data-toggle="dropdown" aria-haspopup="true"
-                           aria-expanded="false">
-                            <span><i data-feather="bell" class="svg-icon"></i></span>
-                            <span class="badge badge-primary notify-no rounded-circle">{{ \EasyPanel\Models\Todo::where('user_id', auth()->user()->id)->count() }}</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-left mailbox animated bounceInDown">
-                            <ul class="list-style-none">
-                                <li>
-                                    <div class="message-center notifications position-relative">
-                                        <!-- Todos Messages -->
-                                        @include('admin::layouts.todo-message')
-                                    </div>
-                                </li>
-                                <li>
-                                    <a class="nav-link pt-3 text-center text-dark" href="@route(getRouteName().'.todo.lists')">
-                                        <strong>See TODO list</strong>
-                                        <i class="fa fa-angle-right"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    @endif
-                    <!-- End Notification -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle pl-md-3 position-relative" href="javascript:void(0)"
+                               id="bell" role="button" data-toggle="dropdown" aria-haspopup="true"
+                               aria-expanded="false">
+                                <span><i data-feather="bell" class="svg-icon"></i></span>
+                                <span class="badge badge-primary notify-no rounded-circle">{{ \EasyPanel\Models\Todo::where('user_id', auth()->user()->id)->count() }}</span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-left mailbox animated bounceInDown">
+                                <ul class="list-style-none">
+                                    <li>
+                                        <div class="message-center notifications position-relative">
+                                            <!-- Todos Messages -->
+                                            @include('admin::layouts.todo-message')
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <a class="nav-link pt-3 text-center text-dark"
+                                           href="@route(getRouteName().'.todo.lists')">
+                                            <strong>See TODO list</strong>
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                @endif
+                <!-- End Notification -->
                 </ul>
 
                 <!-- Right side toggle and nav items -->
@@ -100,12 +103,14 @@
                         <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown"
                            aria-haspopup="true" aria-expanded="false">
                                 <span class="ml-2 d-none d-lg-inline-block"><span>Hello,</span> <span
-                                        class="text-dark">@user('name')</span> <i data-feather="chevron-down"
-                                                                              class="svg-icon"></i></span>
+                                            class="text-dark">@user('name')</span> <i data-feather="chevron-down"
+                                                                                      class="svg-icon"></i></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
-                            <a class="dropdown-item" href="javascript:void(0)" onclick="event.preventDefault(); document.querySelector('#logout').submit()"><i data-feather="power"
-                                                                                  class="svg-icon mr-2 ml-1"></i>
+                            <a class="dropdown-item" href="javascript:void(0)"
+                               onclick="event.preventDefault(); document.querySelector('#logout').submit()"><i
+                                        data-feather="power"
+                                        class="svg-icon mr-2 ml-1"></i>
                                 Logout</a>
                             <form id="logout" action="@route(getRouteName().'.logout')" method="post"> @csrf </form>
                         </div>
@@ -161,7 +166,7 @@
     window.addEventListener('show-message', function (event) {
         let type = event.detail.type;
         let message = event.detail.message;
-        if(document.querySelector('.notification')){
+        if (document.querySelector('.notification')) {
             document.querySelector('.notification').remove();
         }
         let body = document.querySelector('#main-wrapper');
