@@ -69,6 +69,9 @@ After run this command you are able to edit and customize your CRUD in your proj
 
 As i said at top, EasyPanel is so flexible, You can pass your `UserProvider` or `Auth` class in config file. Image you have a separate table for admins and You don't use column for authenticate admins, You can write your own UserProvider and your own Auth class and pass it to config to use it.
 
+What is `show` key in every action in config file ? It specifies what's column should be showed in CRUD list.
+For example you want to show only title in your articles list, you can just pass the `title` to the `show` key in config file.
+
 ## What we use in this package:
 - [AdminMart Template](https://adminmart.com/)
 - [Livewire](https://github.com/livewire/livewire)
