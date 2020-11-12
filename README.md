@@ -62,6 +62,24 @@ After run this command you are able to edit and customize your CRUD in your proj
 - PHP Components address : `app/Http/Livewire/Admin/[ActionKey]`
 - Blade Components address : `resources/views/livewire/admin/[actionKey]`
 
+#### Create/Delete admin
+
+There are 2 commands in EasyPanel which uses UserProvider class to set a user as an admin or remove it.
+
+To set a user as an admin You can use this command :
+
+```
+php artisan make:admin 1
+```
+
+And to remove a user You can user this command : 
+
+```
+php artisan delete:admin 1
+```
+
+**1 is `user.id` here**
+
 ### What does every key in config file ?
 
 - The first one is `todo` and it gives a `boolean` value. if You set it to `true` You will have a TODO list in your panel
