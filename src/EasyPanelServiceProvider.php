@@ -47,10 +47,9 @@ class EasyPanelServiceProvider extends ServiceProvider
 
     private function defineRoutes()
     {
-        $routeName = getRouteName();
         Route::prefix(config('easy_panel.route_prefix'))
             ->middleware(['web', 'auth', 'isAdmin'])
-            ->name($routeName.'.')
+            ->name(getRouteName() .'.')
             ->group(__DIR__ . '/routes.php');
     }
 
