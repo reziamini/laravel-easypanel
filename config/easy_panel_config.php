@@ -31,7 +31,7 @@ return [
     // CRUD manager
     'actions' => [
         // must be equals with your model name but with lower case words
-        /*'article' => [
+        'article' => [
             'model' => \App\Models\Article::class,
             // searchable field, if you dont want search feature, remove it
             'search' => 'title',
@@ -49,9 +49,7 @@ return [
                 'image' => 'file'
             ],
             // which kind of data should be showed in list page
-            'show' => [
-                'title', 'content'
-            ],
-        ],*/
+            'show' => ['title', 'content'],
+        ],
     ],
 ];
