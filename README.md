@@ -97,3 +97,12 @@ For example you want to show only title in your articles list, you can just pass
 
 ## Contribution: 
 If you feel you can improve our package You are free to pull request & submit issue :)
+
+## Todo 
+- [ ] ACL System
+- [ ] Logging System
+- [ ] RTL Style
+- [ ] Translation
+- [ ] Separate CRUDs config
+- [ ] More input types & editors
+- [ ] Add some unit tests
