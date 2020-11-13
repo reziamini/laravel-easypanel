@@ -141,9 +141,9 @@ trait StubParser
     {
         $fields = $this->getConfig('show');
         $str = '';
-        foreach ($fields as $key => $field) {
-            $key = ucfirst($key);
-            $str .= "<td> $key </td>\n";
+        foreach ($fields as $field) {
+            $field = ucfirst($field);
+            $str .= "<td> $field </td>\n";
         }
 
         return $str;
