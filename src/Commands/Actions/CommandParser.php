@@ -4,6 +4,8 @@
 namespace EasyPanel\Commands\Actions;
 
 
+use Symfony\Component\Console\Input\InputOption;
+
 trait CommandParser
 {
 
@@ -42,11 +44,16 @@ trait CommandParser
 
     public function handle()
     {
-        //$this->showErrorIfClassExists();
-
         parent::handle();
 
         $this->buildBlade();
+    }
+
+    protected function getOptions()
+    {
+        return [
+            ['force', 'f', InputOption::VALUE_OPTIONAL, 'force mode']
+        ];
     }
 
 }
