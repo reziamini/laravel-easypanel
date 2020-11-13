@@ -177,4 +177,5 @@ trait StubParser
 
         return $str;
     }
+
 }
