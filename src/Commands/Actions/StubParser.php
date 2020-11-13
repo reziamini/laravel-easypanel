@@ -167,6 +167,7 @@ trait StubParser
     {
         $array = [
             'text' => '<input type="text" wire:model.lazy="' . $key . '" class="form-control @error(\''.$key.'\') is-invalid @enderror" id="input' . $key . '">'.PHP_EOL,
+            'email' => '<input type="email" wire:model.lazy="' . $key . '" class="form-control @error(\''.$key.'\') is-invalid @enderror" id="input' . $key . '">'.PHP_EOL,
             'file' => '<input type="file" wire:model="' . $key . '" class="form-control-file @error(\''.$key.'\')is-invalid @enderror" id="input' . $key . '"">'.PHP_EOL,
             'textarea' => '<textarea wire:model="' . $key . '" class="form-control @error(\''.$key.'\')is-invalid @enderror"></textarea>'.PHP_EOL,
             'password' => '<input type="password" wire:model.lazy="' . $key . '" class="form-control  @error(\''.$key.'\') is-invalid @enderror" id="input' . $key . '">'.PHP_EOL,
