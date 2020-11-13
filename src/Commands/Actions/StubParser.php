@@ -139,7 +139,7 @@ trait StubParser
 
     protected function parseTitlesInBlade()
     {
-        $fields = $this->getConfig('fields');
+        $fields = $this->getConfig('show');
         $str = '';
         foreach ($fields as $key => $field) {
             $key = ucfirst($key);

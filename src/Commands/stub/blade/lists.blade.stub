@@ -28,6 +28,7 @@
                     <tbody>
                     <tr style="pointer-events : none">
                         {{ titles }}
+                        <td>Action</td>
                     </tr>
 
                     @foreach(${{ model }}s as ${{ model }})
