@@ -44,9 +44,26 @@ trait CommandParser
 
     public function handle()
     {
-        parent::handle();
+        if ($this->isReservedName($this->getNameInput())) {
+            $this->error('The name "'.$this->getNameInput().'" is reserved by PHP.');
+            return false;
+        }
+
+        $name = $this->qualifyClass($this->getNameInput());
+        $path = $this->getPath($name);
+
+        if (!$this->option('force') && $this->alreadyExists($this->getNameInput())) {
+            $this->line("<options=bold,reverse;fg=red> • {$this->getNameInput()} {$this->type} already exists! </> \n");
+
+            return false;
+        }
+
+        $this->makeDirectory($path);
+
+        $this->files->put($path, $this->sortImports($this->buildClass($name)));
 
         $this->buildBlade();
+        $this->line("<options=bold,reverse;fg=green> {$this->getNameInput()} {$this->type} created successfully. </> 🤙\n");
     }
 
     protected function getOptions()
