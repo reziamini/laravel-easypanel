@@ -17,6 +17,7 @@ A flexible and beautiful admin panel based on Livewire with lots of feature.
 - A small and beautiful TODO (You can disable it in your config)
 - Create a nice and responsive view based on your data in config file for every CRUDs
 - Custom validation based on config file
+- Ajax search with [Livewire](https://github.com/livewire/livewire) in every column you want
  
 # How to install:
 
@@ -26,16 +27,15 @@ composer require rezaamini-ir/laravel-easypanel
 ```
 Next you should publish config, migration and views just with one command :
 ```bash
-php artisan install:admin
+php artisan panel:install
 ``` 
+**Congratulations! You have installed the package.**
 
-If You need to add TODO feature in your project you should run this command out to create todo table:
+If You need to add TODO feature in your project you should run this command to create todo table:
 ```bash
 php artisan migrate
 ```
-and you don't want this option please set `todo` key in your config to `false`
-
-Congratulations. now You have installed the package.
+and you set the `todo` key in your config to `true`
 
 ## Configurations:
 
@@ -46,11 +46,11 @@ Imagine you want to create a CRUD action for a model, You can edit `actions` key
 
 To create CRUDs action for all keys you must run this command : 
 ```bash
-php artisan crud:all
+php artisan panel:crud
 ```
 Or if you want to run command for just one key you can pass the key.
 ```bash
-php artisan crud:all article
+php artisan panel:crud article
 ```
 
 There are some important notes about actions in your config file :
@@ -69,13 +69,13 @@ There are 2 commands in EasyPanel which uses UserProvider class to set a user as
 To set a user as an admin You can use this command :
 
 ```
-php artisan make:admin 1
+php artisan panel:add 1
 ```
 
 And to remove a user You can user this command : 
 
 ```
-php artisan delete:admin 1
+php artisan panel:remove 1
 ```
 
 **1 is `user.id` here**
@@ -104,5 +104,6 @@ If you feel you can improve our package You are free to pull request & submit is
 - [ ] RTL Style
 - [ ] Translation
 - [ ] Separate CRUDs config
+- [x] Make Command lines readable
 - [ ] More input types & editors
 - [ ] Add some unit tests
