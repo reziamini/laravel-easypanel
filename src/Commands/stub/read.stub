@@ -38,7 +38,7 @@ class Read extends Component
 
         $data = $data->latest()->paginate(config('easy_panel.pagination_count', 15));
 
-        return view('livewire.admin.{{ model }}.lists', [
+        return view('livewire.admin.{{ model }}.read', [
             '{{ model }}s' => $data
         ])->layout('admin::layouts.app');
     }

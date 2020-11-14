@@ -18,6 +18,7 @@ class Install extends Command
     public function handle()
     {
         $this->line("Installing Admin panel ...");
+
         Artisan::call('vendor:publish', [
             '--provider' => EasyPanelServiceProvider::class,
             '--tag' => 'easy-panel-styles'
@@ -38,17 +39,6 @@ class Install extends Command
             '--tag' => 'easy-panel-migrations'
         ]);
 
-        /*if(config('easy_panel.actions')) {
-            $this->line("Creating CRUDs...");
-            $result = $this->confirm("Do you want to create CRUDs ?", 'yes');
-            if ($result) {
-                $this->line("Admin panel was installed successfully, Let me create your CRUDs");
-                foreach (config('easy_panel.actions') as $action => $value) {
-                    Artisan::call('crud:all', ['name' => $action]);
-                }
-            }
-        }*/
-
-        $this->info("It was install fully. If you update your CRUDs, Make sure you rerun this command...");
+        $this->alert("It was install fully :)) \n. If You update your CRUDs, Make sure you run the panel:crud command...");
     }
 }

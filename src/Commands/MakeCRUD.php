@@ -5,10 +5,10 @@ namespace EasyPanel\Commands;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Exception\CommandNotFoundException;
 
-class CreateAll extends Command
+class MakeCRUD extends Command
 {
 
-    protected $signature = 'panel:all {name?} {--force : Force mode}';
+    protected $signature = 'panel:crud {name?} {--force : Force mode}';
 
     protected $description = 'Create all action for CRUDs';
 
@@ -36,7 +36,7 @@ class CreateAll extends Command
                 $this->call('panel:update', ['name' => $name, '--force' => $this->hasOption('force')]);
             }
 
-            $this->call('panel:list', ['name' => $name, '--force' => $this->hasOption('force')]);
+            $this->call('panel:read', ['name' => $name, '--force' => $this->hasOption('force')]);
         }
     }
 

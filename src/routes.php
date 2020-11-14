@@ -13,7 +13,7 @@ foreach (config('easy_panel.actions') as $prefix => $value){
     $name = ucfirst($prefix);
     $livewireNamespace = "App\\Http\\Livewire\\Admin\\$name";
     Route::prefix($prefix)->name($prefix.'.')->group(function () use ($livewireNamespace, $value, $prefix){
-        Route::get('/',  $livewireNamespace."\\Lists")->name('lists');
+        Route::get('/',  $livewireNamespace."\\Read")->name('read');
         if($value['create']){
             Route::get('/create', $livewireNamespace."\\Create")->name('create');
         }

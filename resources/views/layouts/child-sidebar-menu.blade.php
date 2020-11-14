@@ -1,8 +1,8 @@
 <li class="list-divider"></li>
 
 @foreach(config('easy_panel.actions') as $name => $value)
-    <li class='sidebar-item @isActive([getRouteName().".$name.lists", getRouteName().".$name.create", getRouteName().".$name.update"], "selected")'>
-        <a class='sidebar-link @isActive([getRouteName().".$name.lists", getRouteName().".$name.create", getRouteName().".$name.update"], "active") ' href="@route(getRouteName().'.'.$name.'.lists')" aria-expanded="false">
+    <li class='sidebar-item @isActive([getRouteName().".$name.read", getRouteName().".$name.create", getRouteName().".$name.update"], "selected")'>
+        <a class='sidebar-link @isActive([getRouteName().".$name.read", getRouteName().".$name.create", getRouteName().".$name.update"], "active") ' href="@route(getRouteName().'.'.$name.'.read')" aria-expanded="false">
             <i data-feather="{{ get_icon($name) }}" class="feather-icon"></i>
             <span class="hide-menu">{{ \Illuminate\Support\Str::ucfirst($name) }}</span>
         </a>
