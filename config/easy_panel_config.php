@@ -34,7 +34,7 @@ return [
         'article' => [
             'model' => \App\Models\Article::class,
             // searchable field, if you dont want search feature, remove it
-            'search' => 'title',
+            'search' => ['title', 'content'],
             'create' => true,
             'update' => true,
             'delete' => true,
