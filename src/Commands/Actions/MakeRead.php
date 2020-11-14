@@ -7,7 +7,7 @@ namespace EasyPanel\Commands\Actions;
 use Illuminate\Console\GeneratorCommand;
 use Illuminate\Support\Facades\Artisan;
 
-class MakeList extends GeneratorCommand
+class MakeRead extends GeneratorCommand
 {
 
     use StubParser;
@@ -15,9 +15,9 @@ class MakeList extends GeneratorCommand
         handle as Handler;
     }
 
-    protected $name = 'crud:list';
-    protected $type = 'List Action';
-    protected $file = 'lists';
+    protected $name = 'crud:read';
+    protected $type = 'Read Action';
+    protected $file = 'read';
     private $path;
 
     public function handle()

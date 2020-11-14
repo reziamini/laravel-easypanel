@@ -7,7 +7,7 @@ use Livewire\Component;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\WithPagination;
 
-class Lists extends Component
+class Read extends Component
 {
     use WithPagination;
 
