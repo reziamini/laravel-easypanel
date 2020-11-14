@@ -4,6 +4,7 @@ namespace {{ namespace }};
 
 use {{ modelNamespace }};
 use Livewire\Component;
+use Illuminate\Database\Eloquent\Builder;
 use Livewire\WithPagination;
 
 class Lists extends Component
@@ -26,9 +27,15 @@ class Lists extends Component
     {
         $data = {{ modelName }}::query();
 
-        if(config('easy_panel.actions.{{ model }}.search')){
-            $data->where(config('easy_panel.actions.{{ model }}.search'), 'like', '%'.$this->search.'%');
+        if(config('easy_panel.actions.article.search')){
+            $array = (array) config('easy_panel.actions.article.search');
+            $data->orWhere(function (Builder $query) use ($array){
+                foreach ($array as $item) {
+                    $query->orWhere($item, 'like', '%'.$this->search.'%');
+                }
+            });
         }
+
         $data = $data->latest()->paginate(config('easy_panel.pagination_count', 15));
 
         return view('livewire.admin.{{ model }}.lists', [
