@@ -14,6 +14,7 @@ class MakeCreate extends GeneratorCommand
     protected $name = 'panel:create';
     protected $type = 'Create Action';
     protected $file = 'create';
+    protected $description = 'Make a create action in CRUD';
     private $path;
 
 }

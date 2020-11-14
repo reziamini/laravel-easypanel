@@ -12,6 +12,7 @@ class MakeUpdate extends GeneratorCommand
     protected $name = 'panel:update';
     private $file = 'update';
     protected $type = 'Update Action';
+    protected $description = 'Make a update action in CRUD';
     private $path;
 
 }

@@ -18,6 +18,7 @@ class MakeRead extends GeneratorCommand
     protected $name = 'panel:read';
     protected $type = 'Read Action';
     protected $file = 'read';
+    protected $description = 'Make a read action in CRUD';
     private $path;
 
     public function handle()

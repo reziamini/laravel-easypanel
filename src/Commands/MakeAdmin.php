@@ -10,7 +10,7 @@ use Illuminate\Console\Command;
 class MakeAdmin extends Command
 {
 
-    protected $description = 'register a new admin';
+    protected $description = 'Register an new admin';
 
     protected $signature = 'panel:make {user}';
 
