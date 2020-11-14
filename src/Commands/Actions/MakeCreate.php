@@ -11,7 +11,7 @@ class MakeCreate extends GeneratorCommand
 
     use StubParser, CommandParser;
 
-    protected $name = 'crud:create';
+    protected $name = 'panel:create';
     protected $type = 'Create Action';
     protected $file = 'create';
     private $path;

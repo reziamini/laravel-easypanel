@@ -11,7 +11,7 @@ class MakeSingle extends GeneratorCommand
 
     use StubParser, CommandParser;
 
-    protected $name = 'crud:single';
+    protected $name = 'panel:single';
     private $file = 'single';
     private $path;
 

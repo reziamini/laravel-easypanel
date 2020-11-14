@@ -15,7 +15,7 @@ class MakeRead extends GeneratorCommand
         handle as Handler;
     }
 
-    protected $name = 'crud:read';
+    protected $name = 'panel:read';
     protected $type = 'Read Action';
     protected $file = 'read';
     private $path;
@@ -24,7 +24,7 @@ class MakeRead extends GeneratorCommand
     {
         $this->Handler();
 
-        Artisan::call('crud:single', [
+        Artisan::call('panel:single', [
             'name' => $this->getNameInput()
         ]);
     }

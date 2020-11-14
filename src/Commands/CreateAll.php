@@ -8,7 +8,7 @@ use Symfony\Component\Console\Exception\CommandNotFoundException;
 class CreateAll extends Command
 {
 
-    protected $signature = 'crud:all {name?} {--force : Force mode}';
+    protected $signature = 'panel:all {name?} {--force : Force mode}';
 
     protected $description = 'Create all action for CRUDs';
 
@@ -27,16 +27,16 @@ class CreateAll extends Command
             if (!$config['create']) {
                 $this->warn('The create action is disabled');
             } else {
-                $this->call('crud:create', ['name' => $name, '--force' => $this->hasOption('force')]);
+                $this->call('panel:create', ['name' => $name, '--force' => $this->hasOption('force')]);
             }
 
             if (!$config['update']) {
                 $this->warn('The update action is disabled');
             } else {
-                $this->call('crud:update', ['name' => $name, '--force' => $this->hasOption('force')]);
+                $this->call('panel:update', ['name' => $name, '--force' => $this->hasOption('force')]);
             }
 
-            $this->call('crud:list', ['name' => $name, '--force' => $this->hasOption('force')]);
+            $this->call('panel:list', ['name' => $name, '--force' => $this->hasOption('force')]);
         }
     }
 

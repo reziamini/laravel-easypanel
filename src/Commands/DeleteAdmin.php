@@ -10,9 +10,9 @@ use Illuminate\Console\Command;
 class DeleteAdmin extends Command
 {
 
-    protected $signature = 'delete:admin {user} {--f|force}';
+    protected $signature = 'panel:remove {user} {--f|force}';
 
-    protected $description = 'Delete a admin with user id';
+    protected $description = 'Remove an admin with user id';
 
     public function handle()
     {

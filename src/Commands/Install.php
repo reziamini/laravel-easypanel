@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Artisan;
 class Install extends Command
 {
 
-    protected $signature = 'install:admin';
+    protected $signature = 'panel:install';
 
     protected $description = 'Install panel';
 

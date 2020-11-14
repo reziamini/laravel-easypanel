@@ -9,7 +9,7 @@ class MakeUpdate extends GeneratorCommand
 
     use StubParser, CommandParser;
 
-    protected $name = 'crud:update';
+    protected $name = 'panel:update';
     private $file = 'update';
     protected $type = 'Update Action';
     private $path;

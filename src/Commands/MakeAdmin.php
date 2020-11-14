@@ -12,7 +12,7 @@ class MakeAdmin extends Command
 
     protected $description = 'register a new admin';
 
-    protected $signature = 'make:admin {user}';
+    protected $signature = 'panel:make {user}';
 
     public function handle()
     {
