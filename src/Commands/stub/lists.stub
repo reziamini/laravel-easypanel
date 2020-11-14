@@ -29,7 +29,7 @@ class Lists extends Component
 
         if(config('easy_panel.actions.article.search')){
             $array = (array) config('easy_panel.actions.article.search');
-            $data->orWhere(function (Builder $query) use ($array){
+            $data->where(function (Builder $query) use ($array){
                 foreach ($array as $item) {
                     $query->orWhere($item, 'like', '%'.$this->search.'%');
                 }
