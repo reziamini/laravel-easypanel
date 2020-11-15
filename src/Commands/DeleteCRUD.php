@@ -25,10 +25,25 @@ class DeleteCRUD extends Command
                 $this->line("$name does not exists in config file");
                 continue;
             }
-            File::deleteDirectory(resource_path("/views/livewire/admin/$name"));
-            File::deleteDirectory(app_path("/Http/Livewire/Admin/" . ucfirst($name)));
-            $this->info("{$name} files were deleted, make sure you run panel:crud to create files again");
+
+            if ($this->askResult($name)) {
+                File::deleteDirectory(resource_path("/views/livewire/admin/$name"));
+                File::deleteDirectory(app_path("/Http/Livewire/Admin/" . ucfirst($name)));
+                $this->info("{$name} files were deleted, make sure you run panel:crud to create files again");
+            } else {
+                $this->line("process for {$name} action was canceled.");
+            }
+
         }
+    }
+
+    public function askResult($name)
+    {
+        if($this->option('force')) {
+            return true;
+        }
+        $result = $this->confirm("Do you really want to delete {$name} files ?", 'yes');
+        return $result;
     }
 
 }
