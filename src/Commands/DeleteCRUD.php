@@ -15,13 +15,19 @@ class DeleteCRUD extends Command
 
     public function handle()
     {
-        $names = $this->argument('name') ? [$this->argument('name')] : array_keys(config('easy_panel.actions', []));
+        $names = (array) $this->argument('name') ?: array_keys(config('easy_panel.actions', []));
         if($names == null) {
             throw new CommandNotFoundException("There is no action in config file");
         }
+
         foreach ($names as $name) {
-            dump($name);
-            //File::deleteDirectory();
+            if (!array_key_exists($name, config('easy_panel.actions'))) {
+                $this->line("$name does not exists in config file");
+                continue;
+            }
+            File::deleteDirectory(resource_path("/views/livewire/admin/$name"));
+            File::deleteDirectory(app_path("/Http/Livewire/Admin/" . ucfirst($name)));
+            $this->info("{$name} files were deleted, make sure you run panel:crud to create files again");
         }
     }
 
