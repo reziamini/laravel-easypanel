@@ -7,6 +7,7 @@ use EasyPanel\Commands\{Actions\MakeCreate,
     Actions\MakeRead,
     Actions\MakeSingle,
     Actions\MakeUpdate,
+    DeleteCRUD,
     MakeCRUD,
     DeleteAdmin,
     Install,
@@ -93,7 +94,8 @@ class EasyPanelServiceProvider extends ServiceProvider
             MakeUpdate::class,
             MakeRead::class,
             MakeSingle::class,
-            MakeCRUD::class
+            MakeCRUD::class,
+            DeleteCRUD::class
         ]);
     }
 }
