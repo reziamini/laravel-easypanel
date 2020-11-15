@@ -4,6 +4,8 @@ namespace EasyPanelTest;
 
 use EasyPanel\EasyPanelServiceProvider;
 use EasyPanelTest\Dependencies\User;
+use Faker\Factory;
+use Illuminate\Support\Facades\Hash;
 use Livewire\LivewireServiceProvider;
 
 abstract class TestCase extends \Orchestra\Testbench\TestCase
@@ -19,8 +21,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         parent::setUp();
 
         $this->loadMigrationsFrom(__DIR__.'/Dependencies/database/migrations');
-        $this->withFactories(__DIR__.'/Dependencies/database/factories');
-        $this->user = factory(User::class)->create(['is_superuser' => false]);
+        $this->setUser();
         config()->set('easy_panel.user_model', User::class);
     }
 
@@ -30,5 +31,13 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             EasyPanelServiceProvider::class,
             LivewireServiceProvider::class
         ];
+    }
+
+
+    protected function setUser()
+    {
+        $faker = Factory::create();
+        $user = User::create(['name' => $faker->name, 'password' => Hash::make('password'), 'is_superuser' => false]);
+        $this->user = $user;
     }
 }
