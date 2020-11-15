@@ -11,7 +11,7 @@ class ManageAdminWithCommandTest extends TestCase
 
     /** @test * */
     public function create_admin_with_command(){
-        Artisan::call('make:admin', [
+        Artisan::call('panel:add', [
             'user' => $this->user->id
         ]);
 
@@ -20,10 +20,10 @@ class ManageAdminWithCommandTest extends TestCase
 
     /** @test * */
     public function remove_admin_with_command(){
-        Artisan::call('make:admin', [
+        Artisan::call('panel:add', [
             'user' => $this->user->id
         ]);
-        Artisan::call('delete:admin', [
+        Artisan::call('panel:remove', [
             'user' => $this->user->id,
             '--force' => true
         ]);
