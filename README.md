@@ -53,6 +53,15 @@ Or if you want to run command for just one key you can pass the key.
 php artisan panel:crud article
 ```
 
+To delete CRUDs action for all keys you can run this command : 
+```bash
+php artisan panel:delete
+```
+Or if you want to run command for just one key you can pass the key.
+```bash
+php artisan panel:delete article
+```
+
 There are some important notes about actions in your config file :
 - the action key must be equal to model name in lower case
 - every fields (values in your db) should be passed in `fields` key
