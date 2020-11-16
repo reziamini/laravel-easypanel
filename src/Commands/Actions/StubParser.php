@@ -66,11 +66,12 @@ trait StubParser
 
     protected function getConfig($key){
         $action = $this->getNameInput();
+
         if(config('easy_panel.actions.'.$action.'.'.$key)){
             return config('easy_panel.actions.'.$action.'.'.$key);
         }
 
-        throw new CommandNotFoundException("There is no {$action} in config file");
+        throw new CommandNotFoundException("There is no {$key} in {$action} config.");
     }
 
     protected function getModelName($modelNamespace)
@@ -85,7 +86,7 @@ trait StubParser
         $fields = array_keys($fields);
         $str = '';
         foreach ($fields as $field) {
-            $str .= 'public $'.$field.";\n    ";
+            $str .= 'public $'.$field.";".$this->makeTab(1);
         }
 
         return $str;
@@ -97,7 +98,7 @@ trait StubParser
         $str = '';
         $action = $this->getNameInput();
         foreach ($fields as $field) {
-            $str .= '$this->'.$field.' = $this->'.$action.'->'.$field.';'."\n    ";
+            $str .= '$this->'.$field.' = $this->'.$action.'->'.$field.';'.$this->makeTab(1);
         }
 
         return $str;
@@ -109,7 +110,7 @@ trait StubParser
 
         $str = '';
         foreach ($rules as $key => $rule) {
-            $str .= $rule != end($rules) ? "'$key' => '$rule',\n        " : "'$key' => '$rule',";
+            $str .= $rule != end($rules) ? "'$key' => '$rule',".$this->makeTab(2) : "'$key' => '$rule',";
         }
 
         return $str;
@@ -119,7 +120,7 @@ trait StubParser
     {
         $str = '';
         foreach ($fields as $key => $field) {
-            $str .= $field != end($fields) ? "'$key' => " . '$this' . "->$key,\n            " : "'$key' => " . '$this' . "->$key,";
+            $str .= $field != end($fields) ? "'$key' => " . '$this' . "->$key,".$this->makeTab(3) : "'$key' => " . '$this' . "->$key,";
         }
 
         return $str;
@@ -131,7 +132,7 @@ trait StubParser
         $str = '';
         $modelName = strtolower($modelName);
         foreach ($fields as $value) {
-            $str .= '<td> {{ $'.$modelName.'->'.$value." }} </td>\n";
+            $str .= '<td> {{ $'.$modelName.'->'.$value." }} </td>".$this->makeTab(1);
         }
 
         return $str;
@@ -143,7 +144,7 @@ trait StubParser
         $str = '';
         foreach ($fields as $field) {
             $field = ucfirst($field);
-            $str .= "<td> $field </td>\n";
+            $str .= "<td> $field </td>".$this->makeTab(6);
         }
 
         return $str;
@@ -176,6 +177,13 @@ trait StubParser
         $str .= $array[$type];
 
         return $str;
+    }
+
+    private function makeTab($count){
+        $count = $count * 4;
+        $tabs = str_repeat(' ', $count);
+
+        return "\n".$tabs;
     }
 
 }
