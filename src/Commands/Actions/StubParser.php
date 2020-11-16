@@ -98,7 +98,7 @@ trait StubParser
         $str = '';
         $action = $this->getNameInput();
         foreach ($fields as $field) {
-            $str .= '$this->'.$field.' = $this->'.$action.'->'.$field.';'.$this->makeTab(1);
+            $str .= '$this->'.$field.' = $this->'.$action.'->'.$field.';'.$this->makeTab(2);
         }
 
         return $str;
@@ -156,9 +156,11 @@ trait StubParser
 
         $str = '';
         foreach ($fields as $key => $type) {
-            $str .= '<div class="form-group"><label for="input'.$key.'" class="col-sm-2 control-label">'.ucfirst($key).'</label>'.PHP_EOL;
-            $str = $this->inputsHTML($type, $key, $str).PHP_EOL;
-            $str .='@error("'.$key.'") <div class="invalid-feedback">{{ $message }}</div> @enderror</div>'.PHP_EOL;
+            $str .= '<div class="form-group">'.$this->makeTab(4);
+            $str .= '<label for="input'.$key.'" class="col-sm-2 control-label">'.ucfirst($key).'</label>'.$this->makeTab(4);
+            $str = $this->inputsHTML($type, $key, $str).$this->makeTab(4);
+            $str .='@error("'.$key.'") <div class="invalid-feedback">{{ $message }}</div> @enderror'.$this->makeTab(3);
+            $str .= '</div>'.$this->makeTab(3);
         }
 
         return $str;
@@ -167,12 +169,12 @@ trait StubParser
     protected function inputsHTML($type, $key, string $str): string
     {
         $array = [
-            'text' => '<input type="text" wire:model.lazy="' . $key . '" class="form-control @error(\''.$key.'\') is-invalid @enderror" id="input' . $key . '">'.PHP_EOL,
-            'email' => '<input type="email" wire:model.lazy="' . $key . '" class="form-control @error(\''.$key.'\') is-invalid @enderror" id="input' . $key . '">'.PHP_EOL,
-            'number' => '<input type="number" wire:model.lazy="' . $key . '" class="form-control @error(\''.$key.'\') is-invalid @enderror" id="input' . $key . '">'.PHP_EOL,
-            'file' => '<input type="file" wire:model="' . $key . '" class="form-control-file @error(\''.$key.'\')is-invalid @enderror" id="input' . $key . '"">'.PHP_EOL,
-            'textarea' => '<textarea wire:model="' . $key . '" class="form-control @error(\''.$key.'\')is-invalid @enderror"></textarea>'.PHP_EOL,
-            'password' => '<input type="password" wire:model.lazy="' . $key . '" class="form-control  @error(\''.$key.'\') is-invalid @enderror" id="input' . $key . '">'.PHP_EOL,
+            'text' => '<input type="text" wire:model.lazy="' . $key . '" class="form-control @error(\''.$key.'\') is-invalid @enderror" id="input' . $key . '">',
+            'email' => '<input type="email" wire:model.lazy="' . $key . '" class="form-control @error(\''.$key.'\') is-invalid @enderror" id="input' . $key . '">',
+            'number' => '<input type="number" wire:model.lazy="' . $key . '" class="form-control @error(\''.$key.'\') is-invalid @enderror" id="input' . $key . '">',
+            'file' => '<input type="file" wire:model="' . $key . '" class="form-control-file @error(\''.$key.'\')is-invalid @enderror" id="input' . $key . '">',
+            'textarea' => '<textarea wire:model="' . $key . '" class="form-control @error(\''.$key.'\')is-invalid @enderror"></textarea>',
+            'password' => '<input type="password" wire:model.lazy="' . $key . '" class="form-control  @error(\''.$key.'\') is-invalid @enderror" id="input' . $key . '">',
         ];
         $str .= $array[$type];
 
