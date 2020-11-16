@@ -25,25 +25,30 @@ class EasyPanelServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/easy_panel_config.php', 'easy_panel');
-        $this->defineFacades();
-        $this->bindCommands();
+        if(config('easy_panel.enable')) {
+            $this->defineFacades();
+            $this->bindCommands();
+        }
     }
 
     public function boot()
     {
-        if(!$this->app->runningInConsole()) {
-            $this->registerMiddlewareAlias();
+        if(config('easy_panel.enable')) {
 
-            if (!$this->app->routesAreCached()) {
-                $this->defineRoutes();
+            if (!$this->app->runningInConsole()) {
+                $this->registerMiddlewareAlias();
+
+                if (!$this->app->routesAreCached()) {
+                    $this->defineRoutes();
+                }
+
+                $this->loadLivewireComponent();
             }
 
-            $this->loadLivewireComponent();
+            $this->loadViewsFrom(__DIR__ . '/../resources/views', 'admin');
+
+            $this->mergePublishes();
         }
-
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'admin');
-
-        $this->mergePublishes();
     }
 
     private function defineRoutes()
