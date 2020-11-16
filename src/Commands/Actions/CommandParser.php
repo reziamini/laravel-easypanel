@@ -52,7 +52,7 @@ trait CommandParser
         $name = $this->qualifyClass($this->getNameInput());
         $path = $this->getPath($name);
 
-        if (!$this->option('force') && $this->alreadyExists($this->getNameInput())) {
+        if ($this->alreadyExists($this->getNameInput()) and !$this->option('force')) {
             $this->line("<options=bold,reverse;fg=red> • {$this->getNameInput()} {$this->type} already exists! </> \n");
 
             return false;

@@ -8,7 +8,7 @@ use Symfony\Component\Console\Exception\CommandNotFoundException;
 class MakeCRUD extends Command
 {
 
-    protected $signature = 'panel:crud {name?} {--force : Force mode}';
+    protected $signature = 'panel:crud {name?} {--f|force : Force mode}';
 
     protected $description = 'Create all action for CRUDs';
 
@@ -27,16 +27,16 @@ class MakeCRUD extends Command
             if (!$config['create']) {
                 $this->warn('The create action is disabled');
             } else {
-                $this->call('panel:create', ['name' => $name, '--force' => $this->hasOption('force')]);
+                $this->call('panel:create', ['name' => $name, '--force' => $this->option('force')]);
             }
 
             if (!$config['update']) {
                 $this->warn('The update action is disabled');
             } else {
-                $this->call('panel:update', ['name' => $name, '--force' => $this->hasOption('force')]);
+                $this->call('panel:update', ['name' => $name, '--force' => $this->option('force')]);
             }
 
-            $this->call('panel:read', ['name' => $name, '--force' => $this->hasOption('force')]);
+            $this->call('panel:read', ['name' => $name, '--force' => $this->option('force')]);
         }
     }
 
