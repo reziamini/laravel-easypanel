@@ -1,6 +1,8 @@
 <?php
 
 return [
+    // Enable whole module
+    'enable' => true,
 
     // Enable the todo feature
     // it needs connection to db to run migration
