@@ -94,8 +94,9 @@ php artisan panel:remove 1
 
 ### What does every key in config file ?
 
-- The first one is `todo` and it gives a `boolean` value. if You set it to `true` You will have a TODO list in your panel
-- The second one is `user_model`, if You have a different model for users of you don't use from Laravel 8.x you should pass your own user model in this key.
+- `enable` key gives you an option to disable or enable whole module, do you want to disable admin panel ? set it `false`
+-  `todo` : it gives a `boolean` value. if You set it to `true` You will have a TODO list in your panel
+- `user_model`, if You have a different model for users of you don't use from Laravel 8.x you should pass your own user model in this key.
 
 As i said at top, EasyPanel is so flexible, You can pass your `UserProvider` or `Auth` class in config file. Image you have a separate table for admins and You don't use column for authenticate admins, You can write your own UserProvider and your own Auth class and pass it to config to use it.
 
