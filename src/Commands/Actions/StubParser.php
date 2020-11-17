@@ -123,6 +123,22 @@ trait StubParser
             $str .= $field != end($fields) ? "'$key' => " . '$this' . "->$key,".$this->makeTab(3) : "'$key' => " . '$this' . "->$key,";
         }
 
+        $model = $this->getNameInput();
+        if(config("easy_panel.actions.$model.extra_values")){
+
+            $str .= $this->parseExtraValues();
+        }
+
+        return $str;
+    }
+
+    protected function parseExtraValues(){
+        $str = '';
+
+        foreach ($this->getConfig('extra_values') as $key => $value) {
+            $str .= "'$key' => $value,".$this->makeTab(3);
+        }
+
         return $str;
     }
 

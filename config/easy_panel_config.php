@@ -50,6 +50,10 @@ return [
                 'content' => 'textarea',
                 'image' => 'file'
             ],
+            //Default that data you want to pass in create and update actions
+            'extra_values' => [
+                'user_id' => 'auth()->user()->id'
+            ],
             // which kind of data should be showed in list page
             'show' => ['title', 'content'],
         ],
