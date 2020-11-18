@@ -98,10 +98,12 @@ php artisan panel:remove 1
 -  `todo` : it gives a `boolean` value. if You set it to `true` You will have a TODO list in your panel
 - `user_model`, if You have a different model for users of you don't use from Laravel 8.x you should pass your own user model in this key.
 
-As i said at top, EasyPanel is so flexible, You can pass your `UserProvider` or `Auth` class in config file. Image you have a separate table for admins and You don't use column for authenticate admins, You can write your own UserProvider and your own Auth class and pass it to config to use it.
+- As i said at top, EasyPanel is so flexible, You can pass your `UserProvider` or `Auth` class in config file. Image you have a separate table for admins and You don't use column for authenticate admins, You can write your own UserProvider and your own Auth class and pass it to config to use it.
 
-What is `show` key in every action in config file ? It specifies what's column should be showed in CRUD list.
+- What is `show` key in every action in config file ? It specifies what's column should be showed in CRUD list.
 For example you want to show only title in your articles list, you can just pass the `title` to the `show` key in config file.
+
+- `extra_values` : Imagine you want pass a default data when you want to create an article or anything, and you want to pass `user_id` in you create method, you can set `user_id` in your `extra_values` key (If you want to write some code, place codes between " or ' )
 
 ## What we use in this package:
 - [AdminMart Template](https://adminmart.com/)
