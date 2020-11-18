@@ -98,7 +98,7 @@ trait StubParser
         $str = '';
         $action = $this->getNameInput();
         foreach ($fields as $field) {
-            $str .= '$this->'.$field.' = $this->'.$action.'->'.$field.';'.$this->makeTab(2);
+            $str .= '$this->'.$field.' = $this->'.$action.'->'.$field.';'.$this->makeTab(2, end($fields) != $field);
         }
 
         return $str;
@@ -110,7 +110,7 @@ trait StubParser
 
         $str = '';
         foreach ($rules as $key => $rule) {
-            $str .= $rule != end($rules) ? "'$key' => '$rule',".$this->makeTab(2) : "'$key' => '$rule',";
+            $str .= "'$key' => '$rule',".$this->makeTab(2, $rule != end($rules));
         }
 
         return $str;
@@ -135,8 +135,9 @@ trait StubParser
     protected function parseExtraValues(){
         $str = '';
 
-        foreach ($this->getConfig('extra_values') as $key => $value) {
-            $str .= "'$key' => $value,".$this->makeTab(3);
+        $values = $this->getConfig('extra_values');
+        foreach ($values as $key => $value) {
+            $str .= $this->makeTab(3, end($values) != $values)."'$key' => $value,";
         }
 
         return $str;
@@ -148,7 +149,7 @@ trait StubParser
         $str = '';
         $modelName = strtolower($modelName);
         foreach ($fields as $value) {
-            $str .= '<td> {{ $'.$modelName.'->'.$value." }} </td>".$this->makeTab(1);
+            $str .= '<td> {{ $'.$modelName.'->'.$value." }} </td>".$this->makeTab(1, end($fields) != $value);
         }
 
         return $str;
@@ -160,7 +161,7 @@ trait StubParser
         $str = '';
         foreach ($fields as $field) {
             $field = ucfirst($field);
-            $str .= "<td> $field </td>".$this->makeTab(6);
+            $str .= "<td> $field </td>".$this->makeTab(6, end($fields) != $field);
         }
 
         return $str;
@@ -197,11 +198,11 @@ trait StubParser
         return $str;
     }
 
-    private function makeTab($count){
+    private function makeTab($count, $newLine = true){
         $count = $count * 4;
         $tabs = str_repeat(' ', $count);
 
-        return "\n".$tabs;
+        return $newLine ? "\n".$tabs : $tabs;
     }
 
 }
