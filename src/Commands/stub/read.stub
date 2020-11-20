@@ -27,8 +27,8 @@ class Read extends Component
     {
         $data = {{ modelName }}::query();
 
-        if(config('easy_panel.actions.article.search')){
-            $array = (array) config('easy_panel.actions.article.search');
+        if(config('easy_panel.actions.{{ model }}.search')){
+            $array = (array) config('easy_panel.actions.{{ model }}.search');
             $data->where(function (Builder $query) use ($array){
                 foreach ($array as $item) {
                     $query->orWhere($item, 'like', '%'.$this->search.'%');

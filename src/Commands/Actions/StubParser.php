@@ -21,9 +21,6 @@ trait StubParser
     protected function replaceModel($stub)
     {
         $fields = $this->getConfig('fields');
-        if(!$fields) {
-            throw new CommandNotFoundException("There is no `field` in your config file");
-        }
 
         $modelNamespace = $this->parseModel($this->getConfig('model'));
         $modelName = $this->getModelName($modelNamespace);
@@ -71,7 +68,7 @@ trait StubParser
             return config('easy_panel.actions.'.$action.'.'.$key);
         }
 
-        throw new CommandNotFoundException("There is no {$key} in {$action} config.");
+        return [];
     }
 
     protected function getModelName($modelNamespace)
