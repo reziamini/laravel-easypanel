@@ -24,6 +24,8 @@ class MakeCRUD extends Command
                 throw new CommandNotFoundException("There is no {$name} in config file");
             }
 
+            $this->modelNameIsCurrect($name, $config['model']);
+
             if (!$config['create']) {
                 $this->warn('The create action is disabled');
             } else {
@@ -37,6 +39,16 @@ class MakeCRUD extends Command
             }
 
             $this->call('panel:read', ['name' => $name, '--force' => $this->option('force')]);
+        }
+    }
+
+    private function modelNameIsCurrect($name, $model)
+    {
+        $model = explode('\\', $model);
+        $model = strtolower(end($model));
+
+        if($model != $name){
+            throw new CommandNotFoundException("Action key should be equal to model name, You are using {$name} as key name but your model name is {$model}");
         }
     }
 
