@@ -69,7 +69,7 @@ trait CommandParser
     protected function getOptions()
     {
         return [
-            ['force', 'f', InputOption::VALUE_OPTIONAL, 'force mode']
+            ['force', 'f', InputOption::VALUE_NONE, 'force mode']
         ];
     }
 
