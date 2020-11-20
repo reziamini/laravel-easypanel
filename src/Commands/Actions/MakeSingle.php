@@ -13,6 +13,7 @@ class MakeSingle extends GeneratorCommand
 
     protected $name = 'panel:single';
     private $file = 'single';
+    protected $type = 'Single Component';
     protected $description = 'Make a single component to delete action in CRUD';
     private $path;
 
