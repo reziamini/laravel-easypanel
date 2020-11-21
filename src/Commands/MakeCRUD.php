@@ -24,16 +24,16 @@ class MakeCRUD extends Command
                 throw new CommandNotFoundException("There is no {$name} in config file");
             }
 
-            $this->modelNameIsCurrect($name, $config['model']);
+            $this->modelNameIsCorrect($name, $config['model']);
 
             if (!$config['create']) {
-                $this->warn('The create action is disabled');
+                $this->warn("The create action is disabled for {$name}");
             } else {
                 $this->call('panel:create', ['name' => $name, '--force' => $this->option('force')]);
             }
 
             if (!$config['update']) {
-                $this->warn('The update action is disabled');
+                $this->warn("The update action is disabled for {$name}");
             } else {
                 $this->call('panel:update', ['name' => $name, '--force' => $this->option('force')]);
             }
@@ -42,7 +42,7 @@ class MakeCRUD extends Command
         }
     }
 
-    private function modelNameIsCurrect($name, $model)
+    private function modelNameIsCorrect($name, $model)
     {
         $model = explode('\\', $model);
         $model = strtolower(end($model));
