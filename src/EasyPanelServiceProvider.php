@@ -4,6 +4,7 @@
 namespace EasyPanel;
 
 use EasyPanel\Commands\{Actions\MakeCreate,
+    MakeCRUDConfig,
     Actions\MakeRead,
     Actions\MakeSingle,
     Actions\MakeUpdate,
@@ -109,7 +110,8 @@ class EasyPanelServiceProvider extends ServiceProvider
             MakeRead::class,
             MakeSingle::class,
             MakeCRUD::class,
-            DeleteCRUD::class
+            DeleteCRUD::class,
+            MakeCRUDConfig::class
         ]);
     }
 }
