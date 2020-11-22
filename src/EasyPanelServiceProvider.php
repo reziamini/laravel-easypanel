@@ -28,13 +28,16 @@ class EasyPanelServiceProvider extends ServiceProvider
         if(config('easy_panel.enable')) {
             $this->defineFacades();
             $this->bindCommands();
+            foreach (config('easy_panel.actions') as $key => $action){
+                $data = include resource_path("cruds/$action.php");
+                config()->set("easy_panel.crud.$action", $data);
+            }
         }
     }
 
     public function boot()
     {
         if(config('easy_panel.enable')) {
-
             if (!$this->app->runningInConsole()) {
                 $this->registerMiddlewareAlias();
 
