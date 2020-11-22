@@ -14,15 +14,15 @@ function registerActionRoutes($action, $component, $crudConfig)
 {
     Route::prefix($action)->name("$action.")->group(function () use ($component, $crudConfig, $action) {
 
-        if(class_exists("$component\\Read")) {
+        if(@class_exists("$component\\Read")) {
             Route::get('/', "$component\\Read")->name('read');
         }
 
-        if ($crudConfig['create'] and class_exists("$component\\Create")) {
+        if ($crudConfig['create'] and @class_exists("$component\\Create")) {
             Route::get('/create', "$component\\Create")->name('create');
         }
 
-        if ($crudConfig['update'] and class_exists("$component\\Update")) {
+        if ($crudConfig['update'] and @class_exists("$component\\Update")) {
             Route::get('/update/{' . $action . '}', "$component\\Update")->name('update');
         }
 
