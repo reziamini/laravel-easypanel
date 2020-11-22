@@ -9,19 +9,31 @@ Route::post('/logout', function (){
     return redirect(config('easy_panel.redirect_unauthorized'));
 })->name('logout');
 
-foreach (config('easy_panel.actions') as $prefix){
-    $value = config('easy_panel.crud.'.$prefix);
-    $name = ucfirst($prefix);
-    $livewireNamespace = "App\\Http\\Livewire\\Admin\\$name";
-    Route::prefix($prefix)->name($prefix . '.')->group(function () use ($livewireNamespace, $value, $prefix) {
-        Route::get('/', $livewireNamespace . "\\Read")->name('read');
-        if ($value['create']) {
-            Route::get('/create', $livewireNamespace . "\\Create")->name('create');
+
+function registerActionRoutes($action, $component, $crudConfig)
+{
+    Route::prefix($action)->name("$action.")->group(function () use ($component, $crudConfig, $action) {
+
+        if(class_exists("$component\\Read")) {
+            Route::get('/', "$component\\Read")->name('read');
         }
-        if ($value['update']) {
-            Route::get('/update/{' . $prefix . '}', $livewireNamespace . "\\Update")->name('update');
+
+        if ($crudConfig['create'] and class_exists("$component\\Create")) {
+            Route::get('/create', "$component\\Create")->name('create');
         }
+
+        if ($crudConfig['update'] and class_exists("$component\\Update")) {
+            Route::get('/update/{' . $action . '}', "$component\\Update")->name('update');
+        }
+
     });
+}
+
+foreach (config('easy_panel.actions') as $action){
+    $crudConfig = config('easy_panel.crud.'.$action);
+    $name = ucfirst($action);
+    $component = "App\\Http\\Livewire\\Admin\\$name";
+    registerActionRoutes($action, $component, $crudConfig);
 }
 
 if(config('easy_panel.todo')){
