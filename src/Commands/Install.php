@@ -39,6 +39,11 @@ class Install extends Command
             '--tag' => 'easy-panel-migrations'
         ]);
 
+        Artisan::call('vendor:publish', [
+            '--provider' => EasyPanelServiceProvider::class,
+            '--tag' => 'easy-panel-cruds'
+        ]);
+
         $this->alert("It was install fully :)) \n. If You update your CRUDs, Make sure you run the panel:crud command...");
     }
 }
