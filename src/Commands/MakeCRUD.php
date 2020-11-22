@@ -14,12 +14,12 @@ class MakeCRUD extends Command
 
     public function handle()
     {
-        $names = $this->argument('name') ? [$this->argument('name')] : array_keys(config('easy_panel.actions', []));
+        $names = $this->argument('name') ? [$this->argument('name')] : config('easy_panel.actions', []);
         if($names == null) {
             throw new CommandNotFoundException("There is no action in config file");
         }
         foreach ($names as $name) {
-            $config = config('easy_panel.actions.' . $name);
+            $config = config('easy_panel.crud.' . $name);
             if (!$config) {
                 throw new CommandNotFoundException("There is no {$name} in config file");
             }

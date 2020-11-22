@@ -15,7 +15,7 @@ class DeleteCRUD extends Command
 
     public function handle()
     {
-        $names = (array) $this->argument('name') ?: array_keys(config('easy_panel.actions', []));
+        $names = (array) $this->argument('name') ?: config('easy_panel.actions', []);
         if($names == null) {
             throw new CommandNotFoundException("There is no action in config file");
         }

@@ -64,8 +64,8 @@ trait StubParser
     protected function getConfig($key){
         $action = $this->getNameInput();
 
-        if(config('easy_panel.actions.'.$action.'.'.$key)){
-            return config('easy_panel.actions.'.$action.'.'.$key);
+        if(config('easy_panel.crud.'.$action.'.'.$key)){
+            return config('easy_panel.crud.'.$action.'.'.$key);
         }
 
         return [];
@@ -121,8 +121,7 @@ trait StubParser
         }
 
         $model = $this->getNameInput();
-        if(config("easy_panel.actions.$model.extra_values")){
-
+        if(config("easy_panel.crud.$model.extra_values")){
             $str .= $this->parseExtraValues();
         }
 

@@ -9,16 +9,17 @@ Route::post('/logout', function (){
     return redirect(config('easy_panel.redirect_unauthorized'));
 })->name('logout');
 
-foreach (config('easy_panel.actions') as $prefix => $value){
+foreach (config('easy_panel.actions') as $prefix){
+    $value = config('easy_panel.crud.'.$prefix);
     $name = ucfirst($prefix);
     $livewireNamespace = "App\\Http\\Livewire\\Admin\\$name";
-    Route::prefix($prefix)->name($prefix.'.')->group(function () use ($livewireNamespace, $value, $prefix){
-        Route::get('/',  $livewireNamespace."\\Read")->name('read');
-        if($value['create']){
-            Route::get('/create', $livewireNamespace."\\Create")->name('create');
+    Route::prefix($prefix)->name($prefix . '.')->group(function () use ($livewireNamespace, $value, $prefix) {
+        Route::get('/', $livewireNamespace . "\\Read")->name('read');
+        if ($value['create']) {
+            Route::get('/create', $livewireNamespace . "\\Create")->name('create');
         }
-        if($value['update']){
-            Route::get('/update/{'.$prefix.'}',  $livewireNamespace."\\Update")->name('update');
+        if ($value['update']) {
+            Route::get('/update/{' . $prefix . '}', $livewireNamespace . "\\Update")->name('update');
         }
     });
 }
