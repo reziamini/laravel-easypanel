@@ -17,7 +17,7 @@ use EasyPanel\Http\Livewire\Todo\Lists;
 use EasyPanel\Http\Livewire\Todo\Single;
 use EasyPanel\Http\Middleware\isAdmin;
 use EasyPanel\Support\Contract\{UserProviderFacade, AuthFacade};
-use Illuminate\{Routing\Router, Support\Facades\Route, Support\ServiceProvider};
+use Illuminate\{Routing\Router, Support\Facades\File, Support\Facades\Route, Support\ServiceProvider};
 use Livewire\Livewire;
 
 class EasyPanelServiceProvider extends ServiceProvider
@@ -28,9 +28,12 @@ class EasyPanelServiceProvider extends ServiceProvider
         if(config('easy_panel.enable')) {
             $this->defineFacades();
             $this->bindCommands();
-            foreach (config('easy_panel.actions') as $key => $action){
-                $data = include resource_path("cruds/$action.php");
-                config()->set("easy_panel.crud.$action", $data);
+
+            foreach (config('easy_panel.actions') as $action) {
+                if(File::exists(resource_path("cruds/$action.php"))) {
+                    $data = include resource_path("cruds/$action.php");
+                    config()->set("easy_panel.crud.$action", $data);
+                }
             }
         }
     }
@@ -38,6 +41,7 @@ class EasyPanelServiceProvider extends ServiceProvider
     public function boot()
     {
         if(config('easy_panel.enable')) {
+
             if (!$this->app->runningInConsole()) {
                 $this->registerMiddlewareAlias();
 
@@ -90,6 +94,8 @@ class EasyPanelServiceProvider extends ServiceProvider
         $this->publishes([__DIR__ . '/../resources/assets' => public_path('/assets/vendor/admin'), __DIR__ . '/../resources/dist' => public_path('/dist/vendor/admin')], 'easy-panel-styles');
 
         $this->publishes([__DIR__ . '/../database/migrations/2020_09_05_99999_create_todos_table.php' => base_path('/database/migrations/' . date('Y_m_d') . '_99999_create_admin_todos_table.php')], 'easy-panel-migrations');
+
+        $this->publishes([__DIR__.'/../resources/cruds' => resource_path('/cruds')], 'easy-panel-cruds');
     }
 
     private function bindCommands()
