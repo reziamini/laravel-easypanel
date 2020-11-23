@@ -17,7 +17,7 @@ class Install extends Command
 
     public function handle()
     {
-        $this->line("Installing Admin panel ...");
+        $this->warn("\nInstalling Admin panel ...");
 
         Artisan::call('vendor:publish', [
             '--provider' => EasyPanelServiceProvider::class,
@@ -44,6 +44,6 @@ class Install extends Command
             '--tag' => 'easy-panel-cruds'
         ]);
 
-        $this->alert("It was install fully :)) \n. If You update your CRUDs, Make sure you run the panel:crud command...");
+        $this->line("<options=bold,reverse;fg=green>\nEasy panel was installed 🎉</>\n\nBuild an amazing admin panel less than 5 minutes 🤓\n");
     }
 }

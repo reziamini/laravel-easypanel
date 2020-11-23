@@ -45,7 +45,7 @@ trait CommandParser
     public function handle()
     {
         if ($this->isReservedName($this->getNameInput())) {
-            $this->error('The name "'.$this->getNameInput().'" is reserved by PHP.');
+            $this->error("The name '{$this->getNameInput()}' is reserved by PHP.");
             return false;
         }
 
