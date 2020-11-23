@@ -4,7 +4,7 @@
 # Laravel Easy Panel
 A flexible and beautiful admin panel based on Livewire with lots of feature.
 
-<img src="https://linkpicture.com/q/Screenshot-2020-11-07-201015.png"> 
+![EasyPanel screenshots](https://linkpicture.com/q/Screenshot-2020-11-07-201015.png)
 
 # Features:
 
@@ -45,7 +45,14 @@ and you set the `todo` key in your config to `true`
 After run the `install:admin` command you are able to edit config file in `config/easy_panel.php`
 There are lots of feature in config file you can edit or manage.
 
-Imagine you want to create a CRUD action for a model, You can edit `actions` key in your config file like the basic example.
+## CRUD Management
+To create a CRUD action you can run this command :
+```
+php artisan panel:config article -m Article
+```
+it will create a crud config in `resources/cruds` directory for article action and Article model (action must be equal to model name) 
+
+and next You should pass action name in `actions` key in your config file in `config` directory.
 
 To create CRUDs action for all keys you must run this command : 
 ```bash
@@ -70,9 +77,26 @@ There are some important notes about actions in your config file :
 - every fields (values in your db) should be passed in `fields` key
 - pass the true address of model 
 
-After run this command you are able to edit and customize your CRUD in your project
+After run these commands you are able to edit and customize your CRUD style and component in your project
 - PHP Components address : `app/Http/Livewire/Admin/[ActionKey]`
 - Blade Components address : `resources/views/livewire/admin/[actionKey]`
+
+So let's install and create a CRUD action for User model in 2 minutes.
+
+1.After install the package with composer in project, we install admin panel :
+
+![Installation](https://aminireza.ir/dl/install.png)
+
+
+2.Next we should create a crud action config for `user` :
+
+![Config creation](https://aminireza.ir/dl/config.png)
+
+3.after edit and customize the action config we must create CRUD component and it's EasyPanel magic 😎.
+
+![crud creator](https://aminireza.ir/dl/crud.png)
+
+Done, We created a panel with user manager option in 3 steps :)
 
 #### Create/Delete admin
 
@@ -102,8 +126,8 @@ php artisan panel:remove 1
 
 - What is `show` key in every action in config file ? It specifies what's column should be showed in CRUD list.
 For example you want to show only title in your articles list, you can just pass the `title` to the `show` key in config file.
-
-- `extra_values` : Imagine you want pass a default data when you want to create an article or anything, and you want to pass `user_id` in you create method, you can set `user_id` in your `extra_values` key (If you want to write some code, place codes between " or ' )
+- `actions` : every CRUD you want to have. If you want to disable a crud in panel just remove it from `actions` key in config file.
+- `extra_values` in cruds' config : Imagine you want pass a default data when you want to create an article or anything, and you want to pass `user_id` in you create method, you can set `user_id` in your `extra_values` key (If you want to write some code, place codes between " or ' )
 
 ## What we use in this package:
 - [AdminMart Template](https://adminmart.com/)
