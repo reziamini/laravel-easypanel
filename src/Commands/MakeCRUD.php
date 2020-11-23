@@ -39,6 +39,7 @@ class MakeCRUD extends Command
             }
 
             $this->call('panel:read', ['name' => $name, '--force' => $this->option('force')]);
+            $this->call('panel:single', ['name' => $name, '--force' => $this->option('force')]);
         }
     }
 
