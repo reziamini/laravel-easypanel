@@ -10,7 +10,7 @@ use Symfony\Component\Console\Exception\CommandNotFoundException;
 trait StubParser
 {
 
-    protected function getDefaultNamespace($rootNamespace)
+    public function getDefaultNamespace($rootNamespace)
     {
         $name = ucfirst($this->getNameInput());
         $this->path = parent::getDefaultNamespace($rootNamespace)."\\Http\\Livewire\\Admin\\$name";
@@ -18,7 +18,7 @@ trait StubParser
         return $this->path;
     }
 
-    protected function replaceModel($stub)
+    public function replaceModel($stub)
     {
         $fields = $this->getConfig('fields');
 
@@ -38,7 +38,7 @@ trait StubParser
         return str_replace(array_keys($array), array_values($array), $stub);
     }
 
-    protected function parseBlade($stub){
+    public function parseBlade($stub){
         $modelNamespace = $this->parseModel($this->getConfig('model'));
         $modelName = $this->getModelName($modelNamespace);
         $array = [
@@ -52,7 +52,7 @@ trait StubParser
         return str_replace(array_keys($array), array_values($array), $stub);
     }
 
-    protected function parseModel($model)
+    public function parseModel($model)
     {
         if (preg_match('([^A-Za-z0-9_/\\\\])', $model)) {
             throw new InvalidArgumentException('Model name contains invalid characters.');
@@ -61,7 +61,7 @@ trait StubParser
         return $this->qualifyModel($model);
     }
 
-    protected function getConfig($key){
+    public function getConfig($key){
         $action = $this->getNameInput();
 
         if(config('easy_panel.crud.'.$action.'.'.$key)){
@@ -71,14 +71,14 @@ trait StubParser
         return [];
     }
 
-    protected function getModelName($modelNamespace)
+    public function getModelName($modelNamespace)
     {
         $array = explode('\\', $modelNamespace);
 
         return end($array);
     }
 
-    protected function parseProperties($fields)
+    public function parseProperties($fields)
     {
         $fields = array_keys($fields);
         $str = '';
@@ -89,7 +89,7 @@ trait StubParser
         return $str;
     }
 
-    protected function parsePropertiesValue($fields)
+    public function parsePropertiesValue($fields)
     {
         $fields = array_keys($fields);
         $str = '';
@@ -101,7 +101,7 @@ trait StubParser
         return $str;
     }
 
-    protected function parseValidationRules()
+    public function parseValidationRules()
     {
         $rules = $this->getConfig('validation');
 
@@ -113,7 +113,7 @@ trait StubParser
         return $str;
     }
 
-    protected function parseFields($fields)
+    public function parseFields($fields)
     {
         $str = '';
         foreach ($fields as $key => $field) {
@@ -128,7 +128,7 @@ trait StubParser
         return $str;
     }
 
-    protected function parseExtraValues(){
+    public function parseExtraValues(){
         $str = '';
 
         $values = $this->getConfig('extra_values');
@@ -139,7 +139,7 @@ trait StubParser
         return $str;
     }
 
-    protected function parseDataInBlade($modelName)
+    public function parseDataInBlade($modelName)
     {
         $fields = $this->getConfig('show');
         $str = '';
@@ -151,7 +151,7 @@ trait StubParser
         return $str;
     }
 
-    protected function parseTitlesInBlade()
+    public function parseTitlesInBlade()
     {
         $fields = $this->getConfig('show');
         $str = '';
@@ -163,7 +163,7 @@ trait StubParser
         return $str;
     }
 
-    protected function parseInputsInBlade()
+    public function parseInputsInBlade()
     {
         $fields = $this->getConfig('fields');
 
@@ -179,7 +179,7 @@ trait StubParser
         return $str;
     }
 
-    protected function inputsHTML($type, $key, string $str): string
+    public function inputsHTML($type, $key, string $str): string
     {
         $array = [
             'text' => '<input type="text" wire:model.lazy="' . $key . '" class="form-control @error(\''.$key.'\') is-invalid @enderror" id="input' . $key . '">',
@@ -194,7 +194,7 @@ trait StubParser
         return $str;
     }
 
-    private function makeTab($count, $newLine = true){
+    public function makeTab($count, $newLine = true){
         $count = $count * 4;
         $tabs = str_repeat(' ', $count);
 
