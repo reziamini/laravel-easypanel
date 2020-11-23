@@ -38,4 +38,11 @@ class StubParserTest extends \EasyPanelTest\TestCase
         $this->assertEquals('public $title;'.$this->parser->makeTab(1).'public $content;'.$this->parser->makeTab(1), $properties);
     }
 
+    /** @test * */
+    public function get_action_config(){
+        config()->set('easy_panel.crud.article.search', 'title');
+        $this->assertEquals($this->parser->getConfig('search', 'article'), 'title');
+        $this->assertEquals($this->parser->getConfig('search', 'user'), []);
+    }
+
 }

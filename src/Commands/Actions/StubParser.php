@@ -61,8 +61,8 @@ trait StubParser
         return $this->qualifyModel($model);
     }
 
-    public function getConfig($key){
-        $action = $this->getNameInput();
+    public function getConfig($key, $action = null){
+        $action = $action ?? $this->getNameInput();
 
         if(config('easy_panel.crud.'.$action.'.'.$key)){
             return config('easy_panel.crud.'.$action.'.'.$key);
