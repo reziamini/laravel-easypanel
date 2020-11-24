@@ -214,7 +214,7 @@ trait StubParser
     public function parseRelationName($column){
         $name = explode('_', $column);
 
-        return Str::snake(Str::pluralStudly($name[0]));
+        return $name[0];
     }
 
 }
