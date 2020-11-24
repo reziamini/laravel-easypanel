@@ -4,6 +4,7 @@
 namespace EasyPanel\Commands\Actions;
 
 
+use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Symfony\Component\Console\Exception\CommandNotFoundException;
 
@@ -145,7 +146,12 @@ trait StubParser
         $str = '';
         $modelName = strtolower($modelName);
         foreach ($fields as $value) {
-            $str .= '<td> {{ $'.$modelName.'->'.$value." }} </td>".$this->makeTab(1, end($fields) != $value);
+            if (!is_array($value)) {
+                $str .= '<td> {{ $' . $modelName . '->' . $value . " }} </td>" . $this->makeTab(1, end($fields) != $value);
+            } else {
+                $relationName = $this->parseRelationName(array_key_first($value));
+                $str .= '<td> {{ $' . $modelName . '->' . $relationName . '->'. $value[array_key_first($value)] .' }} </td>' . $this->makeTab(1, end($fields) != $value);
+            }
         }
 
         return $str;
@@ -156,7 +162,11 @@ trait StubParser
         $fields = $this->getConfig('show');
         $str = '';
         foreach ($fields as $field) {
-            $field = ucfirst($field);
+            if (!is_array($field)) {
+                $field = ucfirst($field);
+            } else {
+                $field = ucfirst($field[array_key_first($field)]);
+            }
             $str .= "<td> $field </td>".$this->makeTab(6, end($fields) != $field);
         }
 
@@ -199,6 +209,12 @@ trait StubParser
         $tabs = str_repeat(' ', $count);
 
         return $newLine ? "\n".$tabs : $tabs;
+    }
+
+    public function parseRelationName($column){
+        $name = explode('_', $column);
+
+        return Str::snake(Str::pluralStudly($name[0]));
     }
 
 }
