@@ -30,5 +30,5 @@ return [
     ],
 
     // which kind of data should be showed in list page
-    'show' => ['title', 'content'],
+    'show' => ['title', 'content', ['user_id' => 'name']],
 ];
