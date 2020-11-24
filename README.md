@@ -129,6 +129,8 @@ For example you want to show only title in your articles list, you can just pass
 - `actions` : every CRUD you want to have. If you want to disable a crud in panel just remove it from `actions` key in config file.
 - `extra_values` in cruds' config : Imagine you want pass a default data when you want to create an article or anything, and you want to pass `user_id` in you create method, you can set `user_id` in your `extra_values` key (If you want to write some code, place codes between " or ' )
 
+* More about `show` : If you want to show a value from a relationship for example show article author with `user_id` column in articles table you must pass a array in `show` key and key of this value should be equal to column and value should be column name in related table like this : `'user_id' => 'name'` it will show name of author of this article :)
+
 ## What we use in this package:
 - [AdminMart Template](https://adminmart.com/)
 - [Livewire](https://github.com/livewire/livewire)
