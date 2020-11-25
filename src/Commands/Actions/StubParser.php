@@ -212,8 +212,12 @@ trait StubParser
     }
 
     public function parseRelationName($column){
-        $name = explode('_', $column);
+        $relations = $this->getConfig('relations');
+        if(array_key_exists($column, $relations)){
+            return $relations[$column];
+        }
 
+        $name = explode('_', $column);
         return $name[0];
     }
 
