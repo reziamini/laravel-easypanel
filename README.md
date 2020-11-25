@@ -144,7 +144,7 @@ If you feel you can improve our package You are free to pull request & submit is
 - [ ] Logging System
 - [ ] RTL Style
 - [ ] Translation
-- [ ] Separate CRUDs config
+- [x] Separate CRUDs config
 - [x] Make Command lines readable
 - [ ] More input types & editors
 - [ ] Add some unit tests
