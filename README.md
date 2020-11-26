@@ -36,10 +36,10 @@ Congrats! You installed the package, follow docs.
 ## Usage:
 You can create a CRUD for a model, use todo feature, settings option and etc.
 
-#### Make a CRUD:
+
+### Make a CRUD:
 
 ---
-
 1 . Create a CRUD config with this command:
 
 ```bash
@@ -61,10 +61,10 @@ Now You have a few files and components for CRUD action of this model
 
 You are free to make change in components and edit them.
 
-#### Manage Admins
+
+### Manage Admins
 
 ---
-
 in default EasyPanel use `is_superuser` column in your `users` table to detect an admin and you can customize it.
 
 Run this command out to make a user as an admin:
@@ -81,9 +81,9 @@ php artisan panel:remove [user_id]
 
 **These commands use UserProvider class in EasyPanel and You can use your own class instead of that and pass it in config file**
 
-### Config
 
----
+## Config
+
 | Key | Value | Description |
 | --- | --- | --- |
 | `enable` | `bool` | Module status |
