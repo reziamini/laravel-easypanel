@@ -98,8 +98,8 @@ So let's install and create a CRUD action for User model in 2 minutes.
 
 Done, We created a panel with user manager option in 3 steps :)
 
-#### Create/Delete admin
-
+Create/Delete admin
+-
 There are 2 commands in EasyPanel which uses UserProvider class to set a user as an admin or remove it.
 
 To set a user as an admin You can use this command :
@@ -113,10 +113,11 @@ And to remove a user You can user this command :
 ```
 php artisan panel:remove 1
 ```
-
 **1 is `user.id` here**
 
-### What does every key in config file ?
+
+What does every key in config file ?
+-
 
 - `enable` key gives you an option to disable or enable whole module, do you want to disable admin panel ? set it `false`
 -  `todo` : it gives a `boolean` value. if You set it to `true` You will have a TODO list in your panel
