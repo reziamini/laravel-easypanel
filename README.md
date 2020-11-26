@@ -2,7 +2,7 @@
 [![Build Status](https://scrutinizer-ci.com/g/rezaamini-ir/laravel-easypanel/badges/build.png?b=master)](https://scrutinizer-ci.com/g/rezaamini-ir/laravel-easypanel/build-status/master)
 
 # EasyPanel
-EasyPanel is a beautiful admin panel based on Livewire and Live and it's a full customizable.
+EasyPanel is a beautiful,full customizable and flexible admin panel based on Livewire for Laravel.
 
 ![EasyPanel screenshots](https://linkpicture.com/q/Screenshot-2020-11-07-201015.png)
 
