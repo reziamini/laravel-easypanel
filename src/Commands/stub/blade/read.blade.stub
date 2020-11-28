@@ -30,7 +30,9 @@
                     <tbody>
                     <tr style="pointer-events : none">
                         {{ titles }}
+                        @if(config('easy_panel.crud.{{ model }}.delete') or config('easy_panel.crud.{{ model }}.update'))
                         <td>Action</td>
+                        @endif
                     </tr>
 
                     @foreach(${{ model }}s as ${{ model }})
