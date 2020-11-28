@@ -165,7 +165,8 @@ trait StubParser
             if (!is_array($field)) {
                 $field = ucfirst($field);
             } else {
-                $field = ucfirst($field[array_key_first($field)]);
+                $relationName = $this->parseRelationName(array_key_first($field));
+                $field = ucfirst($relationName). ' ' . ucfirst($field[array_key_first($field)]);
             }
             $str .= "<td> $field </td>".$this->makeTab(6, end($fields) != $field);
         }
