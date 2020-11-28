@@ -3,7 +3,7 @@
     @if(config('easy_panel.crud.{{ model }}.delete') or config('easy_panel.crud.{{ model }}.update'))
         <td>
 
-            @if(config('easy_panel.crud.{{ model }}.delete'))
+            @if(config('easy_panel.crud.{{ model }}.update'))
                 <a href="@route(getRouteName().'.{{ model }}.update', ['{{ model }}' => ${{ model }}->id])" class="btn text-primary mt-1">
                     <i class="icon-pencil"></i>
                 </a>
