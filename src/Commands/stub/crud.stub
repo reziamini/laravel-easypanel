@@ -29,11 +29,6 @@ return [
         'user_id' => 'auth()->user()->id'
     ],
 
-    // relationship method name in model for each column which has a relationship
-    'relations' => [
-        'user_id' => 'user',
-    ],
-
     // which kind of data should be showed in list page
-    'show' => ['title', 'content', ['user_id' => 'name']],
+    'show' => ['title', 'content', ['user' => 'name']],
 ];
