@@ -149,7 +149,7 @@ trait StubParser
             if (!is_array($value)) {
                 $str .= '<td> {{ $' . $modelName . '->' . $value . " }} </td>" . $this->makeTab(1, end($fields) != $value);
             } else {
-                $relationName = $this->parseRelationName(array_key_first($value));
+                $relationName = array_key_first($value);
                 $str .= '<td> {{ $' . $modelName . '->' . $relationName . '->'. $value[array_key_first($value)] .' }} </td>' . $this->makeTab(1, end($fields) != $value);
             }
         }
@@ -165,7 +165,7 @@ trait StubParser
             if (!is_array($field)) {
                 $field = ucfirst($field);
             } else {
-                $relationName = $this->parseRelationName(array_key_first($field));
+                $relationName = array_key_first($field);
                 $field = ucfirst($relationName). ' ' . ucfirst($field[array_key_first($field)]);
             }
             $str .= "<td> $field </td>".$this->makeTab(6, end($fields) != $field);
