@@ -85,6 +85,7 @@ php artisan panel:remove [user_id]
 
 ## Config
 
+### Base Config
 | Key | Type | Description |
 | --- | --- | --- |
 | `enable` | `bool` | Module status |
@@ -99,6 +100,19 @@ php artisan panel:remove [user_id]
 | `pagination_count` | `int` | Count of data which is showed in read action |
 | `lazy_mode` | `bool` | Lazy mode for Real-Time Validation |
 | `actions` | `array` | List of enabled action which you have created a crud config for them. |
+
+### CRUD Config
+| Key | Type | Description |
+| --- | --- | --- |
+| `model` | `string` | CRUD Model |
+| `search` | `array` | Columns in model table which you want to search in read action |
+| `create` | `bool` | Create Action for this model |
+| `update` | `bool` | Update Action for this model |
+| `delete` | `bool` | Delete Action for this model |
+| `validation` | `array` | Validation rules in create and update action (it uses Laravel validation system) |
+| `fields` | `array` | Fields as key and type as value (for update and create action) |
+| `extra_values` | `array` | Extra values which you want to pass create and update method as extra param |
+| `show` | `array` | Every data which you want to show in read action (if data is related on other tables pass it as an array, key is relation name and value is column name in related table) |
 
 ## What we use in this package:
 - [AdminMart Template](https://adminmart.com/)
