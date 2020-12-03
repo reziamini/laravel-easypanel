@@ -85,7 +85,7 @@ php artisan panel:remove [user_id]
 
 ## Config
 
-| Key | Value | Description |
+| Key | Type | Description |
 | --- | --- | --- |
 | `enable` | `bool` | Module status |
 | `todo` | `bool` | TODO feature status |
@@ -97,6 +97,7 @@ php artisan panel:remove [user_id]
 | `redirect_unauthorized` | `string` | If user is unauthenticated it will be redirected to this address |
 | `route_prefix` | `string` | Prefix of admin panel address e.g: if set it `admin` address will be : http://127.0.0.1/admin |
 | `pagination_count` | `int` | Count of data which is showed in read action |
+| `lazy_mode` | `bool` | Lazy mode for Real-Time Validation |
 | `actions` | `array` | List of enabled action which you have created a crud config for them. |
 
 ## What we use in this package:
