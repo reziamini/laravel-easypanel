@@ -12,15 +12,15 @@ EasyPanel is a beautiful, customizable and flexible admin panel based on Livewir
 - Manage route prefix and addresses
 - Beautiful UI/UX with AdminMart template
 - Add/remove Admins with command line
-- Every UserProviders and Authentication classes are customizable and you can change them 
-- You can create your own routes and customize our views and components
+- UserProviders and Authentication classes are customizable and you can change them 
+- You can create your own routes and customize view and components
 - Manage pagination count
 - Real time validation with [Livewire](https://github.com/livewire/livewire)
-- Customize every actions in your project
-- A small and beautiful TODO (You can disable it in your config)
+- A small and beautiful TODO (You can disable it in config)
 - Create a nice and responsive view based on your data in config file for every CRUDs
+- Strong commands to manage package
 - Custom validation based on config file
-- Ajax search with [Livewire](https://github.com/livewire/livewire) in every column you want
+- Ajax search with [Livewire](https://github.com/livewire/livewire) in every column which you want
 
 ## Install:
 
