@@ -15,10 +15,13 @@ if(! function_exists('get_icon'))
     function get_icon($type){
         $array = [
             'file-text' => ['posts', 'article', 'stories', 'post', 'articles', 'story'],
-            'user' => ['users', 'user', 'accounts', 'account', 'admins', 'admin', 'employee', 'employees'],
+            'users' => ['users', 'user', 'accounts', 'account', 'admins', 'admin', 'employee', 'employees'],
             'file' => ['files', 'file'],
             'mic' => ['episode', 'episodes', 'voices', 'voice'],
             'book' => ['book', 'books'],
+            'tag' => ['tag', 'tags'],
+            'bookmark' => ['bookmarks', 'bookmark'],
+            'heart' => ['likes', 'like', 'favorite', 'favorites'],
             'music' => ['musics', 'music', 'audios', 'audio'],
             'bell' => ['notifications', 'notification'],
         ];
