@@ -30,6 +30,9 @@ return [
     // Count of pagination in CRUD lists
     'pagination_count' => 20,
 
+    // Lazy validation
+    'lazy_mode' => true,
+
     // CRUD manager
     'actions' => ['article'],
 ];

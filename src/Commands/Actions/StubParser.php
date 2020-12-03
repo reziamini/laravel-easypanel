@@ -192,13 +192,14 @@ trait StubParser
 
     public function inputsHTML($type, $key, string $str): string
     {
+        $mode = config('easy_panel.lazy_mode') ? 'wire:model.lazy' : 'wire:model';
         $array = [
-            'text' => '<input type="text" wire:model.lazy="' . $key . '" class="form-control @error(\''.$key.'\') is-invalid @enderror" id="input' . $key . '">',
-            'email' => '<input type="email" wire:model.lazy="' . $key . '" class="form-control @error(\''.$key.'\') is-invalid @enderror" id="input' . $key . '">',
-            'number' => '<input type="number" wire:model.lazy="' . $key . '" class="form-control @error(\''.$key.'\') is-invalid @enderror" id="input' . $key . '">',
+            'text' => '<input type="text" '. $mode .'="' . $key . '" class="form-control @error(\''.$key.'\') is-invalid @enderror" id="input' . $key . '">',
+            'email' => '<input type="email" '. $mode .'="' . $key . '" class="form-control @error(\''.$key.'\') is-invalid @enderror" id="input' . $key . '">',
+            'number' => '<input type="number" '. $mode .'="' . $key . '" class="form-control @error(\''.$key.'\') is-invalid @enderror" id="input' . $key . '">',
             'file' => '<input type="file" wire:model="' . $key . '" class="form-control-file @error(\''.$key.'\')is-invalid @enderror" id="input' . $key . '">',
-            'textarea' => '<textarea wire:model="' . $key . '" class="form-control @error(\''.$key.'\')is-invalid @enderror"></textarea>',
-            'password' => '<input type="password" wire:model.lazy="' . $key . '" class="form-control  @error(\''.$key.'\') is-invalid @enderror" id="input' . $key . '">',
+            'textarea' => '<textarea '.$mode.'="' . $key . '" class="form-control @error(\''.$key.'\')is-invalid @enderror"></textarea>',
+            'password' => '<input type="password" '. $mode .'="' . $key . '" class="form-control  @error(\''.$key.'\') is-invalid @enderror" id="input' . $key . '">',
         ];
         $str .= $array[$type];
 
@@ -210,16 +211,6 @@ trait StubParser
         $tabs = str_repeat(' ', $count);
 
         return $newLine ? "\n".$tabs : $tabs;
-    }
-
-    public function parseRelationName($column){
-        $relations = $this->getConfig('relations');
-        if(array_key_exists($column, $relations)){
-            return $relations[$column];
-        }
-
-        $name = explode('_', $column);
-        return $name[0];
     }
 
 }
