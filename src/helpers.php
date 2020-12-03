@@ -18,6 +18,9 @@ if(! function_exists('get_icon'))
             'user' => ['users', 'user', 'accounts', 'account', 'admins', 'admin', 'employee', 'employees'],
             'file' => ['files', 'file'],
             'mic' => ['episode', 'episodes', 'voices', 'voice'],
+            'book' => ['book', 'books'],
+            'music' => ['musics', 'music', 'audios', 'audio'],
+            'bell' => ['notifications', 'notification'],
         ];
         foreach ($array as $key => $arrayValues){
             if(in_array($type, $arrayValues)){
