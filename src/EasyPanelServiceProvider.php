@@ -26,45 +26,54 @@ class EasyPanelServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/easy_panel_config.php', 'easy_panel');
-        if(config('easy_panel.enable')) {
-            $this->defineFacades();
-            $this->bindCommands();
-
-            foreach (config('easy_panel.actions') as $action) {
-                if(File::exists(resource_path("cruds/$action.php"))) {
-                    $data = include resource_path("cruds/$action.php");
-                    config()->set("easy_panel.crud.$action", $data);
-                }
-            }
+        if(!config('easy_panel.enable')) {
+            return;
         }
+
+        $this->defineFacades();
+        $this->bindCommands();
+
+        foreach (config('easy_panel.actions') as $action) {
+            if(!File::exists(resource_path("cruds/$action.php"))) {
+                continue;
+            }
+            $data = require resource_path("cruds/$action.php");
+            config()->set("easy_panel.crud.$action", $data);
+        }
+
     }
 
     public function boot()
     {
-        if(config('easy_panel.enable')) {
+        if(!config('easy_panel.enable')) {
+            return;
+        }
 
-            if (!$this->app->runningInConsole()) {
-                $this->registerMiddlewareAlias();
-
-                if (!$this->app->routesAreCached()) {
-                    $this->defineRoutes();
-                }
-
-                $this->loadLivewireComponent();
-            }
-
-            $this->loadViewsFrom(__DIR__ . '/../resources/views', 'admin');
-
+        if ($this->app->runningInConsole()) {
             $this->mergePublishes();
         }
+
+        // Load Views
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'admin');
+
+        // Register Middleware
+        $this->registerMiddlewareAlias();
+
+        // Define routes if doesn't cached
+        $this->defineRoutes();
+
+        // Load Livewire TODOs components
+        $this->loadLivewireComponent();
     }
 
     private function defineRoutes()
     {
-        Route::prefix(config('easy_panel.route_prefix'))
-            ->middleware(['web', 'auth', 'isAdmin'])
-            ->name(getRouteName() .'.')
-            ->group(__DIR__ . '/routes.php');
+        if(!$this->app->routesAreCached()) {
+            Route::prefix(config('easy_panel.route_prefix'))
+                ->middleware(['web', 'auth', 'isAdmin'])
+                ->name(getRouteName() . '.')
+                ->group(__DIR__ . '/routes.php');
+        }
     }
 
     private function defineFacades()
