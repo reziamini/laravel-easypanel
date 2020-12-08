@@ -65,11 +65,7 @@ trait StubParser
     public function getConfig($key, $action = null){
         $action = $action ?? $this->getNameInput();
 
-        if(config('easy_panel.crud.'.$action.'.'.$key)){
-            return config('easy_panel.crud.'.$action.'.'.$key);
-        }
-
-        return [];
+        return config("easy_panel.crud.$action.$key") ?: [];
     }
 
     public function getModelName($modelNamespace)
@@ -183,7 +179,7 @@ trait StubParser
             $str .= '<div class="form-group">'.$this->makeTab(4);
             $str .= '<label for="input'.$key.'" class="col-sm-2 control-label">'.ucfirst($key).'</label>'.$this->makeTab(4);
             $str = $this->inputsHTML($type, $key, $str).$this->makeTab(4);
-            $str .='@error("'.$key.'") <div class="invalid-feedback">{{ $message }}</div> @enderror'.$this->makeTab(3);
+            $str .= '@error("'.$key.'") <div class="invalid-feedback">{{ $message }}</div> @enderror'.$this->makeTab(3);
             $str .= '</div>'.$this->makeTab(3);
         }
 

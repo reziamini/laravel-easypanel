@@ -40,7 +40,6 @@ class EasyPanelServiceProvider extends ServiceProvider
             $data = require resource_path("cruds/$action.php");
             config()->set("easy_panel.crud.$action", $data);
         }
-
     }
 
     public function boot()
