@@ -10,14 +10,12 @@
 
     <title>Admin Panel</title>
 
-    @style('dist/vendor/admin/css/style.min.css')
     @style('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css')
-
     @script('https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js')
     @script('https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js')
-
     @script('https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.2/dist/alpine.min.js')
     @livewireStyles
+    @style('assets/admin/css/style.min.css')
 
 </head>
 
@@ -39,7 +37,7 @@
             <div class="navbar-header" data-logobg="skin6">
                 <!-- This is for the sidebar toggle which is visible on mobile only -->
                 <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i
-                            class="ti-menu ti-close"></i></a>
+                        class="ti-menu ti-close"></i></a>
 
                 <!-- Logo -->
                 <div class="navbar-brand">
@@ -54,7 +52,7 @@
                 <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)"
                    data-toggle="collapse" data-target="#navbarSupportedContent"
                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i
-                            class="ti-more"></i></a>
+                        class="ti-more"></i></a>
             </div>
             <!-- ============================================================== -->
             <!-- End Logo -->
@@ -103,14 +101,14 @@
                         <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown"
                            aria-haspopup="true" aria-expanded="false">
                                 <span class="ml-2 d-none d-lg-inline-block"><span>Hello,</span> <span
-                                            class="text-dark">@user('name')</span> <i data-feather="chevron-down"
-                                                                                      class="svg-icon"></i></span>
+                                        class="text-dark">@user('name')</span> <i data-feather="chevron-down"
+                                                                                  class="svg-icon"></i></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
                             <a class="dropdown-item" href="javascript:void(0)"
                                onclick="event.preventDefault(); document.querySelector('#logout').submit()"><i
-                                        data-feather="power"
-                                        class="svg-icon mr-2 ml-1"></i>
+                                    data-feather="power"
+                                    class="svg-icon mr-2 ml-1"></i>
                                 Logout</a>
                             <form id="logout" action="@route(getRouteName().'.logout')" method="post"> @csrf </form>
                         </div>
@@ -148,17 +146,14 @@
 <!-- End Wrapper -->
 
 <!-- All Scripts -->
-@script('assets/vendor/admin/libs/jquery/dist/jquery.min.js')
-@script('assets/vendor/admin/libs/popper.js/dist/umd/popper.min.js')
-@script('assets/vendor/admin/libs/bootstrap/dist/js/bootstrap.min.js')
-
-@script('dist/vendor/admin/js/app-style-switcher.js')
-@script('dist/vendor/admin/js/feather.min.js')
-@script('assets/vendor/admin/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js')
-
-
-@script('dist/vendor/admin/js/sidebarmenu.js')
-@script('dist/vendor/admin/js/custom.min.js')
+@script('assets/admin/js/jquery.min.js')
+@script('assets/admin/js/popper.min.js')
+@script('assets/admin/js/bootstrap.min.js')
+@script('assets/admin/js/perfect-scrollbar.jquery.min.js')
+@script('assets/admin/js/app-style-switcher.min.js')
+@script('assets/admin/js/feather.min.js')
+@script('assets/admin/js/sidebarmenu.min.js')
+@script('assets/admin/js/custom.min.js')
 
 @livewireScripts
 <script>
