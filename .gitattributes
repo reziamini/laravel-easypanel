@@ -2,3 +2,7 @@
 .gitattributes export-ignore
 .gitignore export-ignore
 phpunit.xml.dist export-ignore
+*.css linguist-vendored
+*.scss linguist-vendored
+*.less linguist-vendored
+*.js linguist-vendored
