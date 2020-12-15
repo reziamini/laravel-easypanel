@@ -2,6 +2,8 @@
 
 namespace EasyPanel\Support\User;
 
+use App\Models\User;
+
 class UserProvider
 {
 
@@ -11,6 +13,13 @@ class UserProvider
         $user->update([
             config('easy_panel.column') => true
         ]);
+    }
+
+    public function getAdmins()
+    {
+        $users = User::query()->where(config('easy_panel.column'), true)->get();
+
+        return $users;
     }
 
     public function findUser($id)
