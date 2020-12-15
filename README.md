@@ -62,7 +62,6 @@ Now You have a few files and components for CRUD action of this model
 
 You are free to make change in components and edit them.
 
-
 ### Manage Admins
 
 ---
@@ -81,7 +80,6 @@ php artisan panel:remove [user_id]
 `[user_id]` : It's id of user that you want to make as an admin
 
 **These commands use UserProvider class in EasyPanel and You can use your own class instead of that and pass it in config file**
-
 
 ## Config
 
@@ -114,7 +112,7 @@ php artisan panel:remove [user_id]
 | `extra_values` | `array` | Extra values which you want to pass create and update method as extra param |
 | `show` | `array` | Every data which you want to show in read action (if data is related on other tables pass it as an array, key is relation name and value is column name in related table) |
 
-## What we use in this package:
+## What do we use in this package?
 - [AdminMart Template](https://adminmart.com/)
 - [Livewire](https://github.com/livewire/livewire)
 - [Laravel EasyBlade](https://github.com/rezaamini-ir/laravel-easyblade)
@@ -130,7 +128,9 @@ If you feel you can improve our package You are free to pull request & submit is
 - [ ] Translation
 - [ ] Custom menu
 - [ ] Relational inputs
+- [ ] Multiple Templates
 - [x] Separate CRUDs config
 - [x] Make Command lines readable
 - [ ] More input types & editors
+- [ ] Admin Manager page in panel
 - [ ] Add some unit tests
