@@ -30,4 +30,12 @@ class UserProviderFacadeTest extends TestCase
         UserProviderFacade::deleteAdmin($id);
         $this->assertFalse((bool) $this->user->refresh()->is_superuser);
     }
+
+    /** @test * */
+    public function get_admins_list(){
+        $id = $this->user->id;
+        UserProviderFacade::makeAdmin($id);
+        $adminsId = UserProviderFacade::getAdmins()->pluck('id');
+        $this->assertContains($id, $adminsId);
+    }
 }
