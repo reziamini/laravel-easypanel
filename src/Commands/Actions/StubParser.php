@@ -1,12 +1,8 @@
 <?php
 
-
 namespace EasyPanel\Commands\Actions;
 
-
-use Illuminate\Support\Str;
 use InvalidArgumentException;
-use Symfony\Component\Console\Exception\CommandNotFoundException;
 
 trait StubParser
 {
@@ -29,6 +25,7 @@ trait StubParser
         $array = [
             '{{ modelName }}' => $modelName,
             '{{ modelNamespace }}' => $modelNamespace,
+            '{{ uploadFile }}' => $this->uploadCodeParser($fields),
             '{{ model }}' => strtolower($modelName),
             '{{ properties }}' => $this->parseProperties($fields),
             '{{ rules }}' => $this->parseValidationRules(),
@@ -81,6 +78,20 @@ trait StubParser
         $str = '';
         foreach ($fields as $field) {
             $str .= 'public $'.$field.";".$this->makeTab(1);
+        }
+
+        return $str;
+    }
+
+    public function uploadCodeParser($fields)
+    {
+        $filesInput = array_keys($fields, 'file');
+        $str = '';
+        foreach ($filesInput as $file) {
+            $storePath = $this->getConfig('store')[$file] ?? "{$file}/";
+            $str .= $this->makeTab(2).'if($this->getPropertyValue(\''.$file.'\')) {'.$this->makeTab(3);
+            $str .= '$this->'.$file.' = $this->getPropertyValue(\''.$file.'\')->store(\''.$storePath.'\');'.$this->makeTab(2);
+            $str .= '}'.PHP_EOL;
         }
 
         return $str;
