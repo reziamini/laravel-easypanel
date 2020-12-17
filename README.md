@@ -109,6 +109,7 @@ php artisan panel:remove [user_id]
 | `delete` | `bool` | Delete Action for this model |
 | `validation` | `array` | Validation rules in create and update action (it uses Laravel validation system) |
 | `fields` | `array` | Fields as key and type as value (for update and create action) |
+| `store` | `array` | Where every files of inputs will store |
 | `extra_values` | `array` | Extra values which you want to pass create and update method as extra param |
 | `show` | `array` | Every data which you want to show in read action (if data is related on other tables pass it as an array, key is relation name and value is column name in related table) |
 
