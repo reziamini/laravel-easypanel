@@ -24,6 +24,11 @@ return [
         'image' => 'file'
     ],
 
+    // Where files will store for inputs
+    'store' => [
+        'image' => 'images/articles'
+    ],
+
     //Default that data you want to pass in create and update actions, Do not you want ? Delete this key.
     'extra_values' => [
         'user_id' => 'auth()->user()->id'
