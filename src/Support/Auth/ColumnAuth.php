@@ -1,9 +1,6 @@
 <?php
 
-
 namespace EasyPanel\Support\Auth;
-
-
 
 use EasyPanel\Support\Contract\UserProviderFacade;
 
