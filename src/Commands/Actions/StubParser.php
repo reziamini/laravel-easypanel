@@ -88,7 +88,7 @@ trait StubParser
         $filesInput = array_keys($fields, 'file');
         $str = '';
         foreach ($filesInput as $file) {
-            $storePath = $this->getConfig('store')[$file] ?? "{$file}/";
+            $storePath = $this->getConfig('store')[$file] ?? "{$file}";
             $str .= $this->makeTab(2).'if($this->getPropertyValue(\''.$file.'\') and is_object($this->'.$file.')) {'.$this->makeTab(3);
             $str .= '$this->'.$file.' = $this->getPropertyValue(\''.$file.'\')->store(\''.$storePath.'\');'.$this->makeTab(2);
             $str .= '}'.PHP_EOL;
