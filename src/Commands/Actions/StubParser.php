@@ -154,8 +154,12 @@ trait StubParser
         $modelName = strtolower($modelName);
         foreach ($fields as $value) {
             if (!is_array($value)) {
-                $str .= '<td> {{ $' . $modelName . '->' . $value . " }} </td>" . $this->makeTab(1, end($fields) != $value);
-            } else {
+                if(!in_array($value, ['image', 'photo', 'profile', 'banner'])) {
+                    $str .= '<td> {{ $' . $modelName . '->' . $value . " }} </td>" . $this->makeTab(1, end($fields) != $value);
+                } else {
+                    $str .= '<td><img class="rounded-circle img-fluid" width="50" height="50" src="{{ asset($' . $modelName . '->' . $value . ') }}" alt="'.$value.'"></td>' . $this->makeTab(1, end($fields) != $value);
+                }
+           } else {
                 $relationName = array_key_first($value);
                 $str .= '<td> {{ $' . $modelName . '->' . $relationName . '->'. $value[array_key_first($value)] .' }} </td>' . $this->makeTab(1, end($fields) != $value);
             }
