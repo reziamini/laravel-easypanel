@@ -1,11 +1,11 @@
 <?php
 
 return [
+
     // Enable whole module
     'enable' => true,
 
-    // Enable the todo feature
-    // it needs connection to db to run migration
+    // Enable the todo feature, it needs connection to db to run migration
     'todo' => false,
 
     // Your user Model
@@ -30,9 +30,9 @@ return [
     // Count of pagination in CRUD lists
     'pagination_count' => 20,
 
-    // Lazy validation
+    // Lazy validation for Livewire components
     'lazy_mode' => true,
 
-    // CRUD manager
+    // enabled actions, If you want to create crud you must put action name here
     'actions' => ['article'],
 ];
