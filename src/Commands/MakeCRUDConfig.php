@@ -21,8 +21,8 @@ class MakeCRUDConfig extends GeneratorCommand
 
     public function handle()
     {
-        if(!$this->option()){
-            $this->info("model option must have a value");
+        if(!$this->option('model')){
+            $this->error("Model option must have a value");
             return;
         }
 
@@ -70,8 +70,8 @@ class MakeCRUDConfig extends GeneratorCommand
     protected function getOptions()
     {
         return [
+            ['model', 'm', InputOption::VALUE_REQUIRED, 'Model name'],
             ['force', 'f', InputOption::VALUE_NONE, 'force mode'],
-            ['model', 'm', InputOption::VALUE_REQUIRED, 'model name'],
         ];
     }
 
