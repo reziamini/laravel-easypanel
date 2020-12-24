@@ -9,7 +9,7 @@ class UserProvider
     {
         $user = $this->findUser($id);
         $user->update([
-            config('easy_panel.column') => true
+            config('easy_panel.column') => 1
         ]);
     }
 
