@@ -16,8 +16,10 @@
                         <div class="input-group">
                             <input type="text" class="form-control" wire:model="search" placeholder="Search" value="{{ request('search') }}">
                             <div class="input-group-append">
-                                <a wire:target="search" wire:loading.remove><i class="fa fa-search"></i></a>
-                                <a wire:loading wire:target="search"><i class="fas fa-spinner fa-spin" ></i></a>
+                                <button class="btn btn-default">
+                                    <a wire:target="search" wire:loading.remove><i class="fa fa-search"></i></a>
+                                    <a wire:loading wire:target="search"><i class="fas fa-spinner fa-spin" ></i></a>
+                                </button>
                             </div>
                         </div>
                     </div>
