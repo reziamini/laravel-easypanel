@@ -76,6 +76,12 @@ trait StubParser
     {
         $fields = array_keys($fields);
         $str = '';
+
+        if(in_array($this->getNameInput(), $fields)){
+            $this->error("Model name must not equal to column names, fix it and rerun command with -f flag");
+            die;
+        }
+
         foreach ($fields as $field) {
             $str .= 'public $'.$field.";".$this->makeTab(1);
         }
