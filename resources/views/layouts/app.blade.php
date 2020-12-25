@@ -15,8 +15,7 @@
     @script('https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js')
     @script('https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.2/dist/alpine.min.js')
     @livewireStyles
-    @style('assets/admin/css/style.min.css')
-
+    @style("/assets/admin/css/style.min.css")
 </head>
 
 <body>
@@ -146,14 +145,15 @@
 <!-- End Wrapper -->
 
 <!-- All Scripts -->
-@script('assets/admin/js/jquery.min.js')
-@script('assets/admin/js/popper.min.js')
-@script('assets/admin/js/bootstrap.min.js')
-@script('assets/admin/js/perfect-scrollbar.jquery.min.js')
-@script('assets/admin/js/app-style-switcher.min.js')
-@script('assets/admin/js/feather.min.js')
-@script('assets/admin/js/sidebarmenu.min.js')
-@script('assets/admin/js/custom.min.js')
+@script("/assets/admin/js/jquery.min.js")
+@script("/assets/admin/js/popper.min.js")
+@script("/assets/admin/js/bootstrap.min.js")
+@script("/assets/admin/js/perfect-scrollbar.jquery.min.js")
+@script("/assets/admin/js/app-style-switcher.min.js")
+@script("/assets/admin/js/feather.min.js")
+@script("/assets/admin/js/sidebarmenu.min.js")
+@script("/assets/admin/js/custom.min.js")
+
 
 @livewireScripts
 <script>
