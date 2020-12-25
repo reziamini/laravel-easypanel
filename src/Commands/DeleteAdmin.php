@@ -21,9 +21,10 @@ class DeleteAdmin extends Command
         if($this->askResult($user)){
             UserProviderFacade::deleteAdmin($user);
             $this->info('Admin was removed successfully');
-        } else {
-            $this->warn('Process was canceled');
+            return;
         }
+
+        $this->warn('Process was canceled');
     }
 
     public function askResult($user)
