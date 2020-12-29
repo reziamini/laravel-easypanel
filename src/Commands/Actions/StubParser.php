@@ -217,6 +217,7 @@ trait StubParser
             'file' => '<input type="file" wire:model="' . $key . '" class="form-control-file @error(\''.$key.'\')is-invalid @enderror" id="input' . $key . '">',
             'textarea' => '<textarea '.$mode.'="' . $key . '" class="form-control @error(\''.$key.'\')is-invalid @enderror"></textarea>',
             'password' => '<input type="password" '. $mode .'="' . $key . '" class="form-control  @error(\''.$key.'\') is-invalid @enderror" id="input' . $key . '">',
+            'ckeditor' => '<div wire:ignore><textarea class="form-control ckeditor" id="editor" wire:model="'. $key .'"></textarea></div>'."<script>ClassicEditor.create(document.querySelector('#editor'), {}).then(editor => {editor.model.document.on('change:data', () => {@this.content = editor.getData()});});</script>",
         ];
         $str .= $array[$type];
 
