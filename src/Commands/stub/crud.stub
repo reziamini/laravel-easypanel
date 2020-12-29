@@ -3,7 +3,7 @@
 return [
     'model' => {{ model }}::class,
 
-    // searchable field, if you dont want search feature, remove it
+    // searchable fields, if you dont want search feature, remove it
     'search' => ['title'],
 
     // Manage actions in crud
@@ -12,12 +12,14 @@ return [
     'delete' => true,
 
     // Validation in update and create actions
+    // It will use Laravel validation system
     'validation' => [
         'title' => 'required',
         'content' => 'required|min:30',
     ],
 
     // Write every fields in your db which you want to show
+    // Available types : "ckeditor", "text", "file", "textarea", "password", "number", "email"
     'fields' => [
         'title' => 'text',
         'content' => 'textarea',
