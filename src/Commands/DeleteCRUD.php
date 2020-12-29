@@ -21,15 +21,15 @@ class DeleteCRUD extends Command
         }
 
         foreach ($names as $name) {
-            if (!array_key_exists($name, config('easy_panel.actions'))) {
-                $this->line("$name does not exists in config file");
+            if (!in_array($name, config('easy_panel.actions'))) {
+                $this->line("$name does not exist in config file");
                 continue;
             }
 
             if ($this->askResult($name)) {
                 File::deleteDirectory(resource_path("/views/livewire/admin/$name"));
                 File::deleteDirectory(app_path("/Http/Livewire/Admin/" . ucfirst($name)));
-                $this->info("{$name} files were deleted, make sure you run panel:crud to create files again");
+                $this->info("{$name} files were deleted, make sure you will delete {$name} value from actions in config");
             } else {
                 $this->line("process for {$name} action was canceled.");
             }
@@ -42,7 +42,7 @@ class DeleteCRUD extends Command
         if($this->option('force')) {
             return true;
         }
-        $result = $this->confirm("Do you really want to delete {$name} files ?", 'yes');
+        $result = $this->confirm("Do you really want to delete {$name} files ?", true);
         return $result;
     }
 
