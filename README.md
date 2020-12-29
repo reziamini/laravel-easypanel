@@ -117,6 +117,7 @@ php artisan panel:remove [user_id]
 - [AdminMart Template](https://adminmart.com/)
 - [Livewire](https://github.com/livewire/livewire)
 - [Laravel EasyBlade](https://github.com/rezaamini-ir/laravel-easyblade)
+- [CKEditor 5](https://github.com/ckeditor/ckeditor5)
 
 ## Contribution: 
 If you feel you can improve our package You are free to pull request & submit issue :)
