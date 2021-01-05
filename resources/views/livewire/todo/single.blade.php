@@ -1,7 +1,11 @@
 <div  x-data="{ modalIsOpen : false }" class="border-bottom">
     <div class="row align-items-baseline px-5">
 
-        <div class="col-10">
+        <div class="col-10 d-flex">
+            <div class="custom-control custom-checkbox ">
+                <input id="todo{{ $todo->id }}" class="custom-control-input" type="checkbox" @if($todo->checked) checked @endif wire:model="checked">
+                <label for="todo{{ $todo->id }}" class="custom-control-label"></label>
+            </div>
             <p @if($todo->checked) class="text-success" style="text-decoration: line-through" @endif>
                 @if(\Illuminate\Support\Str::length($todo->title) > 100)
                     {{ \Illuminate\Support\Str::substr($todo->title, 0, 100) }}...
@@ -16,7 +20,6 @@
                 <i class="icon-trash"></i>
             </button>
 
-
             <div x-show="modalIsOpen" class="cs-modal animate__animated animate__fadeIn">
                 <div class="bg-white shadow rounded p-5" @click.away="modalIsOpen = false" >
                     <h5 class="pb-2 border-bottom">Delete a TODO</h5>
@@ -26,11 +29,6 @@
                         <a @click.prevent="modalIsOpen = false" class="text-white btn btn-danger shadow">No, Cancel it.</a>
                     </div>
                 </div>
-            </div>
-
-            <div class="custom-control custom-checkbox ">
-                <input id="todo{{ $todo->id }}" class="custom-control-input" type="checkbox" @if($todo->checked) checked @endif wire:model="checked">
-                <label for="todo{{ $todo->id }}" class="custom-control-label"></label>
             </div>
         </div>
     </div>
