@@ -31,7 +31,13 @@ class Read extends Component
             $array = (array) config('easy_panel.crud.{{ model }}.search');
             $data->where(function (Builder $query) use ($array){
                 foreach ($array as $item) {
-                    $query->orWhere($item, 'like', '%'.$this->search.'%');
+                    if(!is_array($item)) {
+                        $query->orWhere($item, 'like', '%' . $this->search . '%');
+                    } else {
+                        $query->orWhereHas(array_key_first($item), function (Builder $query) use ($item) {
+                            $query->where($item[array_key_first($item)], 'like', '%' . $this->search . '%');
+                        });
+                    }
                 }
             });
         }
