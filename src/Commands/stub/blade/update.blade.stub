@@ -19,7 +19,7 @@
         </div>
 
         <div class="card-footer">
-            <button type="submit" class="btn btn-info">Update</button>
+            <button type="submit" class="btn btn-info ml-4">Update</button>
             <a href="{{ route('admin.{{ model }}.read') }}" class="btn btn-default float-left">Cancel</a>
         </div>
     </form>
