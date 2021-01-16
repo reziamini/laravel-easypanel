@@ -20,7 +20,7 @@
 
         <div class="card-footer">
             <button type="submit" class="btn btn-info ml-4">Create</button>
-            <a href="{{ route('admin.{{ model }}.read') }}" class="btn btn-default float-left">Cancel</a>
+            <a href="@route(getRouteName().'.{{ model }}.read')" class="btn btn-default float-left">Cancel</a>
         </div>
     </form>
 </div>

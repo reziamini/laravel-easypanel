@@ -14,7 +14,7 @@
                     <div class="row justify-content-between mt-4 mb-4">
                         @if(config('easy_panel.crud.{{ model }}.create'))
                         <div class="col-md-4 right-0">
-                            <a href="{{ route('admin.{{ model }}.create') }}" class="btn btn-success">Create {{ modelName }}</a>
+                            <a href="@route(getRouteName().'.{{ model }}.create')" class="btn btn-success">Create {{ modelName }}</a>
                         </div>
                         @endif
                         @if(config('easy_panel.crud.{{ model }}.search'))
