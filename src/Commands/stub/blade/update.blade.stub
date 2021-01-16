@@ -1,5 +1,5 @@
 <div class="card">
-    <div class="card-header">
+    <div class="card-header p-0">
         <h3 class="card-title">Update {{ modelName }}</h3>
         <div class="px-2 mt-4">
             <ul class="breadcrumb mt-3 py-3 px-4 rounded" style="background-color: #e9ecef!important;">

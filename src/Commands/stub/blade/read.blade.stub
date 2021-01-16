@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-12">
         <div class="card">
-            <div class="card-header">
+            <div class="card-header p-0">
                 <h3 class="card-title">{{ modelName }} List</h3>
 
                 <div class="px-2 mt-4">
