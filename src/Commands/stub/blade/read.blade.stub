@@ -4,28 +4,34 @@
             <div class="card-header">
                 <h3 class="card-title">{{ modelName }} List</h3>
 
+                <div class="px-2 mt-4">
 
-                <div class="row justify-content-between mt-4 mb-4">
-                    @if(config('easy_panel.crud.{{ model }}.create'))
-                    <div class="col-md-4 right-0">
-                        <a href="{{ route('admin.{{ model }}.create') }}" class="btn btn-success">Create {{ modelName }}</a>
-                    </div>
-                    @endif
-                    @if(config('easy_panel.crud.{{ model }}.search'))
-                    <div class="col-md-4">
-                        <div class="input-group">
-                            <input type="text" class="form-control" @if(config('easy_panel.lazy_mode')) wire:model.lazy="search" @else wire:model="search" @endif placeholder="Search" value="{{ request('search') }}">
-                            <div class="input-group-append">
-                                <button class="btn btn-default">
-                                    <a wire:target="search" wire:loading.remove><i class="fa fa-search"></i></a>
-                                    <a wire:loading wire:target="search"><i class="fas fa-spinner fa-spin" ></i></a>
-                                </button>
+                    <ul class="breadcrumb mt-3 py-3 px-4 rounded" style="background-color: #e9ecef!important;">
+                        <li class="breadcrumb-item"><a href="@route(getRouteName().'.home')" class="text-decoration-none">Home</a></li>
+                        <li class="breadcrumb-item active">{{ modelName }}</li>
+                    </ul>
+
+                    <div class="row justify-content-between mt-4 mb-4">
+                        @if(config('easy_panel.crud.{{ model }}.create'))
+                        <div class="col-md-4 right-0">
+                            <a href="{{ route('admin.{{ model }}.create') }}" class="btn btn-success">Create {{ modelName }}</a>
+                        </div>
+                        @endif
+                        @if(config('easy_panel.crud.{{ model }}.search'))
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <input type="text" class="form-control" @if(config('easy_panel.lazy_mode')) wire:model.lazy="search" @else wire:model="search" @endif placeholder="Search" value="{{ request('search') }}">
+                                <div class="input-group-append">
+                                    <button class="btn btn-default">
+                                        <a wire:target="search" wire:loading.remove><i class="fa fa-search"></i></a>
+                                        <a wire:loading wire:target="search"><i class="fas fa-spinner fa-spin" ></i></a>
+                                    </button>
+                                </div>
                             </div>
                         </div>
+                        @endif
                     </div>
-                    @endif
                 </div>
-
             </div>
 
             <div class="card-body table-responsive p-0">
