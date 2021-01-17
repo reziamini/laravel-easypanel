@@ -4,7 +4,7 @@
 # EasyPanel
 EasyPanel is a beautiful, customizable and flexible admin panel based on Livewire for Laravel.
 
-![EasyPanel screenshots](https://linkpicture.com/q/Screenshot-2020-11-07-201015.png)
+![EasyPanel screenshots](https://www.linkpicture.com/q/Easypanel.png)
 
 ### Features :
 - Easy to install
