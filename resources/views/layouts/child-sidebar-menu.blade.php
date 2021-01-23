@@ -1,5 +1,5 @@
 <li class="list-divider"></li>
-
+<li class="nav-small-cap"><span class="hide-menu">CRUD Menu</span></li>
 @foreach(config('easy_panel.actions') as $name)
     <li class='sidebar-item @isActive([getRouteName().".$name.read", getRouteName().".$name.create", getRouteName().".$name.update"], "selected")'>
         <a class='sidebar-link @isActive([getRouteName().".$name.read", getRouteName().".$name.create", getRouteName().".$name.update"], "active") ' href="@route(getRouteName().'.'.$name.'.read')" aria-expanded="false">
