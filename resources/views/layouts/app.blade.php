@@ -107,7 +107,7 @@
                                         class="text-dark">@user('name')</span> <i data-feather="chevron-down"
                                                                                   class="svg-icon"></i></span>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
+                        <div class="dropdown-menu dropdown-menu-right user-dd animated pb-0 flipInY">
                             <a class="dropdown-item" href="javascript:void(0)"
                                onclick="event.preventDefault(); document.querySelector('#logout').submit()"><i
                                     data-feather="power"
