@@ -9,7 +9,7 @@ return [
     'todo' => false,
 
     // RTL Style , If you are using a language like Persian or Arabic change it true
-    'rtl_mode' => true,
+    'rtl_mode' => false,
 
     // Your user Model
     'user_model' => file_exists(app_path('User.php')) ? App\User::class : App\Models\User::class,
