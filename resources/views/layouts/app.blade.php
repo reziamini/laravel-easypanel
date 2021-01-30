@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html dir="ltr" lang="en">
+<html dir="{{ config('easy_panel.rtl_mode') ? 'rtl' : 'ltr' }}" lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -20,6 +20,9 @@
     {{--Styles--}}
     @livewireStyles
     @style("/assets/admin/css/style.min.css")
+    @if(config('easy_panel.rtl_mode'))
+        @style("/assets/admin/css/rtl.css")
+    @endif
 </head>
 
 <body>
