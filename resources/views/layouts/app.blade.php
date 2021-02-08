@@ -22,6 +22,7 @@
     @style("/assets/admin/css/style.min.css")
     @if(config('easy_panel.rtl_mode'))
         @style("/assets/admin/css/rtl.css")
+        @style("https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v27.2.1/dist/font-face.css")
     @endif
 </head>
 
@@ -48,7 +49,7 @@
                 <!-- Logo -->
                 <div class="navbar-brand">
                     <a href="@route(getRouteName().'.home')">
-                        <span class="logo-text">EasyPanel</span>
+                        <span class="logo-text">{{ __('EasyPanel') }}</span>
                     </a>
                 </div>
                 <!-- End Logo -->
@@ -89,7 +90,7 @@
                                     <li>
                                         <a class="nav-link pt-3 text-center text-dark"
                                            href="@route(getRouteName().'.todo.lists')">
-                                            <strong>See TODO list</strong>
+                                            <strong>{{ __('See TODO list') }}</strong>
                                             <i class="fa fa-angle-right"></i>
                                         </a>
                                     </li>
@@ -106,7 +107,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown"
                            aria-haspopup="true" aria-expanded="false">
-                                <span class="ml-2 d-none d-lg-inline-block"><span>Hello,</span> <span
+                                <span class="ml-2 d-none d-lg-inline-block"><span>{{ __('Hello') }},</span> <span
                                         class="text-dark">@user('name')</span> <i data-feather="chevron-down"
                                                                                   class="svg-icon"></i></span>
                         </a>
@@ -115,7 +116,7 @@
                                onclick="event.preventDefault(); document.querySelector('#logout').submit()"><i
                                     data-feather="power"
                                     class="svg-icon mr-2 ml-1"></i>
-                                Logout</a>
+                                {{ __('Logout') }}</a>
                             <form id="logout" action="@route(getRouteName().'.logout')" method="post"> @csrf </form>
                         </div>
                     </li>
