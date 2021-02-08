@@ -44,6 +44,11 @@ class Install extends Command
             '--tag' => 'easy-panel-cruds'
         ]);
 
+        Artisan::call('vendor:publish', [
+            '--provider' => EasyPanelServiceProvider::class,
+            '--tag' => 'easy-panel-lang'
+        ]);
+
         $this->line("<options=bold,reverse;fg=green>\nEasy panel was installed 🎉</>\n\nBuild an amazing admin panel less than 5 minutes 🤓\n");
     }
 }

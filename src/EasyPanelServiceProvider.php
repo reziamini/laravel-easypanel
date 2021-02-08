@@ -3,7 +3,8 @@
 
 namespace EasyPanel;
 
-use EasyPanel\Commands\{Actions\MakeCreate,
+use EasyPanel\Commands\{
+    Actions\MakeCreate,
     GetAdmins,
     MakeCRUDConfig,
     Actions\MakeRead,
@@ -13,13 +14,20 @@ use EasyPanel\Commands\{Actions\MakeCreate,
     MakeCRUD,
     DeleteAdmin,
     Install,
-    MakeAdmin};
+    MakeAdmin
+};
 use EasyPanel\Http\Livewire\Todo\Create;
 use EasyPanel\Http\Livewire\Todo\Lists;
 use EasyPanel\Http\Livewire\Todo\Single;
 use EasyPanel\Http\Middleware\isAdmin;
 use EasyPanel\Support\Contract\{UserProviderFacade, AuthFacade};
-use Illuminate\{Routing\Router, Support\Facades\File, Support\Facades\Route, Support\ServiceProvider};
+use Illuminate\{
+    Routing\Router,
+    Support\Facades\App,
+    Support\Facades\File,
+    Support\Facades\Route,
+    Support\ServiceProvider
+};
 use Livewire\Livewire;
 
 class EasyPanelServiceProvider extends ServiceProvider
@@ -64,6 +72,9 @@ class EasyPanelServiceProvider extends ServiceProvider
 
         // Load Livewire TODOs components
         $this->loadLivewireComponent();
+
+        // Set resources language
+        App::setLocale(config('easy_panel.lang').'_panel');
     }
 
     private function defineRoutes()
@@ -106,6 +117,8 @@ class EasyPanelServiceProvider extends ServiceProvider
         $this->publishes([__DIR__ . '/../database/migrations/2020_09_05_99999_create_todos_table.php' => base_path('/database/migrations/' . date('Y_m_d') . '_99999_create_admin_todos_table.php')], 'easy-panel-migrations');
 
         $this->publishes([__DIR__.'/../resources/cruds' => resource_path('/cruds')], 'easy-panel-cruds');
+
+        $this->publishes([__DIR__.'/../resources/lang' => resource_path('/lang')], 'easy-panel-lang');
     }
 
     private function bindCommands()
