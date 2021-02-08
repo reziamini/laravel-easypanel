@@ -2,10 +2,14 @@
 
 namespace EasyPanel\Commands\Actions;
 
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 use InvalidArgumentException;
 
 trait StubParser
 {
+
+    private $texts = [];
 
     public function getDefaultNamespace($rootNamespace)
     {
@@ -36,6 +40,25 @@ trait StubParser
         return str_replace(array_keys($array), array_values($array), $stub);
     }
 
+    public function setLocaleTexts()
+    {
+        $this->texts[ucfirst($this->getNameInput())] = ucfirst($this->getNameInput());
+        $this->texts[ucfirst(Str::plural($this->getNameInput()))] = ucfirst(Str::plural($this->getNameInput()));
+        $files = File::glob(resource_path('lang').'/*_panel.json');
+
+        foreach ($files as $file) {
+            $decodedFile = json_decode(File::get($file), 1);
+            $texts = $this->texts;
+            foreach ($texts as $key => $text) {
+                if (array_key_exists($key, $decodedFile)){
+                    unset($texts[$text]);
+                }
+            }
+            $array = array_merge($decodedFile, $texts);
+            File::put($file, json_encode($array, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+        }
+    }
+
     public function parseBlade($stub){
         $modelNamespace = $this->parseModel($this->getConfig('model'));
         $modelName = $this->getModelName($modelNamespace);
@@ -46,6 +69,8 @@ trait StubParser
             '{{ titles }}' => $this->parseTitlesInBlade(),
             '{{ inputs }}' => $this->parseInputsInBlade(),
         ];
+
+        $this->setLocaleTexts();
 
         return str_replace(array_keys($array), array_values($array), $stub);
     }
@@ -185,7 +210,8 @@ trait StubParser
                 $relationName = array_key_first($field);
                 $field = ucfirst($relationName). ' ' . ucfirst($field[array_key_first($field)]);
             }
-            $str .= "<td> $field </td>".$this->makeTab(6, end($fields) != $field);
+            $this->texts[$field] = $field;
+            $str .= "<td> {{ __('$field') }} </td>".$this->makeTab(6, end($fields) != $field);
         }
 
         return $str;
@@ -198,7 +224,9 @@ trait StubParser
         $str = '';
         foreach ($fields as $key => $type) {
             $str .= '<div class="form-group">'.$this->makeTab(4);
-            $str .= '<label for="input'.$key.'" class="col-sm-2 control-label">'.ucfirst($key).'</label>'.$this->makeTab(4);
+            $title = ucfirst($key);
+            $this->texts[$title] = $title;
+            $str .= '<label for="input'.$key.'" class="col-sm-2 control-label">'.__($title).'</label>'.$this->makeTab(4);
             $str = $this->inputsHTML($type, $key, $str).$this->makeTab(4);
             $str .= '@error("'.$key.'") <div class="invalid-feedback">{{ $message }}</div> @enderror'.$this->makeTab(3);
             $str .= '</div>'.$this->makeTab(3);

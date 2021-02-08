@@ -23,7 +23,7 @@ class Create extends Component
     {
         $this->validate();
         $this->emit('todoCreated');
-        $this->dispatchBrowserEvent('show-message', ['type' => 'success', 'message' => 'TODO was created.']);
+        $this->dispatchBrowserEvent('show-message', ['type' => 'success', 'message' => __('CreatedMessage', ['name' => __('Todo') ])]);
 
         Todo::create([
             'title' => $this->title,

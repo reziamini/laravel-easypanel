@@ -24,7 +24,7 @@ class Create extends Component
     {
         $this->validate();
 
-        $this->dispatchBrowserEvent('show-message', ['type' => 'success', 'message' => '{{ modelName }} was created.']);
+        $this->dispatchBrowserEvent('show-message', ['type' => 'success', 'message' => __('CreatedMessage', ['name' => __('{{ modelName }}') ])]);
         {{ uploadFile }}
         {{ modelName }}::create([
             {{ fields }}

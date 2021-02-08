@@ -32,7 +32,7 @@ class Single extends Component
     public function delete()
     {
         $this->todo->delete();
-        $this->dispatchBrowserEvent('show-message', ['type' => 'error', 'message' => 'TODO was deleted.']);
+        $this->dispatchBrowserEvent('show-message', ['type' => 'error', 'message' => __('DeletedMessage', ['name' => __('Todo') ] )]);
         $this->emit('todoDeleted');
     }
 

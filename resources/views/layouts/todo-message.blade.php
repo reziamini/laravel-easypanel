@@ -4,7 +4,7 @@
         <i data-feather="settings" class="text-white"></i>
     </span>
     <div class="w-75 d-inline-block v-middle pl-2">
-        <h6 class="message-title mb-0 mt-1">Todo {{ $loop->count }}</h6>
+        <h6 class="message-title mb-0 mt-1">{{ __('Todo') }} {{ $loop->count }}</h6>
         <span class="font-12 text-nowrap d-block text-muted text-truncate">{{ $todo->title }}</span>
     </div>
 </a>

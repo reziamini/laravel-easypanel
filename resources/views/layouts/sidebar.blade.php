@@ -4,12 +4,12 @@
         <!-- Sidebar navigation-->
         <nav class="sidebar-nav">
             <ul id="sidebarnav">
-                <li class="nav-small-cap"><span class="hide-menu">Applications</span></li>
+                <li class="nav-small-cap"><span class="hide-menu">{{ __('Applications') }}</span></li>
 
                 <li class="sidebar-item @isActive(getRouteName().'.home', 'selected')">
                     <a class="sidebar-link @isActive(getRouteName().'.home', 'active') " href="@route(getRouteName().'.home')" aria-expanded="false">
                         <i data-feather="home" class="feather-icon"></i>
-                        <span class="hide-menu">Home</span>
+                        <span class="hide-menu">{{ __('Home') }}</span>
                     </a>
                 </li>
 
@@ -20,7 +20,7 @@
                 <li class="sidebar-item">
                     <a href="@route(getRouteName().'.logout')" class="sidebar-link sidebar-link" onclick="event.preventDefault(); document.querySelector('#logout').submit()" aria-expanded="false">
                         <i data-feather="log-out" class="feather-icon"></i>
-                        <span class="hide-menu">Logout</span>
+                        <span class="hide-menu">{{ __('Logout') }}</span>
                     </a>
                     <form id="logout" action="@route(getRouteName().'.logout')" method="post"> @csrf </form>
                 </li>
