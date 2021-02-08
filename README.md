@@ -81,6 +81,15 @@ php artisan panel:remove [user_id]
 
 **These commands use UserProvider class in EasyPanel and You can use your own class instead of that and pass it in config file**
 
+### Multi Lang
+
+If you want change language of Module You have to pass 2 steps: 
+
+1 - copy `en_panel.json` file in `resources/lang` and paste it in this folder with your lang name like `fr_panel.json` then customize it.
+File format must be `lang_panel.json`, `lang` is your language like : fa, en, fr, ar, ..
+
+2 - Set your `lang` in easy panel config file in `config/easy_panel.php` in `lang` key, this value must be equal to your suffix language file name in the lang directory.
+
 ## Config
 
 ### Base Config
@@ -88,6 +97,8 @@ php artisan panel:remove [user_id]
 | --- | --- | --- |
 | `enable` | `bool` | Module status |
 | `todo` | `bool` | TODO feature status |
+| `rtl_model` | `bool` | If you want a RTL base panel set it `true` |
+| `lang` | `bool` | Your default language with this format : `**_panel.json` which you have to just use `**` like `en` or `fa` |
 | `user_model` | `string` | Address of User model class |
 | `auth_class` | `string` | Address of user authentication class |
 | `admin_provider_class` | `string` | Address of user provider class |
