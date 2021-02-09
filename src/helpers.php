@@ -22,6 +22,10 @@ if(! function_exists('get_icon')) {
             'heart' => ['likes', 'like', 'favorite', 'favorites'],
             'music' => ['musics', 'music', 'audios', 'audio'],
             'bell' => ['notifications', 'notification'],
+            'layers' => ['request', 'requests'],
+            'settings' => ['settings', 'setting'],
+            'truck' => ['product', 'products', 'shops', 'shop'],
+            'message-circle' => ['comments', 'messages', 'pm', 'comment', 'message', 'chats', 'chat'],
         ];
         foreach ($array as $key => $arrayValues){
             if(in_array($type, $arrayValues)){
