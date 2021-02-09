@@ -2,6 +2,28 @@
     font-family: "Vazir";
 }
 
+.sidebar-nav .has-arrow::after{
+    left: 15px;
+    right: unset;
+}
+
+.sidebar-nav .base-level-line{
+    border-right: 1px solid rgba(0,0,0,.1);
+    margin-right: 40px;
+    border-left: 0;
+    margin-left: 0;
+}
+
+.sidebar-nav #sidebarnav .sidebar-item .sidebar-link{
+    margin-left: 17px;
+    margin-right: 0;
+}
+
+.sidebar-nav #sidebarnav .sidebar-item .first-level .sidebar-item.active .sidebar-link::before{
+    left: unset;
+    right: 0;
+}
+
 .sidebar-nav #sidebarnav .sidebar-item.selected>.sidebar-link{
     border-radius: 60px 0 0 60px;
 }
