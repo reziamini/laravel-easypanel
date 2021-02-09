@@ -12,11 +12,13 @@
                     <span class="hide-menu"> {{ __('List') }} </span>
                 </a>
             </li>
-            <li class="sidebar-item @isActive(getRouteName().'.'.$name.'.create')">
-                <a href="@route(getRouteName().'.'.$name.'.create')" class="sidebar-link @isActive(getRouteName().'.'.$name.'.create')">
-                    <span class="hide-menu"> {{ __('Create') }} </span>
-                </a>
-            </li>
+            @if(config('easy_panel.crud.'.$name.'.create'))
+                <li class="sidebar-item @isActive(getRouteName().'.'.$name.'.create')">
+                    <a href="@route(getRouteName().'.'.$name.'.create')" class="sidebar-link @isActive(getRouteName().'.'.$name.'.create')">
+                        <span class="hide-menu"> {{ __('Create') }} </span>
+                    </a>
+                </li>
+            @endif
         </ul>
     </li>
 @endforeach
