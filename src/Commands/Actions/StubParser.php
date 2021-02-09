@@ -226,7 +226,7 @@ trait StubParser
             $str .= '<div class="form-group">'.$this->makeTab(4);
             $title = ucfirst($key);
             $this->texts[$title] = $title;
-            $str .= '<label for="input'.$key.'" class="col-sm-2 control-label">'.__($title).'</label>'.$this->makeTab(4);
+            $str .= '<label for="input'.$key.'" class="col-sm-2 control-label"> {{ __("'.$title.'") }}</label>'.$this->makeTab(4);
             $str = $this->inputsHTML($type, $key, $str).$this->makeTab(4);
             $str .= '@error("'.$key.'") <div class="invalid-feedback">{{ $message }}</div> @enderror'.$this->makeTab(3);
             $str .= '</div>'.$this->makeTab(3);
