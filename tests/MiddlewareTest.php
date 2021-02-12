@@ -6,6 +6,7 @@ namespace EasyPanelTest;
 
 use EasyPanel\Http\Middleware\isAdmin;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\App;
 
 class MiddlewareTest extends TestCase
 {
@@ -34,5 +35,16 @@ class MiddlewareTest extends TestCase
         $res = $middleware->handle(request(), function (){});
 
         $this->assertEquals($res, null);
+    }
+
+    /** @test * */
+    public function language_will_be_set(){
+        $this->user->update([
+            'is_superuser' => true
+        ]);
+
+        $this->actingAs($this->user->refresh())->get('/admin');
+
+        $this->assertEquals('en_panel', App::getLocale());
     }
 }
