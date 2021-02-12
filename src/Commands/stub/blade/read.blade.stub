@@ -37,7 +37,7 @@
             <div class="card-body table-responsive p-0">
                 <table class="table table-hover">
                     <tbody>
-                    <tr style="pointer-events : none">
+                    <tr>
                         {{ titles }}
                         @if(config('easy_panel.crud.{{ model }}.delete') or config('easy_panel.crud.{{ model }}.update'))
                         <td>{{ __('Action') }}</td>

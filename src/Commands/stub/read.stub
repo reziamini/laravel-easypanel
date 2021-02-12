@@ -19,8 +19,19 @@ class Read extends Component
 
     protected $listeners = ['{{ model }}Deleted'];
 
+    public $sortType;
+    public $sortColumn;
+
     public function {{ model }}Deleted(){
         // Nothing ..
+    }
+
+    public function sort($column)
+    {
+        $sort = $this->sortType == 'desc' ? 'asc' : 'desc';
+
+        $this->sortColumn = $column;
+        $this->sortType = $sort;
     }
 
     public function render()
@@ -42,7 +53,13 @@ class Read extends Component
             });
         }
 
-        $data = $data->latest('id')->paginate(config('easy_panel.pagination_count', 15));
+        if($this->sortColumn) {
+            $data->orderBy($this->sortColumn, $this->sortType);
+        } else {
+            $data->latest('id');
+        }
+
+        $data = $data->paginate(config('easy_panel.pagination_count', 15));
 
         return view('livewire.admin.{{ model }}.read', [
             '{{ model }}s' => $data

@@ -205,13 +205,15 @@ trait StubParser
         $str = '';
         foreach ($fields as $field) {
             if (!is_array($field)) {
+                $sortName = $field;
                 $field = ucfirst($field);
+                $str .= "<td style='cursor: pointer' wire:click=\"sort('$sortName')\"> <i class='fa @if(".'$sortType'." == 'desc' and ".'$sortColumn'." == '$sortName') fa-sort-amount-down ml-2 @elseif(".'$sortType == '."'asc' and ".'$sortColumn'." == '$sortName') fa-sort-amount-up ml-2 @endif'></i> {{ __('$field') }} </td>".$this->makeTab(6, end($fields) != $field);
             } else {
                 $relationName = array_key_first($field);
                 $field = ucfirst($relationName). ' ' . ucfirst($field[array_key_first($field)]);
+                $str .= "<td> {{ __('$field') }} </td>".$this->makeTab(6, end($fields) != $field);
             }
             $this->texts[$field] = $field;
-            $str .= "<td> {{ __('$field') }} </td>".$this->makeTab(6, end($fields) != $field);
         }
 
         return $str;
