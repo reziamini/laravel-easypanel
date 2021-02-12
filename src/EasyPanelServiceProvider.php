@@ -20,6 +20,7 @@ use EasyPanel\Http\Livewire\Todo\Create;
 use EasyPanel\Http\Livewire\Todo\Lists;
 use EasyPanel\Http\Livewire\Todo\Single;
 use EasyPanel\Http\Middleware\isAdmin;
+use EasyPanel\Http\Middleware\LangChanger;
 use EasyPanel\Support\Contract\{UserProviderFacade, AuthFacade};
 use Illuminate\{
     Routing\Router,
@@ -72,16 +73,13 @@ class EasyPanelServiceProvider extends ServiceProvider
 
         // Load Livewire TODOs components
         $this->loadLivewireComponent();
-
-        // Set resources language
-        App::setLocale(config('easy_panel.lang').'_panel');
     }
 
     private function defineRoutes()
     {
         if(!$this->app->routesAreCached()) {
             Route::prefix(config('easy_panel.route_prefix'))
-                ->middleware(['web', 'auth', 'isAdmin'])
+                ->middleware(['web', 'auth', 'isAdmin', 'LangChanger'])
                 ->name(getRouteName() . '.')
                 ->group(__DIR__ . '/routes.php');
         }
@@ -97,6 +95,7 @@ class EasyPanelServiceProvider extends ServiceProvider
     {
         $router = $this->app->make(Router::class);
         $router->aliasMiddleware('isAdmin', isAdmin::class);
+        $router->aliasMiddleware('LangChanger', LangChanger::class);
     }
 
     private function loadLivewireComponent()
