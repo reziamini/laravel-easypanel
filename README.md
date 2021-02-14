@@ -8,6 +8,10 @@ EasyPanel is a beautiful, customizable and flexible admin panel based on Livewir
 
 ### Features :
 - Easy to install
+- Multi Language
+- RTL and LTR mode
+- Sort Data just with a click
+- Support CKEditor and Persian Font for RTL mode
 - Create CRUD for every model in 1 minute
 - Manage route prefix and addresses
 - Beautiful UI/UX with AdminMart template
@@ -83,6 +87,7 @@ php artisan panel:remove [user_id]
 
 ### Multi Lang
 
+---
 If you want change language of Module You have to pass 2 steps: 
 
 1 - copy `en_panel.json` file in `resources/lang` and paste it in this folder with your lang name like `fr_panel.json` then customize it.
@@ -129,6 +134,7 @@ File format must be `lang_panel.json`, `lang` is your language like : fa, en, fr
 - [Livewire](https://github.com/livewire/livewire)
 - [Laravel EasyBlade](https://github.com/rezaamini-ir/laravel-easyblade)
 - [CKEditor 5](https://github.com/ckeditor/ckeditor5)
+- [Vazir Font](https://github.com/rastikerdar/vazir-font)
 
 ## Contribution: 
 If you feel you can improve our package You are free to pull request & submit issue :)
@@ -137,8 +143,8 @@ If you feel you can improve our package You are free to pull request & submit is
 - [ ] ACL System
 - [ ] Logging System
 - [ ] File manager
-- [ ] RTL Style
-- [ ] Translation
+- [x] RTL Style
+- [x] Translation
 - [ ] Custom menu
 - [ ] Relational inputs
 - [ ] Multiple Templates
