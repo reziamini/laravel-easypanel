@@ -1,20 +1,16 @@
 <?php
 
-
 namespace EasyPanel\Commands\Actions;
 
-
-use Illuminate\Console\GeneratorCommand;
-
-class MakeSingle extends GeneratorCommand
+class MakeSingle extends CommandBase
 {
 
-    use StubParser, CommandParser;
+    use StubParser;
 
     protected $name = 'panel:single';
-    private $file = 'single';
+    protected $file = 'single';
     protected $type = 'Single Component';
     protected $description = 'Make a single component to delete action in CRUD';
-    private $path;
+    protected $path;
 
 }

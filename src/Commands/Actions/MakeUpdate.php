@@ -2,17 +2,15 @@
 
 namespace EasyPanel\Commands\Actions;
 
-use Illuminate\Console\GeneratorCommand;
-
-class MakeUpdate extends GeneratorCommand
+class MakeUpdate extends CommandBase
 {
 
-    use StubParser, CommandParser;
+    use StubParser;
 
     protected $name = 'panel:update';
-    private $file = 'update';
+    protected $file = 'update';
     protected $type = 'Update Action';
     protected $description = 'Make a update action in CRUD';
-    private $path;
+    protected $path;
 
 }

@@ -11,14 +11,6 @@ trait StubParser
 
     private $texts = [];
 
-    public function getDefaultNamespace($rootNamespace)
-    {
-        $name = ucfirst($this->getNameInput());
-        $this->path = parent::getDefaultNamespace($rootNamespace)."\\Http\\Livewire\\Admin\\$name";
-
-        return $this->path;
-    }
-
     public function replaceModel($stub)
     {
         $fields = $this->getConfig('fields');

@@ -1,13 +1,20 @@
 <?php
 
-
 namespace EasyPanel\Commands\Actions;
 
-
+use Illuminate\Console\GeneratorCommand;
 use Symfony\Component\Console\Input\InputOption;
 
-trait CommandParser
+abstract class CommandBase extends GeneratorCommand
 {
+
+    public function getDefaultNamespace($rootNamespace)
+    {
+        $name = ucfirst($this->getNameInput());
+        $this->path = parent::getDefaultNamespace($rootNamespace)."\\Http\\Livewire\\Admin\\$name";
+
+        return $this->path;
+    }
 
     protected function buildClass($name)
     {
