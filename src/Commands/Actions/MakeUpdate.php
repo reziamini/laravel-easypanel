@@ -5,8 +5,6 @@ namespace EasyPanel\Commands\Actions;
 class MakeUpdate extends CommandBase
 {
 
-    use StubParser;
-
     protected $name = 'panel:update';
     protected $file = 'update';
     protected $type = 'Update Action';

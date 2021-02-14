@@ -2,11 +2,17 @@
 
 namespace EasyPanel\Commands\Actions;
 
+use EasyPanel\Parsers\StubParser;
 use Illuminate\Console\GeneratorCommand;
 use Symfony\Component\Console\Input\InputOption;
 
 abstract class CommandBase extends GeneratorCommand
 {
+
+    /**
+     * @var StubParser
+     */
+    private $stubParser;
 
     public function getDefaultNamespace($rootNamespace)
     {
@@ -19,7 +25,7 @@ abstract class CommandBase extends GeneratorCommand
     protected function buildClass($name)
     {
         $stub = parent::buildClass($name);
-        $stub = $this->replaceModel($stub);
+        $stub = $this->stubParser->replaceModel($stub);
 
         return $stub;
     }
@@ -38,7 +44,7 @@ abstract class CommandBase extends GeneratorCommand
     private function buildBlade()
     {
         $stub = $this->files->get(__DIR__ . "/../stub/blade/{$this->file}.blade.stub");
-        $newStub = $this->parseBlade($stub);
+        $newStub = $this->stubParser->parseBlade($stub);
 
         $path = $this->viewPath("livewire/admin/{$this->getNameInput()}/{$this->file}.blade.php");
 
@@ -51,6 +57,9 @@ abstract class CommandBase extends GeneratorCommand
 
     public function handle()
     {
+
+        $this->setStubParser();
+
         if ($this->isReservedName($this->getNameInput())) {
             $this->error("The name '{$this->getNameInput()}' is reserved by PHP.");
             return false;
@@ -78,6 +87,13 @@ abstract class CommandBase extends GeneratorCommand
         return [
             ['force', 'f', InputOption::VALUE_NONE, 'force mode']
         ];
+    }
+
+    private function setStubParser()
+    {
+        $model = config("easy_panel.crud.{$this->getNameInput()}.model");
+        $parsedModel = $this->qualifyModel($model);
+        $this->stubParser = new StubParser($this->getNameInput(), $parsedModel);
     }
 
 }

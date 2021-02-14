@@ -1,21 +1,29 @@
 <?php
 
-namespace EasyPanel\Commands\Actions;
+namespace EasyPanel\Parsers;
 
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
 
-trait StubParser
+class StubParser
 {
 
     private $texts = [];
+    private $inputName;
+    private $parsedModel;
+
+    public function __construct($inputName, $parsedModel)
+    {
+        $this->inputName = $inputName;
+        $this->parsedModel = $parsedModel;
+    }
 
     public function replaceModel($stub)
     {
         $fields = $this->getConfig('fields');
 
-        $modelNamespace = $this->parseModel($this->getConfig('model'));
+        $modelNamespace = $this->parsedModel;
         $modelName = $this->getModelName($modelNamespace);
 
         $array = [
@@ -34,8 +42,8 @@ trait StubParser
 
     public function setLocaleTexts()
     {
-        $this->texts[ucfirst($this->getNameInput())] = ucfirst($this->getNameInput());
-        $this->texts[ucfirst(Str::plural($this->getNameInput()))] = ucfirst(Str::plural($this->getNameInput()));
+        $this->texts[ucfirst($this->inputName)] = ucfirst($this->inputName);
+        $this->texts[ucfirst(Str::plural($this->inputName))] = ucfirst(Str::plural($this->inputName));
         $files = File::glob(resource_path('lang').'/*_panel.json');
 
         foreach ($files as $file) {
@@ -52,8 +60,8 @@ trait StubParser
     }
 
     public function parseBlade($stub){
-        $modelNamespace = $this->parseModel($this->getConfig('model'));
-        $modelName = $this->getModelName($modelNamespace);
+        $modelName = $this->getModelName($this->parsedModel);
+
         $array = [
             '{{ model }}' => strtolower($modelName),
             '{{ modelName }}' => $modelName,
@@ -67,17 +75,8 @@ trait StubParser
         return str_replace(array_keys($array), array_values($array), $stub);
     }
 
-    public function parseModel($model)
-    {
-        if (preg_match('([^A-Za-z0-9_/\\\\])', $model)) {
-            throw new InvalidArgumentException('Model name contains invalid characters.');
-        }
-
-        return $this->qualifyModel($model);
-    }
-
     public function getConfig($key, $action = null){
-        $action = $action ?? $this->getNameInput();
+        $action = $action ?? $this->inputName;
 
         return config("easy_panel.crud.$action.$key") ?: [];
     }
@@ -94,7 +93,7 @@ trait StubParser
         $fields = array_keys($fields);
         $str = '';
 
-        if(in_array($this->getNameInput(), $fields)){
+        if(in_array($this->inputName, $fields)){
             $this->error("Model name must not equal to column names, fix it and rerun command with -f flag");
             die;
         }
@@ -124,7 +123,7 @@ trait StubParser
     {
         $fields = array_keys($fields);
         $str = '';
-        $action = $this->getNameInput();
+        $action = $this->inputName;
         foreach ($fields as $field) {
             $str .= '$this->'.$field.' = $this->'.$action.'->'.$field.';'.$this->makeTab(2, end($fields) != $field);
         }
@@ -151,7 +150,7 @@ trait StubParser
             $str .= $field != end($fields) ? "'$key' => " . '$this' . "->$key,".$this->makeTab(3) : "'$key' => " . '$this' . "->$key,";
         }
 
-        $model = $this->getNameInput();
+        $model = $this->inputName;
         if(config("easy_panel.crud.$model.extra_values")){
             $str .= $this->parseExtraValues();
         }

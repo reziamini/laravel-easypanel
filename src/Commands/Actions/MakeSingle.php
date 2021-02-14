@@ -4,9 +4,6 @@ namespace EasyPanel\Commands\Actions;
 
 class MakeSingle extends CommandBase
 {
-
-    use StubParser;
-
     protected $name = 'panel:single';
     protected $file = 'single';
     protected $type = 'Single Component';

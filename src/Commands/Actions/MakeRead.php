@@ -10,8 +10,6 @@ use Illuminate\Support\Facades\Artisan;
 class MakeRead extends CommandBase
 {
 
-    use StubParser;
-
     protected $name = 'panel:read';
     protected $type = 'Read Action';
     protected $file = 'read';
