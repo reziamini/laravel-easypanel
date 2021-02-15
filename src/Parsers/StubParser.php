@@ -9,7 +9,7 @@ use InvalidArgumentException;
 class StubParser
 {
 
-    private $texts = [];
+    public $texts = [];
     private $inputName;
     private $parsedModel;
 
@@ -179,7 +179,7 @@ class StubParser
                 if(!in_array($value, ['image', 'photo', 'profile', 'banner'])) {
                     $str .= '<td> {{ $' . $modelName . '->' . $value . " }} </td>" . $this->makeTab(1, end($fields) != $value);
                 } else {
-                    $str .= '<td><a target="_blank" href="{{ asset($' . $modelName . '->' . $value . ') }}"><img class="rounded-circle img-fluid" width="50" height="50" src="{{ asset($' . $modelName . '->' . $value . ') }}" alt="'.$value.'"></td></a>' . $this->makeTab(1, end($fields) != $value);
+                    $str .= '<td><a target="_blank" href="{{ asset($' . $modelName . '->' . $value . ') }}"><img class="rounded-circle img-fluid" width="50" height="50" src="{{ asset($' . $modelName . '->' . $value . ') }}" alt="'.$value.'"></a></td>' . $this->makeTab(1, end($fields) != $value);
                 }
            } else {
                 $relationName = array_key_first($value);
