@@ -28,24 +28,24 @@ class MakeCRUDConfig extends GeneratorCommand
 
         $name = strtolower($this->getNameInput());
 
-        $stub = $this->files->get(__DIR__.'/stub/crud.stub');
-        $newStub = $this->parseStub($stub);
+        if($name != strtolower($this->option('model'))){
+            $this->warn("'{$name}' must be equal to model name");
+            return;
+        }
 
         $path = resource_path("cruds/{$name}.php");
+
+        if($this->files->exists($path) and !$this->option('force')){
+            $this->warn("'{$name}' already exists in CRUDs config");
+            return;
+        }
 
         if (! $this->files->isDirectory(dirname($path))) {
             $this->files->makeDirectory(dirname($path), 0755, true);
         }
 
-        if($this->files->exists($path) and !$this->option('force')){
-            $this->warn("'{$name}' exists in CRUDs config");
-            return;
-        }
-
-        if($name != strtolower($this->option('model'))){
-            $this->warn("'{$name}' must be equal to model name");
-            return;
-        }
+        $stub = $this->files->get(__DIR__.'/stub/crud.stub');
+        $newStub = $this->parseStub($stub);
 
         $this->files->put($path, $newStub);
         $this->info("{$name} option was created, You can manage it in : resources/cruds/{$name}.php");
