@@ -4,7 +4,7 @@
     <li class='sidebar-item @isActive([getRouteName().".$name.read", getRouteName().".$name.create", getRouteName().".$name.update"], "selected")'>
         <a class='sidebar-link has-arrow' href="javascript:void(0)" aria-expanded="false">
             <i data-feather="{{ get_icon($name) }}" class="feather-icon"></i>
-            <span class="hide-menu">{{ __(\Illuminate\Support\Str::ucfirst($name)) }}</span>
+            <span class="hide-menu">{{ __(\Illuminate\Support\Str::plural(ucfirst($name))) }}</span>
         </a>
         <ul aria-expanded="false" class="collapse first-level base-level-line">
             <li class="sidebar-item @isActive(getRouteName().'.'.$name.'.read')">
