@@ -2,9 +2,9 @@
 
 namespace EasyPanel\Parsers;
 
+use EasyPanel\Parsers\HTMLInputs\BaseInput;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
-use InvalidArgumentException;
 
 class StubParser
 {
@@ -215,43 +215,11 @@ class StubParser
         $fields = $this->getConfig('fields');
 
         $str = '';
-        foreach ($fields as $key => $type) {
-            $str .= '<div class="form-group">'.$this->makeTab(4);
-            $title = ucfirst($key);
-            $this->texts[$title] = $title;
-            $str .= "<label for='input$key' class='col-sm-2 control-label'> {{ __('$title') }}</label>".$this->makeTab(4);
-            $str = $this->inputsHTML($type, $key, $str).$this->makeTab(4);
-            $str .= "@error('$key') <div class='invalid-feedback'>{{ ".'$message'." }}</div> @enderror".$this->makeTab(3);
-            $str .= '</div>'.$this->makeTab(3);
+        foreach ($fields as $name => $type) {
+            $title = ucfirst($name);
+            $this->texts[$title] = ucfirst($name);
+            $str .= (new BaseInput($name, $type))->render();
         }
-
-        return $str;
-    }
-
-    public function inputsHTML($type, $key, string $str)
-    {
-        $mode = config('easy_panel.lazy_mode') ? 'wire:model.lazy' : 'wire:model';
-        $array = [
-            'text' => "<input type='text' $mode='$key' class=\"form-control @error('$key') is-invalid @enderror\" id='input$key'>",
-            'email' => "<input type='email' $mode='$key' class=\"form-control @error('$key') is-invalid @enderror\" id='input$key'>",
-            'number' => "<input type='number' $mode='$key' class=\"form-control @error('$key') is-invalid @enderror\" id='input$key'>",
-            'file' => "<input type='file' wire:model='$key' class=\"form-control-file @error('$key') is-invalid @enderror\" id='input$key'>",
-            'textarea' => "<textarea $mode='$key' class=\"form-control @error('$key') is-invalid @enderror\"></textarea>",
-            'password' => "<input type='password' $mode='$key' class=\"form-control @error('$key') is-invalid @enderror\" id='input$key'>",
-            'ckeditor' => "<div wire:ignore><textarea class='form-control ckeditor' id='editor$key' wire:model='$key'></textarea></div><script>
-                    ClassicEditor.create(document.querySelector('#editor$key'), {
-                    @if(config('easy_panel.rtl_mode'))
-                        language: 'fa'
-                    @endif
-                    }).then(editor => {
-                        editor.setData('{!! $".$key." !!}');
-                        editor.model.document.on('change:data', () => {
-                            @this.$key = editor.getData()
-                        });
-                    });
-                </script>",
-        ];
-        $str .= $array[$type];
 
         return $str;
     }
