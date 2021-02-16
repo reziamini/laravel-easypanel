@@ -13,9 +13,7 @@
     <form class="form-horizontal" wire:submit.prevent="create" enctype="multipart/form-data">
 
         <div class="card-body">
-
             {{ inputs }}
-
         </div>
 
         <div class="card-footer">
