@@ -9,6 +9,5 @@ class MakeUpdate extends CommandBase
     protected $file = 'update';
     protected $type = 'Update Action';
     protected $description = 'Make a update action in CRUD';
-    protected $path;
 
 }

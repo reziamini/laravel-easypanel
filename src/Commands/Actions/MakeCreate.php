@@ -9,6 +9,5 @@ class MakeCreate extends CommandBase
     protected $type = 'Create Action';
     protected $file = 'create';
     protected $description = 'Make a create action in CRUD';
-    protected $path;
 
 }

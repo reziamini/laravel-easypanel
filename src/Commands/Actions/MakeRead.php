@@ -14,6 +14,5 @@ class MakeRead extends CommandBase
     protected $type = 'Read Action';
     protected $file = 'read';
     protected $description = 'Make a read action in CRUD';
-    protected $path;
 
 }

@@ -14,6 +14,8 @@ abstract class CommandBase extends GeneratorCommand
      */
     private $stubParser;
 
+    protected $path;
+
     public function getDefaultNamespace($rootNamespace)
     {
         $name = ucfirst($this->getNameInput());
