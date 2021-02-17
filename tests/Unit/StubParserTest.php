@@ -77,4 +77,107 @@ class StubParserTest extends \EasyPanelTest\TestCase
         $this->assertFalse(Str::contains($this->parser->parseBlade('{{ titles }}'), $excepted2));
         $this->assertContains('User Name', $this->parser->texts);
     }
+
+    /** @test * */
+    public function model_namespace_will_be_render_successfully(){
+        config()->set('easy_panel.crud.article.model', Article::class);
+
+        $this->assertEquals(Article::class, $this->parser->replaceModel('{{ modelNamespace }}'));
+        $this->assertEquals("App\\Models\\Article", $this->parser->replaceModel('{{ modelNamespace }}'));
+    }
+
+    /** @test * */
+    public function upload_code_will_be_generated(){
+        // With customized store path
+        config()->set('easy_panel.crud.article.fields', ['image' => 'file']);
+        config()->set('easy_panel.crud.article.store', ['image' => 'images/articles']);
+
+        $renderedCode = $this->parser->replaceModel('{{ uploadFile }}');
+
+        $excepted = 'if($this->getPropertyValue(\'image\') and is_object($this->image)) {';
+        $this->assertTrue(Str::contains($renderedCode, $excepted));
+
+        $excepted = '$this->image = $this->getPropertyValue(\'image\')->store(\'images/articles\')';
+        $this->assertTrue(Str::contains($renderedCode, $excepted));
+
+        // With default store path
+        config()->set('easy_panel.crud.article.fields', ['image' => 'file']);
+        config()->set('easy_panel.crud.article.store', []);
+
+        $renderedCode = $this->parser->replaceModel('{{ uploadFile }}');
+
+        $excepted = '$this->image = $this->getPropertyValue(\'image\')->store(\'image\')';
+        $this->assertTrue(Str::contains($renderedCode, $excepted));
+    }
+
+    /** @test * */
+    public function properties_will_be_parsed(){
+        config()->set('easy_panel.crud.article.fields', [
+            'image' => 'file',
+            'title' => 'text',
+            'content' => 'ckeditor'
+        ]);
+
+        $renderedCode = $this->parser->replaceModel('{{ properties }}');
+
+        $excepted = 'public $image';
+        $this->assertTrue(Str::contains($renderedCode, $excepted));
+
+        $excepted = 'public $title';
+        $this->assertTrue(Str::contains($renderedCode, $excepted));
+
+        $excepted = 'public $content';
+        $this->assertTrue(Str::contains($renderedCode, $excepted));
+
+        config()->set('easy_panel.crud.article.fields', []);
+        $renderedCode = $this->parser->replaceModel('{{ properties }}');
+        $this->assertEmpty($renderedCode);
+    }
+
+    /** @test * */
+    public function rules_will_be_rendered(){
+        config()->set('easy_panel.crud.article.validation', [
+            'title' => 'required',
+            'content' => 'required|min:30',
+        ]);
+
+        $renderedCode = $this->parser->replaceModel('{{ rules }}');
+
+        $excepted = "'title' => 'required'";
+        $this->assertTrue(Str::contains($renderedCode, $excepted));
+
+        $excepted = "'content' => 'required|min:30'";
+        $this->assertTrue(Str::contains($renderedCode, $excepted));
+
+        config()->set('easy_panel.crud.article.validation', []);
+        $renderedCode = $this->parser->replaceModel('{{ rules }}');
+        $this->assertEmpty($renderedCode);
+    }
+
+    /** @test * */
+    public function fields_will_be_filled()
+    {
+        config()->set('easy_panel.crud.article.fields', ['image' => 'file', 'title' => 'text']);
+
+        $renderedCode = $this->parser->replaceModel('{{ fields }}');
+
+        $excepted = '\'image\' => $this->image';
+        $this->assertTrue(Str::contains($renderedCode, $excepted));
+
+        $excepted = '\'title\' => $this->title';
+        $this->assertTrue(Str::contains($renderedCode, $excepted));
+    }
+
+    /** @test * */
+    public function properties_will_be_set(){
+        config()->set('easy_panel.crud.article.fields', ['image' => 'file', 'title' => 'text']);
+
+        $renderedCode = $this->parser->replaceModel('{{ setProperties }}');
+
+        $excepted = '$this->image = $this->article->image';
+        $this->assertTrue(Str::contains($renderedCode, $excepted));
+
+        $excepted = '$this->title = $this->article->title';
+        $this->assertTrue(Str::contains($renderedCode, $excepted));
+    }
 }
