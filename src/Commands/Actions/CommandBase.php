@@ -19,7 +19,7 @@ abstract class CommandBase extends GeneratorCommand
     public function getDefaultNamespace($rootNamespace)
     {
         $name = ucfirst($this->getNameInput());
-        $this->path = parent::getDefaultNamespace($rootNamespace)."\\Http\\Livewire\\Admin\\$name";
+        $this->path = parent::getDefaultNamespace($rootNamespace).DIRECTORY_SEPARATOR."Http".DIRECTORY_SEPARATOR."Livewire".DIRECTORY_SEPARATOR."Admin".DIRECTORY_SEPARATOR."$name";
 
         return $this->path;
     }
@@ -35,20 +35,20 @@ abstract class CommandBase extends GeneratorCommand
     protected function getPath($name)
     {
         $fileName = ucfirst($this->file);
-        return "{$this->path}\\{$fileName}.php";
+        return "{$this->path}".DIRECTORY_SEPARATOR."{$fileName}.php";
     }
 
     protected function getStub()
     {
-        return __DIR__ . "/../stub/{$this->file}.stub";
+        return __DIR__ . DIRECTORY_SEPARATOR. "..".DIRECTORY_SEPARATOR."stub".DIRECTORY_SEPARATOR."{$this->file}.stub";
     }
 
     private function buildBlade()
     {
-        $stub = $this->files->get(__DIR__ . "/../stub/blade/{$this->file}.blade.stub");
+        $stub = $this->files->get(__DIR__ . DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."stub".DIRECTORY_SEPARATOR."blade".DIRECTORY_SEPARATOR."{$this->file}.blade.stub");
         $newStub = $this->stubParser->parseBlade($stub);
 
-        $path = $this->viewPath("livewire/admin/{$this->getNameInput()}/{$this->file}.blade.php");
+        $path = $this->viewPath("livewire".DIRECTORY_SEPARATOR."admin".DIRECTORY_SEPARATOR."{$this->getNameInput()}".DIRECTORY_SEPARATOR."{$this->file}.blade.php");
 
         if (! $this->files->isDirectory(dirname($path))) {
             $this->files->makeDirectory(dirname($path), 0755, true);
