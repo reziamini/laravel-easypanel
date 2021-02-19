@@ -1,8 +1,6 @@
 <?php
 
-
 namespace EasyPanel\Commands;
-
 
 use EasyPanel\Support\Contract\UserProviderFacade;
 use Illuminate\Console\Command;
@@ -11,7 +9,6 @@ class GetAdmins extends Command
 {
 
     protected $description = 'Get Admins list';
-
     protected $signature = 'panel:admins';
 
     public function handle()

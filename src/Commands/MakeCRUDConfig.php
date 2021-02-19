@@ -1,9 +1,7 @@
 <?php
 
-
 namespace EasyPanel\Commands;
 
-use App\Models\Article;
 use Illuminate\Console\GeneratorCommand;
 use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputOption;
@@ -13,7 +11,6 @@ class MakeCRUDConfig extends GeneratorCommand
 
     protected $name = 'panel:config';
     protected $type = 'Create a config';
-
     protected $description = 'Make a crud config';
 
     protected function getStub()

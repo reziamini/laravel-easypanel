@@ -1,11 +1,6 @@
 <?php
 
-
 namespace EasyPanel\Commands\Actions;
-
-
-use Illuminate\Console\GeneratorCommand;
-use Illuminate\Support\Facades\Artisan;
 
 class MakeRead extends CommandBase
 {

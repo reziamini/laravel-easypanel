@@ -1,8 +1,6 @@
 <?php
 
-
 namespace EasyPanel\Commands;
-
 
 use EasyPanel\Support\Contract\UserProviderFacade;
 use Illuminate\Console\Command;

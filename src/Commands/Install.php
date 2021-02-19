@@ -1,8 +1,6 @@
 <?php
 
-
 namespace EasyPanel\Commands;
-
 
 use EasyPanel\EasyPanelServiceProvider;
 use Illuminate\Console\Command;
@@ -12,7 +10,6 @@ class Install extends Command
 {
 
     protected $signature = 'panel:install';
-
     protected $description = 'Install panel';
 
     public function handle()

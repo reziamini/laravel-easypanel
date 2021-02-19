@@ -10,7 +10,6 @@ class DeleteCRUD extends Command
 {
 
     protected $signature = 'panel:delete {name?} {--force : Force mode}';
-
     protected $description = 'Create all action for CRUDs';
 
     public function handle()

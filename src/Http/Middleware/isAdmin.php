@@ -1,8 +1,6 @@
 <?php
 
-
 namespace EasyPanel\Http\Middleware;
-
 
 use EasyPanel\Support\Contract\AuthFacade;
 use Closure;

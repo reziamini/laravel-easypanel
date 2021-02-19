@@ -9,7 +9,6 @@ class MakeCRUD extends Command
 {
 
     protected $signature = 'panel:crud {name?} {--f|force : Force mode}';
-
     protected $description = 'Create all action for CRUDs';
 
     public function handle()
@@ -22,7 +21,6 @@ class MakeCRUD extends Command
 
         foreach ($names as $name) {
             $args = ['name' => $name, '--force' => $this->option('force')];
-
             $config = config("easy_panel.crud.$name");
 
             if (!$config) {
@@ -30,7 +28,6 @@ class MakeCRUD extends Command
             }
 
             $this->modelNameIsCorrect($name, $config['model']);
-
             $this->createActions($config, $name, $args);
         }
     }

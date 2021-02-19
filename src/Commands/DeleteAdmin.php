@@ -1,8 +1,6 @@
 <?php
 
-
 namespace EasyPanel\Commands;
-
 
 use EasyPanel\Support\Contract\UserProviderFacade;
 use Illuminate\Console\Command;
@@ -11,7 +9,6 @@ class DeleteAdmin extends Command
 {
 
     protected $signature = 'panel:remove {user} {--f|force}';
-
     protected $description = 'Remove an admin with user id';
 
     public function handle()

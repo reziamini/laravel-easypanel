@@ -4,11 +4,7 @@ namespace EasyPanel\Http\Livewire\Todo;
 
 use EasyPanel\Models\Todo;
 use EasyPanel\Support\Contract\TodoFacade;
-use App\Models\Article;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Route;
 use Livewire\Component;
-use Livewire\WithPagination;
 
 class Single extends Component
 {

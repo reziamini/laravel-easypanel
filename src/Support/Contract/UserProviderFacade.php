@@ -1,9 +1,6 @@
 <?php
 
-
 namespace EasyPanel\Support\Contract;
-
-
 
 use EasyPanel\Support\User\UserProvider;
 
