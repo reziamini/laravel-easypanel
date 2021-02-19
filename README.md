@@ -41,10 +41,8 @@ Congrats! You installed the package, follow docs.
 ## Usage:
 You can create a CRUD for a model, use todo feature, settings option and etc.
 
+## Make a CRUD:
 
-### Make a CRUD:
-
----
 1 . Create a CRUD config with this command:
 
 ```bash
@@ -66,10 +64,9 @@ Now You have a few files and components for CRUD action of this model
 
 You are free to make change in components and edit them.
 
-### Manage Admins
+## Manage Admins
 
----
-in default EasyPanel use `is_superuser` column in your `users` table to detect an admin and you can customize it.
+In default EasyPanel use `is_superuser` column in your `users` table to detect an admin (you can customize it).
 
 Run this command out to make a user as an admin:
 ```bash
@@ -85,9 +82,8 @@ php artisan panel:remove [user_id]
 
 **These commands use UserProvider class in EasyPanel and You can use your own class instead of that and pass it in config file**
 
-### Multi Lang
+## Multi Lang
 
----
 If you want change language of Module You have to pass 2 steps: 
 
 1 - copy `en_panel.json` file in `resources/lang` and paste it in this folder with your lang name like `fr_panel.json` then customize it.
@@ -123,10 +119,10 @@ File format must be `lang_panel.json`, `lang` is your language like : fa, en, fr
 | `create` | `bool` | Create Action for this model |
 | `update` | `bool` | Update Action for this model |
 | `delete` | `bool` | Delete Action for this model |
+| `with_auth` | `bool` | It will fill `user_id` key for create and update action with `auth()->user()->id` |
 | `validation` | `array` | Validation rules in create and update action (it uses Laravel validation system) |
 | `fields` | `array` | Fields as key and type as value (for update and create action) |
 | `store` | `array` | Where every files of inputs will store |
-| `extra_values` | `array` | Extra values which you want to pass create and update method as extra param |
 | `show` | `array` | Every data which you want to show in read action (if data is related on other tables pass it as an array, key is relation name and value is column name in related table) |
 
 ## What do we use in this package?
@@ -137,7 +133,7 @@ File format must be `lang_panel.json`, `lang` is your language like : fa, en, fr
 - [Vazir Font](https://github.com/rastikerdar/vazir-font)
 
 ## Contribution: 
-If you feel you can improve our package You are free to pull request & submit issue :)
+If you feel you can improve our package You are free to send a pull request or submit an issue :)
 
 ## V2 Path 
 - [ ] ACL System
