@@ -150,8 +150,14 @@ class StubParser
     public function parseFields($fields)
     {
         $str = '';
+
         foreach ($fields as $key => $field) {
-            $str .= $field != end($fields) ? "'$key' => " . '$this' . "->$key,".$this->makeTab(3) : "'$key' => " . '$this' . "->$key,";
+            $newLine = ($field != end($fields) or $this->getConfig('with_auth'));
+            $str .=  "'$key' => " . '$this' . "->$key,".$this->makeTab(3, $newLine);
+        }
+
+        if($this->getConfig('with_auth')){
+            $str .= "'user_id' => auth()->id(),";
         }
 
         return $str;

@@ -11,6 +11,10 @@ return [
     'update' => true,
     'delete' => true,
 
+    // If you will set it true it will automatically
+    // add `user_id` to create and update action
+    'with_auth' => true,
+
     // Validation in update and create actions
     // It will use Laravel validation system
     'validation' => [
