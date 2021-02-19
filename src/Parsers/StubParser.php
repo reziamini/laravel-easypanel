@@ -154,22 +154,6 @@ class StubParser
             $str .= $field != end($fields) ? "'$key' => " . '$this' . "->$key,".$this->makeTab(3) : "'$key' => " . '$this' . "->$key,";
         }
 
-        $model = $this->inputName;
-        if(config("easy_panel.crud.$model.extra_values")){
-            $str .= $this->parseExtraValues();
-        }
-
-        return $str;
-    }
-
-    public function parseExtraValues(){
-        $str = '';
-
-        $values = $this->getConfig('extra_values');
-        foreach ($values as $key => $value) {
-            $str .= $this->makeTab(3, end($values) != $values)."'$key' => '$value',";
-        }
-
         return $str;
     }
 
