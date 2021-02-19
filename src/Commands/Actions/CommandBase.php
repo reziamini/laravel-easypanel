@@ -69,6 +69,7 @@ abstract class CommandBase extends GeneratorCommand
 
         $name = $this->qualifyClass($this->getNameInput());
         $path = $this->getPath($name);
+        $path = str_replace('App', 'app', $path);
 
         if ($this->alreadyExists($this->getNameInput()) and !$this->option('force')) {
             $this->line("<options=bold,reverse;fg=red> • {$this->getNameInput()} {$this->type} already exists! </> \n");
