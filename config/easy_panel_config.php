@@ -40,5 +40,5 @@ return [
     'lazy_mode' => true,
 
     // enabled actions, If you want to create crud you must put action name here
-    'actions' => ['article'],
+    'actions' => [],
 ];
