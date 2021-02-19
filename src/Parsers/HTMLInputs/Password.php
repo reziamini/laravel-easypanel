@@ -2,7 +2,7 @@
 
 namespace EasyPanel\Parsers\HTMLInputs;
 
-class Password extends BaseInput
+class Password
 {
 
     public function handle($name)
