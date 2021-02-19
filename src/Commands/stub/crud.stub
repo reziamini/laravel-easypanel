@@ -4,7 +4,7 @@ return [
     'model' => {{ model }}::class,
 
     // searchable fields, if you dont want search feature, remove it
-    'search' => ['title'],
+    'search' => [{{ searchFields }}],
 
     // Manage actions in crud
     'create' => true,
@@ -13,7 +13,7 @@ return [
 
     // If you will set it true it will automatically
     // add `user_id` to create and update action
-    'with_auth' => true,
+    'with_auth' => {{ withAuth }},
 
     // Validation in update and create actions
     // It will use Laravel validation system
@@ -22,7 +22,7 @@ return [
         'content' => 'required|min:30',
     ],
 
-    // Write every fields in your db which you want to show
+    // Write every fields in your db which you want to have a input
     // Available types : "ckeditor", "text", "file", "textarea", "password", "number", "email"
     'fields' => [
         'title' => 'text',

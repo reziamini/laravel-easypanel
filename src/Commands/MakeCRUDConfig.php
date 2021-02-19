@@ -3,7 +3,9 @@
 
 namespace EasyPanel\Commands;
 
+use App\Models\Article;
 use Illuminate\Console\GeneratorCommand;
+use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputOption;
 
 class MakeCRUDConfig extends GeneratorCommand
@@ -53,15 +55,10 @@ class MakeCRUDConfig extends GeneratorCommand
 
     private function parseStub($stub)
     {
-        $model = $this->qualifyModel($this->option('model'));
-
-        if(!class_exists($model)){
-            $this->warn("Model option should be valid and model should be exist");
-            die();
-        }
-
         $array = [
-            '{{ model }}' => $model,
+            '{{ model }}' => $this->parseModel(),
+            '{{ withAuth }}' => $this->withAuth(),
+            '{{ searchFields }}' => $this->parseSearchFields(),
         ];
 
         return str_replace(array_keys($array), array_values($array), $stub);
@@ -73,6 +70,48 @@ class MakeCRUDConfig extends GeneratorCommand
             ['model', 'm', InputOption::VALUE_REQUIRED, 'Model name'],
             ['force', 'f', InputOption::VALUE_NONE, 'force mode'],
         ];
+    }
+
+    private function parseModel()
+    {
+        $model = $this->qualifyModel($this->option('model'));
+
+        if(!class_exists($model)){
+            $this->warn("Model option should be valid and model should be exist");
+            die();
+        }
+
+        return $model;
+    }
+
+    private function withAuth()
+    {
+        $fillableList = $this->getFillableList();
+        if(!in_array('user_id', $fillableList)){
+            return 'true';
+        }
+
+        return 'false';
+    }
+
+    private function getFillableList()
+    {
+        $modelNamespace = $this->qualifyModel($this->option('model'));
+        $modelInstance = new $modelNamespace;
+        return $modelInstance->getFillable();
+    }
+
+    private function parseSearchFields()
+    {
+        $fillableList = $this->getFillableList();
+        $array = [];
+        foreach ($fillableList as $fillable){
+            if(!Str::contains($fillable, 'id')){
+                $array[] = "'$fillable'";
+            }
+        }
+
+        return implode(', ', $array);
     }
 
 }
