@@ -12,6 +12,7 @@ class BaseInput
         'email' => Email::class,
         'number' => Number::class,
         'textarea' => Textarea::class,
+        'select' => Select::class,
         'ckeditor' => Ckeditor::class
     ];
 
@@ -29,11 +30,18 @@ class BaseInput
 
         // Create an instance of input class
         // then call handle() method to get input as a steing
-        $inputStringClass = static::classMap[$this->type];
-        $input = (new $inputStringClass())->handle($name);
+        if(!is_array($this->type)) {
+            $inputStringClass = static::classMap[$this->type];
+            $input = (new $inputStringClass())->handle($name);
+        } else {
+            $type = array_key_first($this->type);
+            $inputStringClass = static::classMap[$type];
+            $inputValues = $this->type[$type];
+            $input = (new $inputStringClass())->handle($name, $inputValues);
+        }
 
         // render all input element
-        $title = ucfirst($this->name);
+        $title = ucfirst($name);
         $str = "
             <!-- $title Input -->
             <div class='form-group'>
