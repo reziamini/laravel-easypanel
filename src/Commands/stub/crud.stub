@@ -23,7 +23,7 @@ return [
     ],
 
     // Write every fields in your db which you want to have a input
-    // Available types : "ckeditor", "text", "file", "textarea", "password", "number", "email"
+    // Available types : "ckeditor", "text", "file", "textarea", "password", "number", "email", "select"
     'fields' => [
         'title' => 'text',
         'content' => 'textarea',
