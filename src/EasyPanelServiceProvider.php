@@ -24,7 +24,6 @@ use EasyPanel\Http\Middleware\LangChanger;
 use EasyPanel\Support\Contract\{UserProviderFacade, AuthFacade};
 use Illuminate\{
     Routing\Router,
-    Support\Facades\App,
     Support\Facades\File,
     Support\Facades\Route,
     Support\ServiceProvider
@@ -35,21 +34,22 @@ class EasyPanelServiceProvider extends ServiceProvider
 {
     public function register()
     {
+        // Here we merge config with 'easy_panel' key
         $this->mergeConfigFrom(__DIR__ . '/../config/easy_panel_config.php', 'easy_panel');
+
+        // Check the status of module
         if(!config('easy_panel.enable')) {
             return;
         }
 
+        // Facades will be set
         $this->defineFacades();
+
+        //Commands will be registered
         $this->bindCommands();
 
-        foreach (config('easy_panel.actions') as $action) {
-            if(!File::exists(resource_path("cruds/$action.php"))) {
-                continue;
-            }
-            $data = require resource_path("cruds/$action.php");
-            config()->set("easy_panel.crud.$action", $data);
-        }
+        // CRUD's config will be bind to easy_panel config with 'crud' key
+        $this->registerCrudsConfig();
     }
 
     public function boot()
@@ -133,5 +133,16 @@ class EasyPanelServiceProvider extends ServiceProvider
             MakeCRUDConfig::class,
             GetAdmins::class
         ]);
+    }
+
+    private function registerCrudsConfig()
+    {
+        foreach (config('easy_panel.actions') as $action) {
+            if (!File::exists(resource_path("cruds/$action.php"))) {
+                continue;
+            }
+            $data = require resource_path("cruds/$action.php");
+            config()->set("easy_panel.crud.$action", $data);
+        }
     }
 }
