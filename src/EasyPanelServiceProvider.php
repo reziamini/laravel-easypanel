@@ -44,12 +44,6 @@ class EasyPanelServiceProvider extends ServiceProvider
 
         // Facades will be set
         $this->defineFacades();
-
-        //Commands will be registered
-        $this->bindCommands();
-
-        // CRUD's config will be bind to easy_panel config with 'crud' key
-        $this->registerCrudsConfig();
     }
 
     public function boot()
@@ -58,11 +52,16 @@ class EasyPanelServiceProvider extends ServiceProvider
             return;
         }
 
+        // CRUD's config will be bind to easy_panel config with 'crud' key
+        $this->registerCrudsConfig();
+
+        // Here we register publishes and Commands
         if ($this->app->runningInConsole()) {
             $this->mergePublishes();
+            $this->bindCommands();
         }
 
-        // Load Views
+        // Load Views with 'admin::' prefix
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'admin');
 
         // Register Middleware
