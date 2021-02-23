@@ -212,7 +212,7 @@ class StubParser
         foreach ($fields as $name => $type) {
             $title = ucfirst($name);
             $this->texts[$title] = ucfirst($name);
-            $str .= (new BaseInput($name, $type))->render();
+            $str .= (new BaseInput($name, $type, $this->inputName))->render();
         }
 
         return $str;

@@ -18,11 +18,13 @@ class BaseInput
 
     protected $name;
     protected $type;
+    protected $action;
 
-    public function __construct($name, $type)
+    public function __construct($name, $type, $action)
     {
         $this->name = $name;
         $this->type = $type;
+        $this->action = $action;
     }
 
     public function render(){
@@ -37,7 +39,7 @@ class BaseInput
             $type = array_key_first($this->type);
             $inputStringClass = static::classMap[$type];
             $inputValues = $this->type[$type];
-            $input = (new $inputStringClass())->handle($name, $inputValues);
+            $input = (new $inputStringClass())->handle($name, $inputValues, $this->action);
         }
 
         // render all input element
