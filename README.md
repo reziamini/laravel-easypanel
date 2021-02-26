@@ -91,6 +91,17 @@ File format must be `lang_panel.json`, `lang` is your language like : fa, en, fr
 
 2 - Set your `lang` in easy panel config file in `config/easy_panel.php` in `lang` key, this value must be equal to your suffix language file name in the lang directory.
 
+## TODO
+If you need TODO feature you have to publish TODO migration with this command 
+```bash
+php artisan panel:migration
+```
+It will publish TODO's migration file then you can migrate the migrations with `php artisaon migrate`.
+
+After pass these steps, You must set `todo` key in config file to `true`.
+
+Now you have a TODO inside your panel for each admin.
+
 ## Config
 
 ### Base Config
@@ -102,7 +113,6 @@ File format must be `lang_panel.json`, `lang` is your language like : fa, en, fr
 | `lang` | `bool` | Your default language with this format : `**_panel.json` which you have to just use `**` like `en` or `fa` |
 | `user_model` | `string` | Address of User model class |
 | `auth_class` | `string` | Address of user authentication class |
-| `admin_provider_class` | `string` | Address of user provider class |
 | `admin_provider_class` | `string` | Address of user provider class |
 | `column` | `string` | That column in `users` table which determine user is admin or not |
 | `redirect_unauthorized` | `string` | If user is unauthenticated it will be redirected to this address |
