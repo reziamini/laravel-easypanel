@@ -33,11 +33,6 @@ class Install extends Command
 
         Artisan::call('vendor:publish', [
             '--provider' => EasyPanelServiceProvider::class,
-            '--tag' => 'easy-panel-migrations'
-        ]);
-
-        Artisan::call('vendor:publish', [
-            '--provider' => EasyPanelServiceProvider::class,
             '--tag' => 'easy-panel-cruds'
         ]);
 

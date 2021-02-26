@@ -3,8 +3,7 @@
 
 namespace EasyPanel;
 
-use EasyPanel\Commands\{
-    Actions\MakeCreate,
+use EasyPanel\Commands\{Actions\MakeCreate,
     GetAdmins,
     MakeCRUDConfig,
     Actions\MakeRead,
@@ -14,8 +13,8 @@ use EasyPanel\Commands\{
     MakeCRUD,
     DeleteAdmin,
     Install,
-    MakeAdmin
-};
+    MakeAdmin,
+    Migration};
 use EasyPanel\Http\Livewire\Todo\Create;
 use EasyPanel\Http\Livewire\Todo\Lists;
 use EasyPanel\Http\Livewire\Todo\Single;
@@ -130,7 +129,8 @@ class EasyPanelServiceProvider extends ServiceProvider
             MakeCRUD::class,
             DeleteCRUD::class,
             MakeCRUDConfig::class,
-            GetAdmins::class
+            GetAdmins::class,
+            Migration::class
         ]);
     }
 
