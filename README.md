@@ -74,9 +74,11 @@ php artisan panel:config [name] -m [MODEL]
 [name]: action name (should be equals to model name in lower case word)
 [MODEL]: Model name
 
-2 . Edit CRUD config in `resources/cruds/name.php` based on your needs
+2 . Edit CRUD config in `resources/cruds/name.php` based on your needs.
 
-3 . Run CRUD creator command to make CRUD files and components :
+3 . Add CRUD name to `easy_panel` config file in `action` key.
+
+4 . Run CRUD creator command to make CRUD files and components :
 
 ```bash
 php artisan panel:crud [name]
@@ -87,15 +89,13 @@ Now You have a few files and components for CRUD action of this model
 
 You are free to make change in components and edit them.
 
-
 ## Multi Lang
-
 If you want change language of Module You have to pass 2 steps: 
 
 1 - copy `en_panel.json` file in `resources/lang` and paste it in this folder with your lang name like `fr_panel.json` then customize it.
 File format must be `lang_panel.json`, `lang` is your language like : fa, en, fr, ar, ..
 
-2 - Set your `lang` in easy panel config file in `config/easy_panel.php` in `lang` key, this value must be equal to your suffix language file name in the lang directory.
+2 - Set your `lang` in easy panel config file in `config/easy_panel.php` in `lang` key, this value must be equal to your suffix language file name in the lang directory, like `fr`.
 
 ## TODO
 If you need TODO feature you have to publish TODO migration with this command 
@@ -158,7 +158,7 @@ If you feel you can improve our package You are free to send a pull request or s
 - [x] RTL Style
 - [x] Translation
 - [ ] Custom menu
-- [ ] Relational inputs
+- [x] Relational inputs
 - [ ] Multiple Templates
 - [x] Separate CRUDs config
 - [x] Make Command lines readable
