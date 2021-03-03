@@ -36,6 +36,6 @@ class Create extends Component
     public function render()
     {
         return view('livewire.admin.{{ model }}.create')
-            ->layout('admin::layouts.app');
+            ->layout('admin::layouts.app', ['title' => __('CreateTitle', ['name' => __('{{ modelName }}') ])]);
     }
 }

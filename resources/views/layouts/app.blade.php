@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Admin Panel</title>
+    <title>{{ __('EasyPanel') }} - {{ $title ?? __('Home') }}</title>
 
     {{--Scripts which must load before full loading--}}
     @style('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css')

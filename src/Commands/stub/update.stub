@@ -42,6 +42,6 @@ class Update extends Component
     {
         return view('livewire.admin.{{ model }}.update', [
             '{{ model }}' => $this->{{ model }}
-        ])->layout('admin::layouts.app');
+        ])->layout('admin::layouts.app', ['title' => __('UpdateTitle', ['name' => __('{{ modelName }}') ])]);
     }
 }
