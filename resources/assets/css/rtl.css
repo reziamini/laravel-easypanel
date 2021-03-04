@@ -57,6 +57,10 @@
     left: 0;
 }
 
+.form-check-label{
+    margin-right: 1.3rem;
+}
+
 .custom-checkbox+p{
     margin-right: 10px;
 }
