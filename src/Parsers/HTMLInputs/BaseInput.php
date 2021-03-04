@@ -13,7 +13,8 @@ class BaseInput
         'number' => Number::class,
         'textarea' => Textarea::class,
         'select' => Select::class,
-        'ckeditor' => Ckeditor::class
+        'ckeditor' => Ckeditor::class,
+        'checkbox' => Checkbox::class,
     ];
 
     protected $name;
@@ -43,16 +44,19 @@ class BaseInput
         }
 
         // render all input element
-        $title = ucfirst($name);
-        $str = "
+        if($this->type != 'checkbox') {
+            $title = ucfirst($name);
+            $str = "
             <!-- $title Input -->
             <div class='form-group'>
                 <label for='input$name' class='col-sm-2 control-label'> {{ __('$title') }}</label>
                 $input
-                @error('$name') <div class='invalid-feedback'>{{ ".'$message'." }}</div> @enderror
+                @error('$name') <div class='invalid-feedback'>{{ " . '$message' . " }}</div> @enderror
             </div>
             ";
+            return $str;
+        }
 
-        return $str;
+        return $input;
     }
 }
