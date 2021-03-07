@@ -4,7 +4,7 @@
 namespace EasyPanelTest\Dependencies;
 
 
-use EasyPanel\Commands\Actions\StubParser;
+use EasyPanel\Commands\CRUDActions\StubParser;
 
 class StubTester
 {

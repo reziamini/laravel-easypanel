@@ -1,6 +1,6 @@
 <?php
 
-namespace EasyPanel\Commands\Actions;
+namespace EasyPanel\Commands\CRUDActions;
 
 class MakeUpdate extends CommandBase
 {

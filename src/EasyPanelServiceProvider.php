@@ -3,19 +3,19 @@
 
 namespace EasyPanel;
 
-use EasyPanel\Commands\{Actions\MakeCreate,
-    GetAdmins,
-    MakeCRUDConfig,
-    Actions\MakeRead,
-    Actions\MakeSingle,
-    Actions\MakeUpdate,
-    DeleteCRUD,
-    MakeCRUD,
-    DeleteAdmin,
-    Install,
-    MakeAdmin,
-    Migration,
-    Uninstall};
+use EasyPanel\Commands\{CRUDActions\MakeCreate,
+    UserActions\GetAdmins,
+    Actions\MakeCRUDConfig,
+    CRUDActions\MakeRead,
+    CRUDActions\MakeSingle,
+    CRUDActions\MakeUpdate,
+    Actions\DeleteCRUD,
+    Actions\MakeCRUD,
+    UserActions\DeleteAdmin,
+    Actions\Install,
+    UserActions\MakeAdmin,
+    Actions\Migration,
+    Actions\Uninstall};
 use EasyPanel\Http\Livewire\Todo\Create;
 use EasyPanel\Http\Livewire\Todo\Lists;
 use EasyPanel\Http\Livewire\Todo\Single;

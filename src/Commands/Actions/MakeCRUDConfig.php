@@ -1,6 +1,6 @@
 <?php
 
-namespace EasyPanel\Commands;
+namespace EasyPanel\Commands\Actions;
 
 use Illuminate\Console\GeneratorCommand;
 use Illuminate\Support\Str;
@@ -15,7 +15,7 @@ class MakeCRUDConfig extends GeneratorCommand
 
     protected function getStub()
     {
-        return __DIR__.'/stub/crud.stub';
+        return __DIR__ . '/../stub/crud.stub';
     }
 
     public function handle()
@@ -43,7 +43,7 @@ class MakeCRUDConfig extends GeneratorCommand
             $this->files->makeDirectory(dirname($path), 0755, true);
         }
 
-        $stub = $this->files->get(__DIR__.'/stub/crud.stub');
+        $stub = $this->files->get(__DIR__ . '/../stub/crud.stub');
         $newStub = $this->parseStub($stub);
 
         $this->files->put($path, $newStub);

@@ -1,6 +1,6 @@
 <?php
 
-namespace EasyPanel\Commands;
+namespace EasyPanel\Commands\Actions;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
