@@ -14,7 +14,8 @@ use EasyPanel\Commands\{Actions\MakeCreate,
     DeleteAdmin,
     Install,
     MakeAdmin,
-    Migration};
+    Migration,
+    Uninstall};
 use EasyPanel\Http\Livewire\Todo\Create;
 use EasyPanel\Http\Livewire\Todo\Lists;
 use EasyPanel\Http\Livewire\Todo\Single;
@@ -130,7 +131,8 @@ class EasyPanelServiceProvider extends ServiceProvider
             DeleteCRUD::class,
             MakeCRUDConfig::class,
             GetAdmins::class,
-            Migration::class
+            Migration::class,
+            Uninstall::class
         ]);
     }
 
