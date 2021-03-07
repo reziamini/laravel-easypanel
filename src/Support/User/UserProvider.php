@@ -8,9 +8,15 @@ class UserProvider
     public function makeAdmin($id)
     {
         $user = $this->findUser($id);
-        $user->update([
-            config('easy_panel.column') => 1
-        ]);
+        $modelInstance = app()->make(config('easy_panel.user_model'));
+        if(in_array(config('easy_panel.column'), $modelInstance->getFillable())) {
+            $user->update([
+                config('easy_panel.column') => 1
+            ]);
+            return true;
+        }
+
+        return false;
     }
 
     public function getAdmins()
