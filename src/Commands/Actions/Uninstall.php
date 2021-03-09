@@ -8,12 +8,15 @@ use Illuminate\Support\Facades\File;
 class Uninstall extends Command
 {
 
-    protected $signature = 'panel:uninstall';
+    protected $signature = 'panel:uninstall {--f|force : Force mode}';
     protected $description = 'Uninstall the panel';
 
     public function handle()
     {
-        $status = $this->confirm("Do you really want to uninstall the panel ? (All files and components will be deleted)", true);
+        $status = $this->option('force')
+            ? true
+            : $this->confirm("Do you really want to uninstall the panel ? (All files and components will be deleted)", true);
+
         if($status){
             File::deleteDirectory(app_path('Http/Livewire/Admin'));
             File::deleteDirectory(resource_path('views/livewire/admin'));
