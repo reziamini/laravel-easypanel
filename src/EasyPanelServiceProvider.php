@@ -116,6 +116,8 @@ class EasyPanelServiceProvider extends ServiceProvider
         $this->publishes([__DIR__ . '/../database/migrations/2020_09_05_99999_create_todos_table.php' => base_path('/database/migrations/' . date('Y_m_d') . '_99999_create_admin_todos_table.php')], 'easy-panel-migrations');
 
         $this->publishes([__DIR__.'/../resources/lang' => resource_path('/lang')], 'easy-panel-lang');
+
+        $this->publishes([__DIR__.'/Commands/stub' => base_path('/stubs/panel')], 'easy-panel-stubs');
     }
 
     private function bindCommands()
