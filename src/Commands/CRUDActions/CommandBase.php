@@ -40,12 +40,12 @@ abstract class CommandBase extends GeneratorCommand
 
     protected function getStub()
     {
-        return __DIR__ . DIRECTORY_SEPARATOR. "..".DIRECTORY_SEPARATOR."stub".DIRECTORY_SEPARATOR."{$this->file}.stub";
+        return $this->resolveStubPath("{$this->file}.stub");
     }
 
     private function buildBlade()
     {
-        $stub = $this->files->get(__DIR__ . DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."stub".DIRECTORY_SEPARATOR."blade".DIRECTORY_SEPARATOR."{$this->file}.blade.stub");
+        $stub = $this->files->get($this->resolveStubPath("blade".DIRECTORY_SEPARATOR."{$this->file}.blade.stub"));
         $newStub = $this->stubParser->parseBlade($stub);
 
         $path = $this->viewPath("livewire".DIRECTORY_SEPARATOR."admin".DIRECTORY_SEPARATOR."{$this->getNameInput()}".DIRECTORY_SEPARATOR."{$this->file}.blade.php");
@@ -97,6 +97,13 @@ abstract class CommandBase extends GeneratorCommand
         $model = config("easy_panel.crud.{$this->getNameInput()}.model");
         $parsedModel = $this->qualifyModel($model);
         $this->stubParser = new StubParser($this->getNameInput(), $parsedModel);
+    }
+
+    private function resolveStubPath($stub)
+    {
+        return file_exists($customPath = $this->laravel->basePath(trim("stubs/panel/".$stub, '/')))
+            ? $customPath
+            : __DIR__.'/../stub/'.$stub;
     }
 
 }
