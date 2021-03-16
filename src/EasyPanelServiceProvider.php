@@ -3,7 +3,8 @@
 
 namespace EasyPanel;
 
-use EasyPanel\Commands\{Actions\Reinstall,
+use EasyPanel\Commands\{Actions\PublishStubs,
+    Actions\Reinstall,
     CRUDActions\MakeCreate,
     UserActions\GetAdmins,
     Actions\MakeCRUDConfig,
@@ -136,7 +137,8 @@ class EasyPanelServiceProvider extends ServiceProvider
             GetAdmins::class,
             Migration::class,
             Uninstall::class,
-            Reinstall::class
+            Reinstall::class,
+            PublishStubs::class
         ]);
     }
 
