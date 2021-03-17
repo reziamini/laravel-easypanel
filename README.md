@@ -69,14 +69,13 @@ php artisan panel:remove [user_id]
 1 . Create a CRUD config with this command:
 
 ```bash
-php artisan panel:config [name] -m [MODEL]
+php artisan panel:config [MODEL]
 ```
-[name]: action name (should be equals to model name in lower case word)
 [MODEL]: Model name
 
 2 . Edit CRUD config in `resources/cruds/name.php` based on your needs.
 
-3 . Add CRUD name to `easy_panel` config file in `action` key.
+3 . Add CRUD name to `easy_panel` config file in `action` key in lowercase.
 
 4 . Run CRUD creator command to make CRUD files and components :
 
