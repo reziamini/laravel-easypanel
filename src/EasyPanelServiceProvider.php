@@ -80,7 +80,7 @@ class EasyPanelServiceProvider extends ServiceProvider
     {
         if(!$this->app->routesAreCached()) {
             Route::prefix(config('easy_panel.route_prefix'))
-                ->middleware(['web', 'auth', 'isAdmin', 'LangChanger'])
+                ->middleware(['web', 'isAdmin', 'LangChanger'])
                 ->name(getRouteName() . '.')
                 ->group(__DIR__ . '/routes.php');
         }
