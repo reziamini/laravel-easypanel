@@ -20,22 +20,12 @@ class MakeCRUDConfig extends GeneratorCommand
 
     public function handle()
     {
-        if(!$this->option('model')){
-            $this->error("Model option must have a value");
-            return;
-        }
-
         $name = strtolower($this->getNameInput());
-
-        if($name != strtolower($this->option('model'))){
-            $this->warn("'{$name}' must be equal to model name");
-            return;
-        }
 
         $path = resource_path("cruds/{$name}.php");
 
         if($this->files->exists($path) and !$this->option('force')){
-            $this->warn("'{$name}' already exists in CRUDs config");
+            $this->warn("'{$name}'.php already exists in CRUDs config");
             return;
         }
 
@@ -47,7 +37,7 @@ class MakeCRUDConfig extends GeneratorCommand
         $newStub = $this->parseStub($stub);
 
         $this->files->put($path, $newStub);
-        $this->info("{$name} option was created, You can manage it in : resources/cruds/{$name}.php");
+        $this->info("{$name} config file was created for {$this->getNameInput()} model\nYou can manage it in : resources/cruds/{$name}.php");
     }
 
     private function parseStub($stub)
@@ -71,7 +61,7 @@ class MakeCRUDConfig extends GeneratorCommand
 
     private function parseModel()
     {
-        $model = $this->qualifyModel($this->option('model'));
+        $model = $this->qualifyModel($this->getNameInput());
 
         if(!class_exists($model)){
             $this->warn("Model option should be valid and model should be exist");
@@ -93,7 +83,7 @@ class MakeCRUDConfig extends GeneratorCommand
 
     private function getFillableList()
     {
-        $modelNamespace = $this->qualifyModel($this->option('model'));
+        $modelNamespace = $this->qualifyModel($this->getNameInput());
         $modelInstance = new $modelNamespace;
         return $modelInstance->getFillable();
     }
