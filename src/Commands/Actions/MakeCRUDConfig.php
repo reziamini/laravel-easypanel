@@ -25,7 +25,7 @@ class MakeCRUDConfig extends GeneratorCommand
         $path = resource_path("cruds/{$name}.php");
 
         if($this->files->exists($path) and !$this->option('force')){
-            $this->warn("'{$name}'.php already exists in CRUDs config");
+            $this->warn("'{$name}.php' already exists in CRUDs config");
             return;
         }
 
@@ -54,7 +54,6 @@ class MakeCRUDConfig extends GeneratorCommand
     protected function getOptions()
     {
         return [
-            ['model', 'm', InputOption::VALUE_REQUIRED, 'Model name'],
             ['force', 'f', InputOption::VALUE_NONE, 'force mode'],
         ];
     }
