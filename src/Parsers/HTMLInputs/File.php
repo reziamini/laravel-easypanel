@@ -2,8 +2,6 @@
 
 namespace EasyPanel\Parsers\HTMLInputs;
 
-use Illuminate\Support\Str;
-
 class File
 {
 
