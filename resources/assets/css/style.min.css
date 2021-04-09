@@ -65,6 +65,15 @@
      right: 0;
  }
 
+.loader-page {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    background: rgba(0,0,0,.2);
+    border-radius: 10px;
+}
+
 .cs-modal div {
     max-width: 500px;
     z-index: 30;
