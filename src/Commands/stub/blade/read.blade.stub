@@ -54,9 +54,7 @@
                 {{ ${{ model }}s->appends(request()->query())->links() }}
             </div>
 
-            <div wire:loading wire:target="previousPage" class="loader-page"></div>
-            <div wire:loading wire:target="gotoPage" class="loader-page"></div>
-            <div wire:loading wire:target="nextPage" class="loader-page"></div>
+            <div wire:loading wire:target="nextPage,gotoPage,previousPage" class="loader-page"></div>
 
         </div>
     </div>
