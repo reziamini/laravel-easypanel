@@ -101,7 +101,7 @@ If you need TODO feature you have to publish TODO migration with this command
 ```bash
 php artisan panel:migration
 ```
-It will publish TODO's migration file then you can migrate the migrations with `php artisaon migrate`.
+It will publish TODO's migration file then you can migrate the migrations with `php artisan migrate`.
 
 After pass these steps, You must set `todo` key in config file to `true`.
 
