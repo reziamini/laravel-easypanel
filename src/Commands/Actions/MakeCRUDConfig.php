@@ -107,4 +107,21 @@ class MakeCRUDConfig extends GeneratorCommand
             : __DIR__.'/../stub/'.$stub;
     }
 
+    protected function qualifyModel($model)
+    {
+        $model = ltrim($model, '\\/');
+
+        $model = str_replace('/', '\\', $model);
+
+        $rootNamespace = $this->rootNamespace();
+
+        if (Str::startsWith($model, $rootNamespace)) {
+            return $model;
+        }
+
+        return is_dir(app_path('Models'))
+            ? $rootNamespace.'Models\\'.$model
+            : $rootNamespace.$model;
+    }
+
 }
