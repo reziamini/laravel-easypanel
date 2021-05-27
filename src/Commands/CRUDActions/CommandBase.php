@@ -5,6 +5,7 @@ namespace EasyPanel\Commands\CRUDActions;
 use EasyPanel\Parsers\StubParser;
 use Illuminate\Console\GeneratorCommand;
 use Symfony\Component\Console\Input\InputOption;
+use Illuminate\Support\Str;
 
 abstract class CommandBase extends GeneratorCommand
 {
