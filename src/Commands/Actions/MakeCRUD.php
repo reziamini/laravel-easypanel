@@ -24,7 +24,7 @@ class MakeCRUD extends Command
             $config = config("easy_panel.crud.$name");
 
             if (!$config) {
-                throw new CommandNotFoundException("There is no {$name} in config file");
+                throw new CommandNotFoundException("{$name} has not been set in config/easy_panel.php file");
             }
 
             $this->modelNameIsCorrect($name, $config['model']);

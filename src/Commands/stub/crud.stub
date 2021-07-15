@@ -4,7 +4,7 @@ return [
     'model' => {{ model }}::class,
 
     // searchable fields, if you dont want search feature, remove it
-    'search' => [{{ searchFields }}],
+    'search' => [{{ fields }}],
 
     // Manage actions in crud
     'create' => true,
@@ -24,17 +24,11 @@ return [
 
     // Write every fields in your db which you want to have a input
     // Available types : "ckeditor", "text", "file", "textarea", "password", "number", "email", "select"
-    'fields' => [
-        'title' => 'text',
-        'content' => 'textarea',
-        'image' => 'file'
-    ],
+    'fields' => [],
 
     // Where files will store for inputs
-    'store' => [
-        'image' => 'images/articles'
-    ],
+    'store' => [],
 
     // which kind of data should be showed in list page
-    'show' => ['title', 'content', ['user' => 'name']],
+    'show' => [{{ fields }}],
 ];
