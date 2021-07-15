@@ -45,7 +45,7 @@ class MakeCRUDConfig extends GeneratorCommand
         $array = [
             '{{ model }}' => $this->parseModel(),
             '{{ withAuth }}' => $this->withAuth(),
-            '{{ searchFields }}' => $this->parseSearchFields(),
+            '{{ fields }}' => $this->parseSearchFields(),
         ];
 
         return str_replace(array_keys($array), array_values($array), $stub);
