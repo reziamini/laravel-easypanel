@@ -2,6 +2,8 @@
 
 namespace EasyPanel\Support\User;
 
+use App\Models\User;
+
 class UserProvider
 {
 
@@ -9,7 +11,8 @@ class UserProvider
     {
         $user = $this->findUser($id);
         $modelInstance = app()->make(config('easy_panel.user_model'));
-        if(in_array(config('easy_panel.column'), $modelInstance->getFillable())) {
+        $column = config('easy_panel.column');
+        if(in_array($column, $modelInstance->getFillable()) or !in_array($column, $modelInstance->getGuarded()))  {
             $user->update([
                 config('easy_panel.column') => 1
             ]);
