@@ -2,8 +2,6 @@
 
 namespace EasyPanel\Support\User;
 
-use App\Models\User;
-
 class UserProvider
 {
 

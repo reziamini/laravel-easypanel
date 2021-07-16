@@ -49,8 +49,6 @@ class StubParser
 
     public function replaceModel($stub)
     {
-        $fields = $this->inputs;
-
         $modelNamespace = $this->parsedModel;
         $modelName = $this->getModelName($modelNamespace);
 
