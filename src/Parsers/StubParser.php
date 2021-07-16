@@ -13,15 +13,43 @@ class StubParser
     private $inputName;
     private $parsedModel;
 
+    private $fields;
+    private $inputs;
+    private $validationRules;
+    private $hasAuth;
+    private $store;
+
     public function __construct($inputName, $parsedModel)
     {
         $this->inputName = $inputName;
         $this->parsedModel = $parsedModel;
     }
 
+    public function setValidationRules($rules)
+    {
+        $this->validationRules = $rules;
+    }
+
+    public function setStore($store)
+    {
+        $this->store = $store;
+    }
+
+    public function setAuthType(bool $hasAuth){
+        $this->hasAuth = $hasAuth;
+    }
+
+    public function setFields(array $fields){
+        $this->fields = $fields;
+    }
+
+    public function setInputs(array $inputs){
+        $this->inputs = $inputs;
+    }
+
     public function replaceModel($stub)
     {
-        $fields = $this->getConfig('fields');
+        $fields = $this->inputs;
 
         $modelNamespace = $this->parsedModel;
         $modelName = $this->getModelName($modelNamespace);
@@ -29,17 +57,20 @@ class StubParser
         $array = [
             '{{ modelName }}' => $modelName,
             '{{ modelNamespace }}' => $modelNamespace,
-            '{{ uploadFile }}' => $this->uploadCodeParser($fields),
+            '{{ uploadFile }}' => $this->uploadCodeParser(),
             '{{ model }}' => strtolower($modelName),
-            '{{ properties }}' => $this->parseProperties($fields),
+            '{{ properties }}' => $this->parseProperties(),
             '{{ rules }}' => $this->parseValidationRules(),
-            '{{ fields }}' => $this->parseFields($fields),
-            '{{ setProperties }}' => $this->parsePropertiesValue($fields),
+            '{{ fields }}' => $this->parseActionInComponent(),
+            '{{ setProperties }}' => $this->parseSetPropertiesValue(),
         ];
 
         return str_replace(array_keys($array), array_values($array), $stub);
     }
 
+    /**
+     * Make Locale files
+     */
     public function setLocaleTexts()
     {
         $this->texts[ucfirst($this->inputName)] = ucfirst($this->inputName);
@@ -59,28 +90,9 @@ class StubParser
         }
     }
 
-    public function parseBlade($stub){
-        $modelName = $this->getModelName($this->parsedModel);
-
-        $array = [
-            '{{ model }}' => strtolower($modelName),
-            '{{ modelName }}' => $modelName,
-            '{{ data }}' => $this->parseDataInBlade($modelName),
-            '{{ titles }}' => $this->parseTitlesInBlade(),
-            '{{ inputs }}' => $this->parseInputsInBlade(),
-        ];
-
-        $this->setLocaleTexts();
-
-        return str_replace(array_keys($array), array_values($array), $stub);
-    }
-
-    public function getConfig($key, $action = null){
-        $action = $action ?? $this->inputName;
-
-        return config("easy_panel.crud.$action.$key") ?: [];
-    }
-
+    /**
+     * Get model name from namespace
+     */
     public function getModelName($modelNamespace)
     {
         $array = explode('\\', $modelNamespace);
@@ -88,9 +100,12 @@ class StubParser
         return end($array);
     }
 
-    public function parseProperties($fields)
+    /**
+     * Parse properties in Livewire component
+     */
+    public function parseProperties()
     {
-        $fields = array_keys($fields);
+        $fields = array_keys($this->inputs);
         $str = '';
 
         if(in_array($this->inputName, $fields)){
@@ -105,13 +120,16 @@ class StubParser
         return $str;
     }
 
-    public function uploadCodeParser($fields)
+    /**
+     * Parse Uploading Code
+     */
+    public function uploadCodeParser()
     {
-        $filesInput = array_keys($fields, 'file');
+        $filesInput = array_keys($this->inputs, 'file');
         $str = '';
         foreach ($filesInput as $file) {
             // We get store path which has been defined in crud's config file
-            $storePath = $this->getConfig('store')[$file] ?? "{$file}";
+            $storePath = $this->store[$file] ?? "{$file}";
 
             // We get property value then store file in $storePath
             // A PHP Code for upload as a string will be created here
@@ -123,9 +141,12 @@ class StubParser
         return $str;
     }
 
-    public function parsePropertiesValue($fields)
+    /**
+     * parse values for mount method in Livewire
+     */
+    public function parseSetPropertiesValue()
     {
-        $fields = array_keys($fields);
+        $fields = array_keys($this->inputs);
         $str = '';
         $action = $this->inputName;
         foreach ($fields as $field) {
@@ -135,39 +156,66 @@ class StubParser
         return $str;
     }
 
+    /**
+     * Parse Validation rules
+     */
     public function parseValidationRules()
     {
-        $rules = $this->getConfig('validation');
-
         $str = '';
-        foreach ($rules as $key => $rule) {
-            $str .= "'$key' => '$rule',".$this->makeTab(2, $rule != end($rules));
+
+        foreach ($this->validationRules as $key => $rule) {
+            $str .= "'$key' => '$rule',".$this->makeTab(2, $rule != end($this->validationRules));
         }
 
         return $str;
     }
 
-    public function parseFields($fields)
+    /**
+     * Create an array of properties in Livewire component for actions
+     */
+    public function parseActionInComponent()
     {
         $str = '';
 
-        foreach ($fields as $key => $field) {
-            $newLine = ($field != end($fields) or $this->getConfig('with_auth'));
+        foreach ($this->inputs as $key => $field) {
+            $newLine = ($field != end($this->inputs) or $this->hasAuth);
             $str .=  "'$key' => " . '$this' . "->$key,".$this->makeTab(3, $newLine);
         }
 
-        if($this->getConfig('with_auth')){
+        if($this->hasAuth){
             $str .= "'user_id' => auth()->id(),";
         }
 
         return $str;
     }
 
-    public function parseDataInBlade($modelName)
+    /**
+     * Create Blade from stub
+     */
+    public function parseBlade($stub){
+        $modelName = $this->getModelName($this->parsedModel);
+
+        $array = [
+            '{{ model }}' => strtolower($modelName),
+            '{{ modelName }}' => $modelName,
+            '{{ data }}' => $this->parseDataInBlade(),
+            '{{ titles }}' => $this->parseTitlesInBlade(),
+            '{{ inputs }}' => $this->parseInputsInBlade(),
+        ];
+
+        $this->setLocaleTexts();
+
+        return str_replace(array_keys($array), array_values($array), $stub);
+    }
+
+    /**
+     * Parse <td> tags for data
+     */
+    public function parseDataInBlade()
     {
-        $fields = $this->getConfig('show');
+        $fields = $this->fields;
         $str = '';
-        $modelName = strtolower($modelName);
+        $modelName = strtolower($this->getModelName($this->parsedModel));
         foreach ($fields as $value) {
             if (!is_array($value)) {
                 if(!in_array($value, ['image', 'photo', 'profile', 'banner'])) {
@@ -184,9 +232,12 @@ class StubParser
         return $str;
     }
 
+    /**
+     * Parse <td> tags for head
+     */
     public function parseTitlesInBlade()
     {
-        $fields = $this->getConfig('show');
+        $fields = $this->fields;
         $str = '';
         foreach ($fields as $field) {
             if (!is_array($field)) {
@@ -204,12 +255,13 @@ class StubParser
         return $str;
     }
 
+    /**
+     * Create inputs HTML
+     */
     public function parseInputsInBlade()
     {
-        $fields = $this->getConfig('fields');
-
         $str = '';
-        foreach ($fields as $name => $type) {
+        foreach ($this->inputs as $name => $type) {
             $title = ucfirst($name);
             $this->texts[$title] = ucfirst($name);
             $str .= (new BaseInput($name, $type, $this->inputName))->render();
@@ -218,6 +270,9 @@ class StubParser
         return $str;
     }
 
+    /**
+     * Tab Maker (Each tabs mean 4 space)
+     */
     public function makeTab($count, $newLine = true){
         $count = $count * 4;
         $tabs = str_repeat(' ', $count);

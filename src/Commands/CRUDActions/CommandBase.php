@@ -98,6 +98,7 @@ abstract class CommandBase extends GeneratorCommand
         $model = config("easy_panel.crud.{$this->getNameInput()}.model");
         $parsedModel = $this->qualifyModel($model);
         $this->stubParser = new StubParser($this->getNameInput(), $parsedModel);
+        $this->setDataToParser();
     }
 
     private function resolveStubPath($stub)
@@ -122,5 +123,15 @@ abstract class CommandBase extends GeneratorCommand
         return is_dir(app_path('Models'))
             ? $rootNamespace.'Models\\'.$model
             : $rootNamespace.$model;
+    }
+
+    private function setDataToParser(): void
+    {
+        $config = config("easy_panel.crud." . $this->getNameInput());
+        $this->stubParser->setAuthType($config['with_auth']);
+        $this->stubParser->setInputs($config['fields']);
+        $this->stubParser->setFields($config['show']);
+        $this->stubParser->setStore($config['store']);
+        $this->stubParser->setValidationRules($config['validation']);
     }
 }
