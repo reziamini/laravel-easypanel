@@ -27,5 +27,22 @@
     "Action": "Action",
     "Update": "Update",
     "Dashboard": "Dashboard",
-    "List": "List"
+    "List": "List",
+    "BuildTitle" : "Build a CRUD",
+    "BuildMessage": "Do You really want to build this CRUD ? (Components will be replaced)",
+    "Yes, Build it": "Yes, Build it.",
+    "CRUD was activated": "CRUD was activated",
+    "CRUD was inactivated": "CRUD was inactivated",
+    "CRUD Created successfully": "CRUD Created successfully",
+    "Model namespace": "Model namespace",
+    "UnknownError": "Something went wrong!",
+    "CRUD": "CRUD",
+    "Route is invalid": "Route is invalid",
+    "Namespace is invalid": "Namespace is invalid",
+    "Model": "Model",
+    "Route": "Route",
+    "Status": "Status",
+    "Your CRUD list": "Your CRUD list",
+    "CRUD Manager": "CRUD Manager",
+    "There is no record for CRUD in database!": "There is no record for CRUD in database!"
 }
