@@ -22,28 +22,27 @@ class MakeCRUDConfig extends GeneratorCommand
     {
         $name = strtolower($this->getNameInput());
 
-        $path = resource_path("cruds/{$name}.php");
+        $path = base_path("app/CRUD/{$name}Component.php");
 
         if($this->files->exists($path) and !$this->option('force')){
             $this->warn("'{$name}.php' already exists in CRUDs config");
             return;
         }
 
-        if (! $this->files->isDirectory(dirname($path))) {
-            $this->files->makeDirectory(dirname($path), 0755, true);
-        }
+        $this->makeDirectory($path);
 
         $stub = $this->files->get($this->getStub());
         $newStub = $this->parseStub($stub);
 
         $this->files->put($path, $newStub);
-        $this->info("{$name} config file was created for {$this->getNameInput()} model\nYou can manage it in : resources/cruds/{$name}.php");
+        $this->info("{$name} config file was created for {$this->getNameInput()} model\nYou can manage it in : app/CRUD/{$name}Component.php");
     }
 
     private function parseStub($stub)
     {
         $array = [
-            '{{ model }}' => $this->parseModel(),
+            '{{ modelNamespace }}' => $this->parseModel(),
+            '{{ modelName }}' => ucfirst($this->getNameInput()),
             '{{ withAuth }}' => $this->withAuth(),
             '{{ fields }}' => $this->parseSearchFields(),
         ];
@@ -102,7 +101,7 @@ class MakeCRUDConfig extends GeneratorCommand
 
     private function resolveStubPath($stub)
     {
-        return file_exists($customPath = $this->laravel->basePath(trim("stubs/panel/".$stub, '/')))
+        return file_exists($customPath = base_path(trim("stubs/panel/".$stub, '/')))
             ? $customPath
             : __DIR__.'/../stub/'.$stub;
     }
