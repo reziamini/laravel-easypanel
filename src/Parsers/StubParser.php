@@ -221,7 +221,7 @@ class StubParser
                 } else {
                     $str .= '<td><a target="_blank" href="{{ asset($' . $modelName . '->' . $value . ') }}"><img class="rounded-circle img-fluid" width="50" height="50" src="{{ asset($' . $modelName . '->' . $value . ') }}" alt="'.$value.'"></a></td>' . $this->makeTab(1, end($fields) != $value);
                 }
-           } else {
+            } else {
                 $relationName = array_key_first($value);
                 $str .= '<td> {{ $' . $modelName . '->' . $relationName . '->'. $value[array_key_first($value)] .' }} </td>' . $this->makeTab(1, end($fields) != $value);
             }
