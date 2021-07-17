@@ -12,12 +12,12 @@
                     </ul>
 
                     <div class="row justify-content-between mt-4 mb-4">
-                        @if(config('easy_panel.crud.{{ model }}.create'))
+                        @if(getCrudConfig('{{ model }}')->create)
                         <div class="col-md-4 right-0">
                             <a href="@route(getRouteName().'.{{ model }}.create')" class="btn btn-success">{{ __('CreateTitle', ['name' => __('{{ modelName }}') ]) }}</a>
                         </div>
                         @endif
-                        @if(config('easy_panel.crud.{{ model }}.search'))
+                        @if(getCrudConfig('{{ model }}')->searchable())
                         <div class="col-md-4">
                             <div class="input-group">
                                 <input type="text" class="form-control" @if(config('easy_panel.lazy_mode')) wire:model.lazy="search" @else wire:model="search" @endif placeholder="{{ __('Search') }}" value="{{ request('search') }}">
@@ -39,8 +39,8 @@
                     <tbody>
                     <tr>
                         {{ titles }}
-                        @if(config('easy_panel.crud.{{ model }}.delete') or config('easy_panel.crud.{{ model }}.update'))
-                        <td>{{ __('Action') }}</td>
+                        @if(getCrudConfig('{{ model }}')->delete or getCrudConfig('{{ model }}')->update)
+                            <td>{{ __('Action') }}</td>
                         @endif
                     </tr>
 

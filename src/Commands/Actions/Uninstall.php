@@ -19,6 +19,7 @@ class Uninstall extends Command
 
         if($status){
             File::deleteDirectory(app_path('Http/Livewire/Admin'));
+            File::deleteDirectory(app_path('CRUD'));
             File::deleteDirectory(resource_path('views/livewire/admin'));
             File::deleteDirectory(resource_path('views/vendor/admin'));
             File::deleteDirectory(resource_path('cruds'));

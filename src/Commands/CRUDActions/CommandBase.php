@@ -6,6 +6,7 @@ use EasyPanel\Parsers\StubParser;
 use Illuminate\Console\GeneratorCommand;
 use Symfony\Component\Console\Input\InputOption;
 use Illuminate\Support\Str;
+use EasyPanel\Contracts\CRUDComponent;
 
 abstract class CommandBase extends GeneratorCommand
 {
@@ -14,6 +15,11 @@ abstract class CommandBase extends GeneratorCommand
      * @var StubParser
      */
     private $stubParser;
+
+    /**
+     * @var CRUDComponent
+     */
+    private $crudInstance;
 
     protected $path;
 
@@ -49,18 +55,17 @@ abstract class CommandBase extends GeneratorCommand
         $stub = $this->files->get($this->resolveStubPath("blade".DIRECTORY_SEPARATOR."{$this->file}.blade.stub"));
         $newStub = $this->stubParser->parseBlade($stub);
 
-        $path = $this->viewPath("livewire".DIRECTORY_SEPARATOR."admin".DIRECTORY_SEPARATOR."{$this->getNameInput()}".DIRECTORY_SEPARATOR."{$this->file}.blade.php");
+        $directoryName = strtolower($this->getNameInput());
+        $path = $this->viewPath("livewire".DIRECTORY_SEPARATOR."admin".DIRECTORY_SEPARATOR."{$directoryName}".DIRECTORY_SEPARATOR."{$this->file}.blade.php");
 
-        if (! $this->files->isDirectory(dirname($path))) {
-            $this->files->makeDirectory(dirname($path), 0755, true);
-        }
+        $this->makeDirectory($path);
 
         $this->files->put($path, $newStub);
     }
 
     public function handle()
     {
-
+        $this->setCRUDInstance();
         $this->setStubParser();
 
         if ($this->isReservedName($this->getNameInput())) {
@@ -78,9 +83,10 @@ abstract class CommandBase extends GeneratorCommand
             return false;
         }
 
-        $this->makeDirectory($path);
+        $this->makeDirectory(base_path($path));
 
-        $this->files->put($path, $this->sortImports($this->buildClass($name)));
+        $component = $this->sortImports($this->buildClass($name));
+        $this->files->put(base_path($path), $component);
 
         $this->buildBlade();
         $this->line("<options=bold,reverse;fg=green> {$this->getNameInput()} {$this->type} created successfully. </> 🤙\n");
@@ -93,9 +99,15 @@ abstract class CommandBase extends GeneratorCommand
         ];
     }
 
+    private function setCRUDInstance(){
+        $modelName = $this->getNameInput();
+
+        return $this->crudInstance = getCrudConfig($modelName);
+    }
+
     private function setStubParser()
     {
-        $model = config("easy_panel.crud.{$this->getNameInput()}.model");
+        $model = $this->crudInstance->getModel();
         $parsedModel = $this->qualifyModel($model);
         $this->stubParser = new StubParser($this->getNameInput(), $parsedModel);
         $this->setDataToParser();
@@ -103,7 +115,7 @@ abstract class CommandBase extends GeneratorCommand
 
     private function resolveStubPath($stub)
     {
-        return file_exists($customPath = $this->laravel->basePath(trim("stubs/panel/".$stub, '/')))
+        return file_exists($customPath = base_path(trim("stubs/panel/".$stub, '/')))
             ? $customPath
             : __DIR__.'/../stub/'.$stub;
     }
@@ -125,13 +137,12 @@ abstract class CommandBase extends GeneratorCommand
             : $rootNamespace.$model;
     }
 
-    private function setDataToParser(): void
+    private function setDataToParser()
     {
-        $config = config("easy_panel.crud." . $this->getNameInput());
-        $this->stubParser->setAuthType($config['with_auth']);
-        $this->stubParser->setInputs($config['fields']);
-        $this->stubParser->setFields($config['show']);
-        $this->stubParser->setStore($config['store']);
-        $this->stubParser->setValidationRules($config['validation']);
+        $this->stubParser->setAuthType($this->crudInstance->with_user_id ?? false);
+        $this->stubParser->setInputs($this->crudInstance->inputs());
+        $this->stubParser->setFields($this->crudInstance->fields());
+        $this->stubParser->setStore($this->crudInstance->storePaths());
+        $this->stubParser->setValidationRules($this->crudInstance->validationRules());
     }
 }

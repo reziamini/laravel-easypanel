@@ -9,11 +9,28 @@ Route::post('/logout', function (){
     return redirect(config('easy_panel.redirect_unauthorized'));
 })->name('logout');
 
-foreach (config('easy_panel.actions') as $action){
-    $crudConfig = config('easy_panel.crud.'.$action);
-    $name = ucfirst($action);
-    $component = "App\\Http\\Livewire\\Admin\\$name";
-    registerActionRoutes($action, $component, $crudConfig);
+if (\Illuminate\Support\Facades\Schema::hasTable('cruds')) {
+    foreach (\EasyPanel\Models\CRUD::active() as $crud) {
+        $crudConfig = getCrudConfig($crud->name);
+        $name = ucfirst($crud->name);
+        $component = "App\\Http\\Livewire\\Admin\\$name";
+
+        Route::prefix($crud->route)->name("{$crud->route}.")->group(function () use ($component, $crud, $crudConfig) {
+
+            if (@class_exists("$component\\Read")) {
+                Route::get('/', "$component\\Read")->name('read');
+            }
+
+            if (@$crudConfig->create and @class_exists("$component\\Create")) {
+                Route::get('/create', "$component\\Create")->name('create');
+            }
+
+            if (@$crudConfig->update and @class_exists("$component\\Update")) {
+                Route::get('/update/{' . $crud->name . '}', "$component\\Update")->name('update');
+            }
+
+        });
+    }
 }
 
 if(config('easy_panel.todo')){
@@ -22,3 +39,7 @@ if(config('easy_panel.todo')){
         Route::get('/create', \EasyPanel\Http\Livewire\Todo\Create::class)->name('create');
     });
 }
+
+Route::prefix('crud')->name('crud.')->group(function (){
+    Route::get('/', \EasyPanel\Http\Livewire\CRUD\Lists::class)->name('lists');
+});

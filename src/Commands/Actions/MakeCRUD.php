@@ -4,6 +4,7 @@ namespace EasyPanel\Commands\Actions;
 
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Exception\CommandNotFoundException;
+use EasyPanel\Models\CRUD;
 
 class MakeCRUD extends Command
 {
@@ -13,7 +14,9 @@ class MakeCRUD extends Command
 
     public function handle()
     {
-        $names = $this->argument('name') ? [$this->argument('name')] : config('easy_panel.actions', []);
+        $names = $this->argument('name') ?
+            [$this->argument('name')] :
+            CRUD::query()->where('active', true)->pluck('name')->toArray();
 
         if(is_null($names)) {
             throw new CommandNotFoundException("There is no action in config file");
@@ -21,37 +24,21 @@ class MakeCRUD extends Command
 
         foreach ($names as $name) {
             $args = ['name' => $name, '--force' => $this->option('force')];
-            $config = config("easy_panel.crud.$name");
+            $instance = getCrudConfig($name);
 
-            if (!$config) {
-                throw new CommandNotFoundException("{$name} has not been set in config/easy_panel.php file");
-            }
-
-            $this->modelNameIsCorrect($name, $config['model']);
-            $this->createActions($config, $name, $args);
+            $this->createActions($instance, $name, $args);
         }
     }
 
-    private function modelNameIsCorrect($name, $model)
+    private function createActions($instance, $name, $args)
     {
-        $model = explode('\\', $model);
-        $model = strtolower(end($model));
-
-        if($model != $name){
-            throw new CommandNotFoundException("Action key should be equal to model name, You are using {$name} as key name but your model name is {$model}");
-        }
-    }
-
-
-    private function createActions($config, $name, $args)
-    {
-        if (isset($config['create']) and $config['create']) {
+        if (isset($instance->create) and $instance->create) {
             $this->call('panel:create', $args);
         } else {
             $this->warn("The create action is disabled for {$name}");
         }
 
-        if (isset($config['update']) and $config['update']) {
+        if (isset($instance->update) and $instance->update) {
             $this->call('panel:update', $args);
         } else {
             $this->warn("The update action is disabled for {$name}");

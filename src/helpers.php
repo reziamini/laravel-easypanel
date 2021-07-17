@@ -1,11 +1,31 @@
 <?php
 
+use EasyPanel\Contracts\CRUDComponent;
+
 if(! function_exists('getRouteName')) {
     function getRouteName(){
         $routeName = config('easy_panel.route_prefix');
         $routeName = trim($routeName, '/');
         $routeName = str_replace('/', '.', $routeName);
         return $routeName;
+    }
+}
+
+if(! function_exists('getCrudConfig')) {
+    function getCrudConfig($name){
+        $namespace = "\\App\\CRUD\\{$name}Component";
+
+        if (!class_exists($namespace)){
+            abort(403, "Class with {$namespace} namespace doesn't exist");
+        }
+
+        $instance = app()->make($namespace);
+
+        if (!$instance instanceof CRUDComponent){
+            abort(403, "{$namespace} should implement CRUDComponent interface");
+        }
+
+        return $instance;
     }
 }
 
@@ -37,19 +57,19 @@ if(! function_exists('get_icon')) {
 }
 
 if(! function_exists('registerActionRoutes')){
-    function registerActionRoutes($action, $component, $crudConfig)
+    function registerActionRoutes($prefix, $component, $crudConfig)
     {
-        Route::prefix($action)->name("$action.")->group(function () use ($component, $crudConfig, $action) {
+        Route::prefix($prefix)->name("$prefix.")->group(function () use ($component, $crudConfig) {
 
             if(@class_exists("$component\\Read")) {
                 Route::get('/', "$component\\Read")->name('read');
             }
 
-            if (@$crudConfig['create'] and @class_exists("$component\\Create")) {
+            if (@$crudConfig->create and @class_exists("$component\\Create")) {
                 Route::get('/create', "$component\\Create")->name('create');
             }
 
-            if (@$crudConfig['update'] and @class_exists("$component\\Update")) {
+            if (@$crudConfig->update and @class_exists("$component\\Update")) {
                 Route::get('/update/{' . $action . '}', "$component\\Update")->name('update');
             }
 

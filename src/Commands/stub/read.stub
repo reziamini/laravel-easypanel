@@ -38,8 +38,9 @@ class Read extends Component
     {
         $data = {{ modelName }}::query();
 
-        if(config('easy_panel.crud.{{ model }}.search')){
-            $array = (array) config('easy_panel.crud.{{ model }}.search');
+        $instance = getCrudConfig('{{ model }}');
+        if($instance->searchable()){
+            $array = (array) $instance->searchable();
             $data->where(function (Builder $query) use ($array){
                 foreach ($array as $item) {
                     if(!is_array($item)) {

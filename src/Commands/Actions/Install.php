@@ -41,6 +41,13 @@ class Install extends Command
             '--tag' => 'easy-panel-lang'
         ]);
 
+        Artisan::call('vendor:publish', [
+            '--provider' => EasyPanelServiceProvider::class,
+            '--tag' => 'easy-panel-migration'
+        ]);
+
+        Artisan::call('migrate');
+
         $this->line("<options=bold,reverse;fg=green>\nEasy panel was installed 🎉</>\n\nBuild an amazing admin panel less than 5 minutes 🤓\n");
     }
 }
