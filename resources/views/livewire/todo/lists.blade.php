@@ -1,8 +1,8 @@
 <div>
-    <h3 class="text-dark font-weight-bold">{{ __('ListTitle', ['name' => 'todo']) }}</h3>
+    <h3 class="text-dark font-weight-bold">{{ __('ListTitle', ['name' => __('Todo')]) }}</h3>
 
     <ul class="breadcrumb mt-3 py-3 px-4 rounded" style="background-color: #e9ecef!important;">
-        <li class="breadcrumb-item"><a href="@route(getRouteName().'.home')" class="text-decoration-none">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="@route(getRouteName().'.home')" class="text-decoration-none">{{ __('Dashboard') }}</a></li>
         <li class="breadcrumb-item active">{{ __('Todo') }}</li>
     </ul>
 
