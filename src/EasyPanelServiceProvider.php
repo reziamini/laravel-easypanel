@@ -26,7 +26,6 @@ use EasyPanel\Http\Middleware\LangChanger;
 use EasyPanel\Support\Contract\{UserProviderFacade, AuthFacade};
 use Illuminate\{
     Routing\Router,
-    Support\Facades\File,
     Support\Facades\Route,
     Support\ServiceProvider
 };
@@ -54,14 +53,13 @@ class EasyPanelServiceProvider extends ServiceProvider
             return;
         }
 
-        // CRUD's config will be bind to easy_panel config with 'crud' key
-        $this->registerCrudsConfig();
-
         // Here we register publishes and Commands
         if ($this->app->runningInConsole()) {
             $this->mergePublishes();
-            $this->bindCommands();
         }
+
+        // Bind Artisan commands
+        $this->bindCommands();
 
         // Load Views with 'admin::' prefix
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'admin');
@@ -104,6 +102,10 @@ class EasyPanelServiceProvider extends ServiceProvider
         Livewire::component('admin::livewire.todo.single', Single::class);
         Livewire::component('admin::livewire.todo.create', Create::class);
         Livewire::component('admin::livewire.todo.lists', Lists::class);
+
+        Livewire::component('admin::livewire.crud.single', Http\Livewire\CRUD\Single::class);
+        Livewire::component('admin::livewire.crud.create', Http\Livewire\CRUD\Create::class);
+        Livewire::component('admin::livewire.crud.lists', Http\Livewire\CRUD\Lists::class);
     }
 
     private function mergePublishes()
@@ -114,7 +116,9 @@ class EasyPanelServiceProvider extends ServiceProvider
 
         $this->publishes([__DIR__ . '/../resources/assets' => public_path('/assets/admin')], 'easy-panel-styles');
 
-        $this->publishes([__DIR__ . '/../database/migrations/2020_09_05_99999_create_todos_table.php' => base_path('/database/migrations/' . date('Y_m_d') . '_99999_create_admin_todos_table.php')], 'easy-panel-migrations');
+        $this->publishes([__DIR__ . '/../database/migrations/2020_09_05_99999_create_todos_table.php' => base_path('/database/migrations/' . date('Y_m_d') . '_99999_create_admin_todos_table.php')], 'easy-panel-todo');
+
+        $this->publishes([__DIR__ . '/../database/migrations/2021_07_17_99999_create_cruds_table.php' => base_path('/database/migrations/' . date('Y_m_d') . '_99999_create_cruds_table.php')], 'easy-panel-migration');
 
         $this->publishes([__DIR__.'/../resources/lang' => resource_path('/lang')], 'easy-panel-lang');
 
@@ -142,14 +146,4 @@ class EasyPanelServiceProvider extends ServiceProvider
         ]);
     }
 
-    private function registerCrudsConfig()
-    {
-        foreach (config('easy_panel.actions') as $action) {
-            if (!File::exists(resource_path("cruds/$action.php"))) {
-                continue;
-            }
-            $data = require resource_path("cruds/$action.php");
-            config()->set("easy_panel.crud.$action", $data);
-        }
-    }
 }
