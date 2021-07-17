@@ -22,6 +22,7 @@
                             <td>{{ __('Model') }}</td>
                             <td>{{ __('Route') }}</td>
                             <td>{{ __('Status') }}</td>
+                            <td>{{ __('Built') }}</td>
                             <td>{{ __('Action') }}</td>
                         </tr>
 
