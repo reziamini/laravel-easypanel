@@ -86,3 +86,6 @@
         width: 0%;
     }
 }
+td{
+    vertical-align: inherit !important;
+}
