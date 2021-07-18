@@ -6,6 +6,7 @@ use EasyPanel\Models\Todo;
 use Livewire\Component;
 use Livewire\WithPagination;
 use EasyPanel\Models\CRUD;
+use Illuminate\Support\Facades\Artisan;
 
 class Lists extends Component
 {
@@ -18,6 +19,24 @@ class Lists extends Component
     public function crudUpdated()
     {
         // There is nothing to do, just update It.
+    }
+
+    public function buildAll()
+    {
+        Artisan::call('panel:crud', [
+            '--force' => true
+        ]);
+
+        CRUD::query()->where('active', true)->update([
+            'built' => true
+        ]);
+
+        $this->dispatchBrowserEvent('show-message', [
+            'type' => 'success',
+            'message' => __('CRUD Created successfully')
+        ]);
+
+        $this->redirect(route(getRouteName().'.crud.lists'));
     }
 
     public function render()
