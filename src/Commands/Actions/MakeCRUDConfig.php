@@ -20,12 +20,12 @@ class MakeCRUDConfig extends GeneratorCommand
 
     public function handle()
     {
-        $name = strtolower($this->getNameInput());
+        $name = ucfirst($this->getNameInput());
 
         $path = base_path("app/CRUD/{$name}Component.php");
 
         if($this->files->exists($path) and !$this->option('force')){
-            $this->warn("'{$name}.php' already exists in CRUDs config");
+            $this->warn("'{$name}Component.php' already exists in CRUD directory");
             return;
         }
 
