@@ -53,7 +53,7 @@ class StubParser
         $modelName = $this->getModelName($modelNamespace);
 
         $array = [
-            '{{ modelName }}' => $modelName,
+            '{{ modelName }}' => ucfirst($modelName),
             '{{ modelNamespace }}' => $modelNamespace,
             '{{ uploadFile }}' => $this->uploadCodeParser(),
             '{{ model }}' => strtolower($modelName),
@@ -195,7 +195,7 @@ class StubParser
 
         $array = [
             '{{ model }}' => strtolower($modelName),
-            '{{ modelName }}' => $modelName,
+            '{{ modelName }}' => ucfirst($modelName),
             '{{ data }}' => $this->parseDataInBlade(),
             '{{ titles }}' => $this->parseTitlesInBlade(),
             '{{ inputs }}' => $this->parseInputsInBlade(),
