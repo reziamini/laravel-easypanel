@@ -44,5 +44,6 @@
     "Status": "Status",
     "Your CRUD list": "Your CRUD list",
     "CRUD Manager": "CRUD Manager",
-    "There is no record for CRUD in database!": "There is no record for CRUD in database!"
+    "There is no record for CRUD in database!": "There is no record for CRUD in database!",
+    "Re-Build All": "Re-Build All"
 }
