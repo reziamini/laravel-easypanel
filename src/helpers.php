@@ -29,6 +29,12 @@ if(! function_exists('getCrudConfig')) {
     }
 }
 
+if(! function_exists('crud')) {
+    function crud($name){
+        return \EasyPanel\Models\CRUD::query()->where('name', $name)->first();
+    }
+}
+
 if(! function_exists('get_icon')) {
     function get_icon($type){
         $array = [
@@ -53,26 +59,5 @@ if(! function_exists('get_icon')) {
             }
         }
         return $val ?? 'grid';
-    }
-}
-
-if(! function_exists('registerActionRoutes')){
-    function registerActionRoutes($prefix, $component, $crudConfig)
-    {
-        Route::prefix($prefix)->name("$prefix.")->group(function () use ($component, $crudConfig) {
-
-            if(@class_exists("$component\\Read")) {
-                Route::get('/', "$component\\Read")->name('read');
-            }
-
-            if (@$crudConfig->create and @class_exists("$component\\Create")) {
-                Route::get('/create', "$component\\Create")->name('create');
-            }
-
-            if (@$crudConfig->update and @class_exists("$component\\Update")) {
-                Route::get('/update/{' . $action . '}', "$component\\Update")->name('update');
-            }
-
-        });
     }
 }

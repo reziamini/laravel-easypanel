@@ -10,8 +10,8 @@
 
         <div x-show="deleteModal" class="cs-modal animate__animated animate__fadeIn">
             <div class="bg-white shadow rounded p-5" @click.away="deleteModal = false" >
-                <h5 class="pb-2 border-bottom">{{ __('DeleteTitle', ['name' => __('Article') ]) }}</h5>
-                <p>{{ __('DeleteMessage', ['name' => __('Article') ]) }}</p>
+                <h5 class="pb-2 border-bottom">{{ __('DeleteTitle', ['name' => __('CRUD') ]) }}</h5>
+                <p>{{ __('DeleteMessage', ['name' => __('CRUD') ]) }}</p>
                 <div class="mt-5 d-flex justify-content-between">
                     <a wire:click.prevent="delete" class="text-white btn btn-success shadow">{{ __('Yes, Delete it.') }}</a>
                     <a @click.prevent="deleteModal = false" class="text-white btn btn-danger shadow">{{ __('No, Cancel it.') }}</a>
