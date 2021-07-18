@@ -14,7 +14,7 @@ EasyPanel is a beautiful, customizable and flexible admin panel based on Livewir
 - Support CKEditor and Persian Font for RTL mode
 - Create CRUD for every model in 1 minute
 - Manage route prefix and addresses
-- Beautiful UI/UX with AdminMart template
+- A beautiful UI/UX with AdminMart template
 - Add/remove Admins with command line
 - UserProviders and Authentication classes are customizable and you can change them 
 - You can create your own routes and customize view and components
