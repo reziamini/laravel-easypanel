@@ -89,3 +89,8 @@
 td{
     vertical-align: inherit !important;
 }
+.btn-outline-success:focus{
+    color: #fff;
+    background-color: #22ca80;
+    border-color: #22ca80;
+}
