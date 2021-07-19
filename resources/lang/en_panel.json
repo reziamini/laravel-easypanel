@@ -42,6 +42,8 @@
     "Model": "Model",
     "Route": "Route",
     "Status": "Status",
+    "Built": "Built",
+    "CRUD's Route": "CRUD's Route",
     "Your CRUD list": "Your CRUD list",
     "CRUD Manager": "CRUD Manager",
     "There is no record for CRUD in database!": "There is no record for CRUD in database!",
