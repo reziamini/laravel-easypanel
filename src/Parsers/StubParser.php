@@ -199,6 +199,7 @@ class StubParser
             '{{ data }}' => $this->parseDataInBlade(),
             '{{ titles }}' => $this->parseTitlesInBlade(),
             '{{ inputs }}' => $this->parseInputsInBlade(),
+            '{{ routeName }}' => crud(strtolower($modelName))->route,
         ];
 
         $this->setLocaleTexts();

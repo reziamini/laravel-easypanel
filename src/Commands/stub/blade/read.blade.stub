@@ -14,7 +14,7 @@
                     <div class="row justify-content-between mt-4 mb-4">
                         @if(getCrudConfig('{{ model }}')->create)
                         <div class="col-md-4 right-0">
-                            <a href="@route(getRouteName().'.'.crud('{{ model }}')->route.'.create')" class="btn btn-success">{{ __('CreateTitle', ['name' => __('{{ modelName }}') ]) }}</a>
+                            <a href="@route(getRouteName().'.{{ routeName }}.create')" class="btn btn-success">{{ __('CreateTitle', ['name' => __('{{ modelName }}') ]) }}</a>
                         </div>
                         @endif
                         @if(getCrudConfig('{{ model }}')->searchable())
