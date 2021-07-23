@@ -8,7 +8,7 @@
         </div>
         <div class="col-md-3">
             <div class="form-group">
-                <input id="route" type="text" placeholder="{{ __('CRUD's Route') }}" class="form-control rounded @error('route') is-invalid @enderror" wire:model="route">
+                <input id="route" type="text" placeholder="{{ __('CRUD\'s Route') }}" class="form-control rounded @error('route') is-invalid @enderror" wire:model="route">
                 @error('route') <div class="invalid-feedback">{{ $message }}</div> @enderror
             </div>
         </div>
