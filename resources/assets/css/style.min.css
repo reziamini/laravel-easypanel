@@ -94,3 +94,11 @@ td{
     background-color: #22ca80;
     border-color: #22ca80;
 }
+
+.autocomplete-item{
+    transition: all 0.5s;
+}
+
+.autocomplete-item:hover{
+    background: #f3f3f3;
+}
