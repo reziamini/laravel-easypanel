@@ -6,21 +6,49 @@ use Livewire\Component;
 use EasyPanel\Models\CRUD;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class Create extends Component
 {
-
     public $model;
     public $route;
+    public $models;
+    public $dropdown;
 
     protected $rules = [
         'model' => 'required|min:8|unique:cruds',
         'route' => 'required|min:2|unique:cruds',
     ];
 
-    public function updated($input)
+    public function setModel()
     {
-        $this->validateOnly($input);
+        $this->models = $this->getModels();
+        $this->showDropdown();
+    }
+
+    public function setSuggestedModel($key)
+    {
+        $this->model = $this->models[$key];
+        $this->route = Str::lower($this->getModelName($this->model));
+        $this->hideDropdown();
+    }
+
+    public function updatedModel($value)
+    {
+        $value = $value == '' ? null : $value;
+        $this->models = $this->getModels($value);
+        $this->showDropdown();
+    }
+
+    public function hideDropdown()
+    {
+        $this->dropdown = false;
+    }
+
+    public function showDropdown()
+    {
+        $this->dropdown = true;
     }
 
     public function create()
@@ -72,5 +100,26 @@ class Create extends Component
         $model = explode('\\', $model);
 
         return end($model);
+    }
+
+    private function getModels($query = null)
+    {
+        $files = File::exists(app_path('/Models')) ? File::files(app_path('/Models')) : File::allFiles(app_path('/'));
+        $array = [];
+        foreach ($files as $file) {
+            if (!Str::contains($file->getFilename(), '.php') or (!is_null($query) and !Str::contains(Str::lower($file->getFilename()), Str::lower($query)))){
+                continue;
+            }
+
+            $namespace = File::exists(app_path('/Models')) ? "App\\Models" : "\\App";
+            $fileName = str_replace('.php', null, $file->getFilename());
+            $fullNamespace =  $namespace."\\{$fileName}";
+
+            if (app()->make($fullNamespace) instanceof Model) {
+                $array[] = $fullNamespace;
+            }
+        }
+
+        return $array;
     }
 }
