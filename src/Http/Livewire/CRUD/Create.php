@@ -15,11 +15,17 @@ class Create extends Component
     public $route;
     public $models;
     public $dropdown;
+    protected $listeners = ['closeModal'];
 
     protected $rules = [
         'model' => 'required|min:8|unique:cruds',
         'route' => 'required|min:2|unique:cruds',
     ];
+
+    public function closeModal()
+    {
+        $this->hideDropdown();
+    }
 
     public function setModel()
     {

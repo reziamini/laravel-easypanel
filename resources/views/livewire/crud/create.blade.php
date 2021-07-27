@@ -1,12 +1,14 @@
-<form action="" wire:submit.prevent="create" autocomplete="off">
+<form action="" x-data="{}" wire:submit.prevent="create" autocomplete="off">
     <div class="row ">
         <div class="col-md-6">
-            <div class="form-group">
+            <div class="form-group position-relative">
                 <input id="model" wire:click="setModel" type="text" placeholder="{{ __('Model namespace') }}" class="form-control rounded @error('model') is-invalid @enderror" wire:model="model">
                 @if($models and $dropdown)
-                    <div class="bg-white rounded d-flex flex-column shadow p-3">
+                    <div @click.away="Livewire.emit('closeModal')" class="bg-white position-absolute w-100 mt-2 rounded d-flex flex-column shadow">
                         @foreach($models as $key => $model)
-                            <a href="" class="py-2 autocomplete-item" wire:click.prevent="setSuggestedModel({{ $key }})">{{ $model }}</a>
+                            <div class="px-3 py-2 autocomplete-item"  wire:click.prevent="setSuggestedModel({{ $key }})">
+                                <a href="" class="py-2 ">{{ $model }}</a>
+                            </div>
                         @endforeach
                     </div>
                 @endif
