@@ -97,6 +97,7 @@ td{
 
 .autocomplete-item{
     transition: all 0.5s;
+    cursor: pointer;
 }
 
 .autocomplete-item:hover{
