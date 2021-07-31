@@ -30,8 +30,9 @@ class DeleteCRUD extends Command
             if ($this->askResult($name)) {
                 File::deleteDirectory(resource_path("/views/livewire/admin/$name"));
                 File::deleteDirectory(app_path("/Http/Livewire/Admin/" . ucfirst($name)));
-                File::delete(app_path("/CRUD/{$name}Component.php"));
+                File::delete(app_path("/CRUD/".ucfirst($name)."Component.php"));
                 $this->info("{$name} files were deleted, make sure you will delete {$name} value from actions in config");
+                CRUD::query()->where('name', $name)->delete();
             } else {
                 $this->line("process for {$name} action was canceled.");
             }
