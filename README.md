@@ -115,6 +115,63 @@ Now you have a TODO inside your panel for each admin.
 | `storePaths` | `array` | Where every files of inputs will store |
 | `fields` | `array` | Every data which you want to show in read action (if data is related on other tables pass it as an array, key is relation name and value is column name in related table) |
 
+
+## Examples:
+
+### Fields:
+```php
+    public function fields()
+    {
+        return ['title', 'image', 'user.name'];
+    }
+```
+
+### Form Inputs:
+
+```php
+    public function inputs()
+    {
+        return [
+            'name' => 'text',
+            'email' => 'email',
+            'password' => 'password',
+            'avatar' => 'file'
+        ];
+    }
+```
+
+```php
+    public function inputs()
+    {
+        return [
+            'title' => 'text',
+            'body' => 'ckeditor',
+            'photo' => 'file',
+            'status' => ['select' => [
+                'published' => 'Publish Now!',
+                'unpublished' => 'Publish Later..',
+            ]],
+        ];
+    }
+```
+
+#### Dynamic value from a table
+```php
+    public function inputs()
+    {
+        return [
+            'title' => 'text',
+            'body' => 'ckeditor',
+            'photo' => 'file',
+            'category' => ['select' => 
+                Category::where('active', true)
+                    ->get()
+                    ->pluck('name', 'id') // [1 => 'IT', 2 => 'History', 2 => 'Medicine']
+            ],
+        ];
+    }
+```
+
 ## What do we use in this package?
 - [AdminMart Template](https://adminmart.com/)
 - [Livewire](https://github.com/livewire/livewire)
