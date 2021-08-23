@@ -216,15 +216,15 @@ class StubParser
         $str = '';
         $modelName = strtolower($this->getModelName($this->parsedModel));
         foreach ($fields as $value) {
-            if (!is_array($value)) {
+            if (!Str::contains($value, '.')) {
                 if(!in_array($value, ['image', 'photo', 'profile', 'banner'])) {
                     $str .= '<td> {{ $' . $modelName . '->' . $value . " }} </td>" . $this->makeTab(1, end($fields) != $value);
                 } else {
                     $str .= '<td><a target="_blank" href="{{ asset($' . $modelName . '->' . $value . ') }}"><img class="rounded-circle img-fluid" width="50" height="50" src="{{ asset($' . $modelName . '->' . $value . ') }}" alt="'.$value.'"></a></td>' . $this->makeTab(1, end($fields) != $value);
                 }
             } else {
-                $relationName = array_key_first($value);
-                $str .= '<td> {{ $' . $modelName . '->' . $relationName . '->'. $value[array_key_first($value)] .' }} </td>' . $this->makeTab(1, end($fields) != $value);
+                $newValue = $this->parseDots($value);
+                $str .= '<td> {{ $' . $modelName . '->' . $newValue .' }} </td>' . $this->makeTab(1, end($fields) != $value);
             }
         }
 
@@ -239,14 +239,13 @@ class StubParser
         $fields = $this->fields;
         $str = '';
         foreach ($fields as $field) {
-            if (!is_array($field)) {
+            if (!Str::contains($field, '.')) {
                 $sortName = $field;
                 $field = ucfirst($field);
                 $str .= "<td style='cursor: pointer' wire:click=\"sort('$sortName')\"> <i class='fa @if(".'$sortType'." == 'desc' and ".'$sortColumn'." == '$sortName') fa-sort-amount-down ml-2 @elseif(".'$sortType == '."'asc' and ".'$sortColumn'." == '$sortName') fa-sort-amount-up ml-2 @endif'></i> {{ __('$field') }} </td>".$this->makeTab(6, end($fields) != $field);
             } else {
-                $relationName = array_key_first($field);
-                $field = ucfirst($relationName). ' ' . ucfirst($field[array_key_first($field)]);
-                $str .= "<td> {{ __('$field') }} </td>".$this->makeTab(6, end($fields) != $field);
+                $fieldName = $this->parseFieldNameWithDots($field);
+                $str .= "<td> {{ __('$fieldName') }} </td>".$this->makeTab(6, end($fields) != $field);
             }
             $this->texts[$field] = $field;
         }
@@ -277,6 +276,22 @@ class StubParser
         $tabs = str_repeat(' ', $count);
 
         return $newLine ? "\n".$tabs : $tabs;
+    }
+
+    public function parseDots($string)
+    {
+        return str_replace('.', '->', $string);
+    }
+
+    public function parseFieldNameWithDots($field)
+    {
+        $array = explode('.', $field);
+        $str = '';
+        foreach ($array as $value){
+            $str .= ucfirst($value)." ";
+        }
+
+        return trim($str);
     }
 
 }
