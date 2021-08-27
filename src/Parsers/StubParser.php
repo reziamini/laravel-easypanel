@@ -244,8 +244,9 @@ class StubParser
                 $field = ucfirst($field);
                 $str .= "<td style='cursor: pointer' wire:click=\"sort('$sortName')\"> <i class='fa @if(".'$sortType'." == 'desc' and ".'$sortColumn'." == '$sortName') fa-sort-amount-down ml-2 @elseif(".'$sortType == '."'asc' and ".'$sortColumn'." == '$sortName') fa-sort-amount-up ml-2 @endif'></i> {{ __('$field') }} </td>".$this->makeTab(6, end($fields) != $field);
             } else {
-                $fieldName = $this->parseFieldNameWithDots($field);
-                $str .= "<td> {{ __('$fieldName') }} </td>".$this->makeTab(6, end($fields) != $field);
+                $newLine = end($fields) != $field;
+                $field = $this->parseFieldNameWithDots($field);
+                $str .= "<td> {{ __('$field') }} </td>".$this->makeTab(6, $newLine);
             }
             $this->texts[$field] = $field;
         }
