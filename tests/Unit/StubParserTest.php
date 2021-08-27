@@ -73,7 +73,7 @@ class StubParserTest extends \EasyPanelTest\TestCase
         $expected = '<td> {{ $article->title }} </td>';
         $this->assertStringContainsString($expected, $this->parser->parseDataInBlade());
 
-        $this->parser->setFields([['user' => 'name']]);
+        $this->parser->setFields(['user.name']);
         $expected = '<td> {{ $article->user->name }} </td>';
         $this->assertStringContainsString($expected, $this->parser->parseDataInBlade());
 
@@ -90,7 +90,7 @@ class StubParserTest extends \EasyPanelTest\TestCase
         $this->assertStringContainsString($expected, $this->parser->parseTitlesInBlade());
         $this->assertStringContainsString($expected2, $this->parser->parseTitlesInBlade());
 
-        $this->parser->setFields([['user' => 'name']]);
+        $this->parser->setFields(['user.name']);
         $notExpected = "wire:click=\"sort('title')\"";
         $expected = "{{ __('User Name') }}";
         $this->assertStringNotContainsString($notExpected, $this->parser->parseTitlesInBlade());
