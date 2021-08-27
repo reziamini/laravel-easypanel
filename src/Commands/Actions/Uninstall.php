@@ -13,24 +13,21 @@ class Uninstall extends Command
 
     public function handle()
     {
-        $status = $this->option('force')
-            ? true
-            : $this->confirm("Do you really want to uninstall the panel ? (All files and components will be deleted)", true);
+        $status = $this->option('force') ? true : $this->confirm("Do you really want to uninstall the panel ? (All files and components will be deleted)", true);
 
-        if($status){
-            File::deleteDirectory(app_path('Http/Livewire/Admin'));
-            File::deleteDirectory(app_path('CRUD'));
-            File::deleteDirectory(resource_path('views/livewire/admin'));
-            File::deleteDirectory(resource_path('views/vendor/admin'));
-            File::deleteDirectory(resource_path('cruds'));
-            File::deleteDirectory(public_path('assets/admin'));
-            File::delete(config_path('easy_panel.php'));
-            $this->info("All files and components was deleted!");
-
+        if (!$status) {
+            $this->info("The process was canceled");
             return;
         }
 
-        $this->info("The process was canceled");
+        File::deleteDirectory(app_path('Http/Livewire/Admin'));
+        File::deleteDirectory(app_path('CRUD'));
+        File::deleteDirectory(resource_path('views/livewire/admin'));
+        File::deleteDirectory(resource_path('views/vendor/admin'));
+        File::deleteDirectory(resource_path('cruds'));
+        File::deleteDirectory(public_path('assets/admin'));
+        File::delete(config_path('easy_panel.php'));
+        $this->info("All files and components was deleted!");
     }
 
 }
