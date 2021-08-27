@@ -43,11 +43,12 @@ class Read extends Component
             $array = (array) $instance->searchable();
             $data->where(function (Builder $query) use ($array){
                 foreach ($array as $item) {
-                    if(!is_array($item)) {
+                    if(!\Str::contains($item, '.')) {
                         $query->orWhere($item, 'like', '%' . $this->search . '%');
                     } else {
-                        $query->orWhereHas(array_key_first($item), function (Builder $query) use ($item) {
-                            $query->where($item[array_key_first($item)], 'like', '%' . $this->search . '%');
+                        $array = explode('.', $item);
+                        $query->orWhereHas($array[0], function (Builder $query) use ($array) {
+                            $query->where($array[1], 'like', '%' . $this->search . '%');
                         });
                     }
                 }
