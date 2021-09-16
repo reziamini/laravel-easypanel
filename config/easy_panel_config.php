@@ -33,7 +33,7 @@ return [
     // Admin panel routes prefix
     'route_prefix' => 'admin', //  http://localhost/admin
 
-    // add your own middlewares
+    // Your own middlewares for easy panel routes.
     'additional_middlewares' => [],
 
     // Count of pagination in CRUD lists
