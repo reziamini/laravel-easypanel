@@ -77,8 +77,10 @@ class EasyPanelServiceProvider extends ServiceProvider
     private function defineRoutes()
     {
         if(!$this->app->routesAreCached()) {
+            $middlewares = array_merge(['web', 'isAdmin', 'LangChanger'], config('easy_panel.additional_middlewares'));
+            
             Route::prefix(config('easy_panel.route_prefix'))
-                ->middleware(['web', 'isAdmin', 'LangChanger'])
+                ->middleware($middlewares)
                 ->name(getRouteName() . '.')
                 ->group(__DIR__ . '/routes.php');
         }

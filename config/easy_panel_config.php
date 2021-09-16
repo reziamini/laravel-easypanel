@@ -33,6 +33,9 @@ return [
     // Admin panel routes prefix
     'route_prefix' => 'admin', //  http://localhost/admin
 
+    // Your own middlewares for easy panel routes.
+    'additional_middlewares' => [],
+
     // Count of pagination in CRUD lists
     'pagination_count' => 20,
 
