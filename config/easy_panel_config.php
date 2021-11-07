@@ -17,6 +17,9 @@ return [
     // Your user Model
     'user_model' => file_exists(app_path('User.php')) ? App\User::class : App\Models\User::class,
 
+    // set default guard to authenticate admins
+    'auth_guard' => config('auth.defaults.guard') ?? 'web',
+
     // How to authenticate admin
     // You may use other ways to authenticate a admin (tables or ..) you can manage it with this class
     'auth_class' => \EasyPanel\Support\Auth\ColumnAuth::class,
@@ -41,7 +44,4 @@ return [
 
     // Lazy validation for Livewire components
     'lazy_mode' => true,
-
-    // enabled actions, If you want to create crud you must put action name here
-    'actions' => [],
 ];
