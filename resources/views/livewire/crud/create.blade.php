@@ -4,7 +4,7 @@
             <div class="form-group position-relative">
                 <input id="model" wire:click="setModel" type="text" placeholder="{{ __('Model namespace') }}" class="form-control rounded @error('model') is-invalid @enderror" wire:model="model">
                 @if($models and $dropdown)
-                    <div @click.away="Livewire.emit('closeModal')" class="bg-white position-absolute w-100 mt-2 rounded d-flex flex-column shadow">
+                    <div @click.away="Livewire.emit('closeModal')" class="bg-white position-absolute w-100 mt-2 rounded d-flex flex-column shadow" style="z-index: 10">
                         @foreach($models as $key => $model)
                             <div class="px-3 py-2 autocomplete-item"  wire:click.prevent="setSuggestedModel({{ $key }})">
                                 <a href="" class="py-2 ">{{ $model }}</a>
