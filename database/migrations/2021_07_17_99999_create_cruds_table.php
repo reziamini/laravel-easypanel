@@ -18,6 +18,7 @@ class CreateCrudsTable extends Migration
             $table->string('name')->unique();
             $table->string('model')->unique();
             $table->string('route')->unique();
+            $table->string('icon')->default('fas fa-bars');
             $table->boolean('active')->default(true);
             $table->boolean('built')->default(false);
             $table->timestamps();
