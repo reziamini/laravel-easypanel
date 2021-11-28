@@ -11,8 +11,7 @@ use Illuminate\Support\Str;
 
 class Create extends Component
 {
-    public $model;
-    public $route;
+    public $model, $route, $icon;
     public $models;
     public $dropdown;
     protected $listeners = ['closeModal'];
@@ -20,6 +19,7 @@ class Create extends Component
     protected $rules = [
         'model' => 'required|min:8|unique:cruds',
         'route' => 'required|min:2|unique:cruds',
+        'icon' => 'nullable|min:5',
     ];
 
     public function closeModal()
@@ -79,6 +79,7 @@ class Create extends Component
                 'model' => trim($this->model, '\\'),
                 'name' => $name,
                 'route' => trim($this->route, '\\'),
+                'icon' => $this->icon ?? 'fas fa-bars'
             ]);
 
             Artisan::call('panel:config', [

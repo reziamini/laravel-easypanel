@@ -1,7 +1,10 @@
 <div x-data="{ rebuildModal: false }">
     <div class="card">
         <div class="card-header p-0">
-            <h3 class="card-title">{{ __('ListTitle', ['name' => __('CRUD')]) }}</h3>
+            <div class="d-flex justify-content-between">
+                <h3 class="card-title">{{ __('ListTitle', ['name' => __('CRUD')]) }}</h3>
+                <a href="@route(getRouteName().'.crud.create')" class="btn btn-info">{{ __('CreateTitle', ['name' => __('CRUD') ]) }}</a>
+            </div>
 
             <ul class="breadcrumb mt-3 py-3 px-4 rounded" style="background-color: #e9ecef!important;">
                 <li class="breadcrumb-item"><a href="@route(getRouteName().'.home')" class="text-decoration-none">{{ __('Dashboard') }}</a></li>
@@ -11,9 +14,6 @@
 
 
         <div class="mt-4 px-2 rounded">
-            <div class="mt-2">
-                @livewire('admin::livewire.crud.create')
-            </div>
             @if($cruds->count() > 0)
                 <div class="mt-4 card-body table-responsive p-0">
                     <table class="table table-hover">
