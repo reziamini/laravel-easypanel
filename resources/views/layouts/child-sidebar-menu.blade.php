@@ -3,7 +3,7 @@
 @foreach(\EasyPanel\Models\CRUD::active() as $crud)
     <li class='sidebar-item @isActive([getRouteName().".{$crud->route}.read", getRouteName().".{$crud->route}.create", getRouteName().".{$crud->route}.update"], "selected")'>
         <a class='sidebar-link has-arrow' href="javascript:void(0)" aria-expanded="false">
-            <i data-feather="{{ get_icon($crud->name) }}" class="feather-icon"></i>
+            <i class="{{ $crud->icon }}"></i>
             <span class="hide-menu">{{ __(\Illuminate\Support\Str::plural(ucfirst($crud->name))) }}</span>
         </a>
         <ul aria-expanded="false" class="collapse first-level base-level-line">
