@@ -78,7 +78,7 @@ class EasyPanelServiceProvider extends ServiceProvider
     {
         if(!$this->app->routesAreCached()) {
             $middlewares = array_merge(['web', 'isAdmin', 'LangChanger'], config('easy_panel.additional_middlewares'));
-            
+
             Route::prefix(config('easy_panel.route_prefix'))
                 ->middleware($middlewares)
                 ->name(getRouteName() . '.')
@@ -118,9 +118,9 @@ class EasyPanelServiceProvider extends ServiceProvider
 
         $this->publishes([__DIR__ . '/../resources/assets' => public_path('/assets/admin')], 'easy-panel-styles');
 
-        $this->publishes([__DIR__ . '/../database/migrations/2020_09_05_99999_create_todos_table.php' => base_path('/database/migrations/' . date('Y_m_d') . '_99999_create_admin_todos_table.php')], 'easy-panel-todo');
+        $this->publishes([__DIR__ . '/../database/migrations/2020_09_05_999999_create_todos_table.php' => base_path('/database/migrations/' . date('Y_m_d') . '_999999_create_admin_todos_table.php')], 'easy-panel-todo');
 
-        $this->publishes([__DIR__ . '/../database/migrations/2021_07_17_99999_create_cruds_table.php' => base_path('/database/migrations/' . date('Y_m_d') . '_99999_create_cruds_table.php')], 'easy-panel-migration');
+        $this->publishes([__DIR__ . '/../database/migrations/2021_07_17_999999_create_cruds_table.php' => base_path('/database/migrations/' . date('Y_m_d') . '_999999_create_cruds_table.php')], 'easy-panel-migration');
 
         $this->publishes([__DIR__.'/../resources/lang' => resource_path('/lang')], 'easy-panel-lang');
 
