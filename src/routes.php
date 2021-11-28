@@ -42,4 +42,5 @@ if(config('easy_panel.todo')){
 
 Route::prefix('crud')->name('crud.')->group(function (){
     Route::get('/', \EasyPanel\Http\Livewire\CRUD\Lists::class)->name('lists');
+    Route::get('/create', \EasyPanel\Http\Livewire\CRUD\Create::class)->name('create');
 });
