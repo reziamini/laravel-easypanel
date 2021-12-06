@@ -48,7 +48,7 @@
 
         <div class="card-footer">
             <button type="submit" class="btn btn-info ml-4">{{ __('Create') }}</button>
-            <a href="@route(getRouteName().'.user.read')" class="btn btn-default float-left">{{ __('Cancel') }}</a>
+            <a href="@route(getRouteName().'.crud.lists')" class="btn btn-default float-left">{{ __('Cancel') }}</a>
         </div>
     </form>
 
