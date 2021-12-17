@@ -30,6 +30,7 @@ use Illuminate\{
     Support\ServiceProvider
 };
 use Livewire\Livewire;
+use EasyPanel\Models\PanelAdmin;
 
 class EasyPanelServiceProvider extends ServiceProvider
 {
@@ -72,6 +73,9 @@ class EasyPanelServiceProvider extends ServiceProvider
 
         // Load Livewire TODOs components
         $this->loadLivewireComponent();
+
+        // Load relationship for administrators
+        $this->loadRelations();
     }
 
     private function defineRoutes()
@@ -120,7 +124,10 @@ class EasyPanelServiceProvider extends ServiceProvider
 
         $this->publishes([__DIR__ . '/../database/migrations/2020_09_05_999999_create_todos_table.php' => base_path('/database/migrations/' . date('Y_m_d') . '_999999_create_admin_todos_table.php')], 'easy-panel-todo');
 
-        $this->publishes([__DIR__ . '/../database/migrations/2021_07_17_999999_create_cruds_table.php' => base_path('/database/migrations/' . date('Y_m_d') . '_999999_create_cruds_table.php')], 'easy-panel-migration');
+        $this->publishes([
+            __DIR__ . '/../database/migrations/2021_07_17_999999_create_cruds_table.php' => base_path('/database/migrations/' . date('Y_m_d') . '_999999_create_cruds_table.php'),
+            __DIR__ . '/../database/migrations/2021_12_17_999999_create_user_admins_table.php' => base_path('/database/migrations/' . date('Y_m_d') . '_999999_create_user_admins_table.php')
+        ], 'easy-panel-migration');
 
         $this->publishes([__DIR__.'/../resources/lang' => resource_path('/lang')], 'easy-panel-lang');
 
@@ -146,6 +153,13 @@ class EasyPanelServiceProvider extends ServiceProvider
             Reinstall::class,
             PublishStubs::class
         ]);
+    }
+
+    private function loadRelations()
+    {
+        config('easy_panel.user_model')::resolveRelationUsing('panelAdmin', function ($userModel){
+            return $userModel->hasOne(PanelAdmin::class)->latestOfMany();
+        });
     }
 
 }
