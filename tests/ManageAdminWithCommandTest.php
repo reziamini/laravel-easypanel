@@ -15,7 +15,7 @@ class ManageAdminWithCommandTest extends TestCase
             'user' => $this->user->id
         ]);
 
-        $this->assertTrue( (bool) $this->user->refresh()->is_superuser);
+        $this->assertTrue( (bool) $this->user->panelAdmin()->exists());
     }
 
     /** @test * */
@@ -23,12 +23,13 @@ class ManageAdminWithCommandTest extends TestCase
         Artisan::call('panel:add', [
             'user' => $this->user->id
         ]);
+
         Artisan::call('panel:remove', [
             'user' => $this->user->id,
             '--force' => true
         ]);
 
-        $this->assertFalse( (bool) $this->user->refresh()->is_superuser);
+        $this->assertFalse( (bool) $this->user->panelAdmin()->exists());
     }
 
 }
