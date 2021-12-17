@@ -22,13 +22,10 @@ return [
 
     // How to authenticate admin
     // You may use other ways to authenticate a admin (tables or ..) you can manage it with this class
-    'auth_class' => \EasyPanel\Support\Auth\ColumnAuth::class,
+    'auth_class' => \EasyPanel\Support\Auth\AdminIdentifier::class,
 
     // With this class you can manage how to create a admin or remove it.
     'admin_provider_class' => \EasyPanel\Support\User\UserProvider::class,
-
-    // if You use a column in your users table to identify admins , put column name here
-    'column' => 'is_superuser',
 
     // it's a place where a user if not authenticated will be redirected
     'redirect_unauthorized' => '/',
