@@ -18,6 +18,8 @@ class CreateUserAdminsTable extends Migration
             $table->foreignId('user_id')->constrained();
             $table->boolean('is_superuser');
             $table->timestamps();
+
+            $table->unique(['user_id']);
         });
     }
 
