@@ -2,13 +2,13 @@
 
 namespace EasyPanel\Support\Contract;
 
-use EasyPanel\Support\Auth\ColumnAuth;
+use EasyPanel\Support\Auth\AdminIdentifier;
 
 /**
  * Class AuthFacade
  * @package EasyPanel\Support\Contract
- * @method static checkIsAdmin(int $id)
- * @see ColumnAuth
+ * @method static check(int $id)
+ * @see AdminIdentifier
  */
 
 class AuthFacade extends BaseFacade
