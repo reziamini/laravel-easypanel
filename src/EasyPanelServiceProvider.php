@@ -31,6 +31,7 @@ use Illuminate\{
 };
 use Livewire\Livewire;
 use EasyPanel\Models\PanelAdmin;
+use EasyPanelTest\Dependencies\User;
 
 class EasyPanelServiceProvider extends ServiceProvider
 {
@@ -157,8 +158,10 @@ class EasyPanelServiceProvider extends ServiceProvider
 
     private function loadRelations()
     {
-        config('easy_panel.user_model')::resolveRelationUsing('panelAdmin', function ($userModel){
-            return $userModel->hasOne(PanelAdmin::class)->latestOfMany();
+        $model = !$this->app->runningUnitTests() ? config('easy_panel.user_model') : User::class;
+
+        $model::resolveRelationUsing('panelAdmin', function ($userModel){
+            return $userModel->hasOne(PanelAdmin::class)->latest();
         });
     }
 
