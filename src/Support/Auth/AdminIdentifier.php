@@ -4,14 +4,14 @@ namespace EasyPanel\Support\Auth;
 
 use EasyPanel\Support\Contract\UserProviderFacade;
 
-class ColumnAuth
+class AdminIdentifier
 {
 
-    public function checkIsAdmin($userId)
+    public function check($userId)
     {
         $user = UserProviderFacade::findUser($userId);
 
-        return $user->{config('easy_panel.column')};
+        return $user->panelAdmin()->exists();
     }
 
 }
