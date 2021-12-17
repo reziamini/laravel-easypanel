@@ -5,26 +5,30 @@ namespace EasyPanel\Support\User;
 class UserProvider
 {
 
-    public function makeAdmin($id)
+    public function makeAdmin($id, $is_super = false)
     {
         $user = $this->findUser($id);
-        $modelInstance = app()->make(config('easy_panel.user_model'));
-        $column = config('easy_panel.column');
-        if(in_array($column, $modelInstance->getFillable()) or !in_array($column, $modelInstance->getGuarded()))  {
-            $user->update([
-                config('easy_panel.column') => 1
-            ]);
-            return true;
+
+        if ($user->panelAdmin()->exists()){
+            return [
+                'type' => 'error',
+                'message' => 'User already is an admin!'
+            ];
         }
 
-        return false;
+        $user->panelAdmin()->create([
+            'is_superuser' => $is_super,
+        ]);
+
+        return [
+            'type' => 'success',
+            'message' => "User '$id' was converted to an admin",
+        ];
     }
 
     public function getAdmins()
     {
-        $users = config('easy_panel.user_model')::query()->where(config('easy_panel.column'), true)->get();
-
-        return $users;
+        return config('easy_panel.user_model')::query()->whereHas('panelAdmin')->with('panelAdmin')->get();
     }
 
     public function findUser($id)
@@ -35,9 +39,8 @@ class UserProvider
     public function deleteAdmin($id)
     {
         $user = $this->findUser($id);
-        $user->update([
-            config('easy_panel.column') => false
-        ]);
+
+        $user->panelAdmin()->delete();
     }
 
 }
