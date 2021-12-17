@@ -26,7 +26,8 @@ class MiddlewareTest extends TestCase
     /** @test * */
     public function user_is_valid(){
         \Illuminate\Support\Facades\Route::get('/admin')->middleware(isAdmin::class);
-        $this->user->update([
+
+        $this->user->panelAdmin()->create([
             'is_superuser' => true
         ]);
 
@@ -39,7 +40,7 @@ class MiddlewareTest extends TestCase
 
     /** @test * */
     public function language_will_be_set(){
-        $this->user->update([
+        $this->user->panelAdmin()->create([
             'is_superuser' => true
         ]);
 
