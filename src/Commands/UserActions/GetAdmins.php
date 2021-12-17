@@ -16,7 +16,11 @@ class GetAdmins extends Command
         $admins = UserProviderFacade::getAdmins();
         $this->warn('Admin Lists :');
         foreach ($admins as $admin){
-            $this->warn("• {$admin->name}: {$admin->email}");
+            $message = $admin->panelAdmin->is_superuser
+                ? "• {$admin->name}: {$admin->email} ( Super Admin ✅ )"
+                : "• {$admin->name}: {$admin->email}";
+
+            $this->warn($message);
         }
     }
 }

@@ -10,20 +10,18 @@ class MakeAdmin extends Command
 
     protected $description = 'Register an new admin';
 
-    protected $signature = 'panel:add {user}';
+    protected $signature = 'panel:add {user} {--s|super : Admin will be a super user}';
 
     public function handle()
     {
         $user = $this->argument('user');
         try{
-            $status = UserProviderFacade::makeAdmin($user);
-            if($status){
-                $this->info("User {$user} was converted to an admin");
-                return;
-            }
-            $this->warn("It was failed, be sure your column is fillable.");
+            $status = UserProviderFacade::makeAdmin($user, $this->option('super'));
+            $method = $status['type'] == 'success' ? 'info' : 'warn';
+
+            $this->$method($status['message']);
         } catch (\Exception $exception){
-            $this->error("User {$user} does not exist");
+            $this->warn("Something went wrong!\nError: ". $exception->getMessage());
         }
     }
 
