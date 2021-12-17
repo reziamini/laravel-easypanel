@@ -45,14 +45,17 @@ Follow the doc.
 
 ## Define Admins
 
-In default EasyPanel uses `is_superuser` column in your `users` table to detect an admin (you can customize it).
-
-**If you don't have any column in your users table you have to create a boolean column with is_superuser name then do these steps:**
-
 Run this command out to make a user as an admin:
 ```bash
 php artisan panel:add [user_id]
 ```
+
+*To create a super admin you can pass `--super` option to the command.*
+
+For example:
+```bash
+php artisan panel:add 10 --super
+``` 
 
 To remove an admin you can execute this command:
 ```bash
@@ -94,7 +97,6 @@ Now you have a TODO inside your panel for each admin.
 | `user_model` | `string` | Address of User model class |
 | `auth_class` | `string` | Address of user authentication class |
 | `admin_provider_class` | `string` | Address of user provider class |
-| `column` | `string` | That column in `users` table which determine user is admin or not |
 | `redirect_unauthorized` | `string` | If user is unauthenticated it will be redirected to this address |
 | `route_prefix` | `string` | Prefix of admin panel address e.g: if set it `admin` address will be : http://127.0.0.1/admin |
 | `pagination_count` | `int` | Count of data which is showed in read action |
