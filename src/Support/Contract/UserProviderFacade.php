@@ -5,7 +5,7 @@ namespace EasyPanel\Support\Contract;
 use EasyPanel\Support\User\UserProvider;
 
 /**
- * @method static makeAdmin(int $id)
+ * @method static makeAdmin(int $id, bool $is_superuser)
  * @method static findUser(int $id)
  * @method static deleteAdmin(int $id)
  * @method static getAdmins()
