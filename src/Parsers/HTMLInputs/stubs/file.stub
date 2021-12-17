@@ -1,0 +1,9 @@
+            <!-- {{ Title }} Input -->
+            <div class='form-group'>
+                <label for='input{{ Name }}' class='col-sm-2 control-label'> {{ __('{{ Title }}') }}</label>
+                <input type='file' wire:model='{{ Name }}' class="form-control-file @error('{{ Name }}') is-invalid @enderror" id='input{{ Name }}'>
+                @if(${{ Name }} and !$errors->has('{{ Name }}') and $string instanceof \Livewire\TemporaryUploadedFile and (in_array( ${{ Name }}->guessExtension(), ['png', 'jpg', 'gif', 'jpeg'])))
+                    <a href="{{ ${{ Name }}->temporaryUrl() }}"><img width="200" height="200" class="img-fluid shadow" src="{{ ${{ Name }}->temporaryUrl() }}" alt=""></a>
+                @endif
+                @error('{{ Name }}') <div class='invalid-feedback'>{{ $message }}</div> @enderror
+            </div>

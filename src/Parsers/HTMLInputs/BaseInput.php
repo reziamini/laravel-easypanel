@@ -2,61 +2,29 @@
 
 namespace EasyPanel\Parsers\HTMLInputs;
 
-class BaseInput
+abstract class BaseInput
 {
-
-    const classMap = [
-        'password' => Password::class,
-        'text' => Text::class,
-        'file' => File::class,
-        'email' => Email::class,
-        'number' => Number::class,
-        'textarea' => Textarea::class,
-        'select' => Select::class,
-        'ckeditor' => Ckeditor::class,
-        'checkbox' => Checkbox::class,
-    ];
-
     protected $name;
-    protected $type;
     protected $action;
 
-    public function __construct($name, $type, $action)
+    public function __construct($name, $action)
     {
         $this->name = $name;
-        $this->type = $type;
         $this->action = $action;
     }
 
-    public function render(){
-        $name = $this->name;
+    public function render()
+    {
+        $mode = config('easy_panel.lazy_mode') ? 'wire:model.lazy' : 'wire:model';
 
-        // Create an instance of input class
-        // then call handle() method to get input as a steing
-        if(!is_array($this->type)) {
-            $inputStringClass = static::classMap[$this->type];
-            $input = (new $inputStringClass())->handle($name);
-        } else {
-            $type = array_key_first($this->type);
-            $inputStringClass = static::classMap[$type];
-            $inputValues = $this->type[$type];
-            $input = (new $inputStringClass())->handle($name, $inputValues, $this->action);
-        }
+        $array = [
+            '{{ Title }}' => ucfirst($this->name),
+            '{{ Name }}' => $this->name,
+            '{{ Mode }}' => $mode,
+            '{{ Action }}' => $this->action,
+        ];
 
-        // render all input element
-        if($this->type != 'checkbox') {
-            $title = ucfirst($name);
-            $str = "
-            <!-- $title Input -->
-            <div class='form-group'>
-                <label for='input$name' class='col-sm-2 control-label'> {{ __('$title') }}</label>
-                $input
-                @error('$name') <div class='invalid-feedback'>{{ " . '$message' . " }}</div> @enderror
-            </div>
-            ";
-            return $str;
-        }
-
-        return $input;
+        return str_replace(array_keys($array), array_values($array), file_get_contents(__DIR__.'/stubs/'.$this->stub));
     }
+
 }

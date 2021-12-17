@@ -2,9 +2,17 @@
 
 namespace EasyPanel\Parsers;
 
-use EasyPanel\Parsers\HTMLInputs\BaseInput;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
+use EasyPanel\Parsers\HTMLInputs\Password;
+use EasyPanel\Parsers\HTMLInputs\Text;
+use EasyPanel\Parsers\HTMLInputs\Email;
+use EasyPanel\Parsers\HTMLInputs\Number;
+use EasyPanel\Parsers\HTMLInputs\Textarea;
+use EasyPanel\Parsers\HTMLInputs\Select;
+use EasyPanel\Parsers\HTMLInputs\Ckeditor;
+use EasyPanel\Parsers\HTMLInputs\Checkbox;
+use EasyPanel\Parsers\HTMLInputs\File as FileInput;
 
 class StubParser
 {
@@ -263,7 +271,8 @@ class StubParser
         foreach ($this->inputs as $name => $type) {
             $title = ucfirst($name);
             $this->texts[$title] = ucfirst($name);
-            $str .= (new BaseInput($name, $type, $this->inputName))->render();
+            $class = $this->getInputClassNamespace($type);
+            $str .= (new $class($name, $this->inputName))->render();
         }
 
         return $str;
@@ -293,6 +302,25 @@ class StubParser
         }
 
         return trim($str);
+    }
+
+    public function getInputClassNamespace($type)
+    {
+        $type = is_array($type) ? array_key_first($type) : $type;
+
+        $classMap = [
+            'password' => Password::class,
+            'text' => Text::class,
+            'file' => FileInput::class,
+            'email' => Email::class,
+            'number' => Number::class,
+            'textarea' => Textarea::class,
+            'select' => Select::class,
+            'ckeditor' => Ckeditor::class,
+            'checkbox' => Checkbox::class,
+        ];
+
+        return $classMap[$type];
     }
 
 }

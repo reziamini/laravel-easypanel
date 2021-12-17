@@ -1,0 +1,6 @@
+            <!-- {{ Title }} Input -->
+            <div class='form-group'>
+                <label for='input{{ Name }}' class='col-sm-2 control-label'> {{ __('{{ Title }}') }}</label>
+                <input type='text' {{ Mode }}='{{ Name }}' class="form-control @error('{{ Name }}') is-invalid @enderror" id='input{{ Name }}'>
+                @error('{{ Name }}') <div class='invalid-feedback'>{{ $message }}</div> @enderror
+            </div>

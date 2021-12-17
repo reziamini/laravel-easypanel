@@ -1,0 +1,20 @@
+            <!-- {{ Title }} Input -->
+            <div class='form-group'>
+                <label for='input{{ Name }}' class='col-sm-2 control-label'> {{ __('{{ Title }}') }}</label>
+                <div wire:ignore>
+                    <textarea class='form-control ckeditor' id='editor{{ Name }}' wire:model='{{ Name }}'></textarea>
+                </div>
+                <script>
+                    ClassicEditor.create(document.querySelector('#editor{{ Name }}'), {
+                    @if(config('easy_panel.rtl_mode'))
+                        language: 'fa'
+                    @endif
+                    }).then(editor => {
+                        editor.setData('{!! ${{ Name }} !!}');
+                        editor.model.document.on('change:data', () => {
+                            @this.{{ Name }} = editor.getData()
+                        });
+                    });
+                </script>
+                @error('{{ Name }}') <div class='invalid-feedback'>{{ $message }}</div> @enderror
+            </div>
