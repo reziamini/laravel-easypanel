@@ -16,7 +16,7 @@ class isAdmin
             return redirect(config('easy_panel.redirect_unauthorized'));
         }
 
-        if(!AuthFacade::checkIsAdmin(auth()->user()->id)){
+        if(!AuthFacade::check(auth()->user()->id)){
             return redirect(config('easy_panel.redirect_unauthorized'));
         }
 
