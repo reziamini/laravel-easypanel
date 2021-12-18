@@ -13,8 +13,8 @@
                     </a>
                 </li>
 
-                <li class="sidebar-item @isActive(getRouteName().'.crud.lists', 'selected')">
-                    <a class="sidebar-link @isActive(getRouteName().'.crud.lists', 'active') " href="@route(getRouteName().'.crud.lists')" aria-expanded="false">
+                <li class="sidebar-item @isActive([getRouteName().'.crud.lists', getRouteName().'.crud.create'], 'selected')">
+                    <a class="sidebar-link @isActive([getRouteName().'.crud.lists', getRouteName().'.crud.create'], 'active') " href="@route(getRouteName().'.crud.lists')" aria-expanded="false">
                         <i data-feather="package" class="feather-icon"></i>
                         <span class="hide-menu">{{ __('CRUD Manager') }}</span>
                     </a>
