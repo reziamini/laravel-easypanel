@@ -38,9 +38,11 @@
                 </div>
 
                 <div class="col-md-6">
-                    <div class="form-group">
-                        <input id="route" type="text" placeholder="{{ __('Icon of CRUD') }}" class="form-control rounded @error('icon') is-invalid @enderror" wire:model="icon">
+                    <div class="form-group position-relative">
+                        <input id="route" type="text" placeholder="{{ __('Icon of CRUD') }} (fa fa-user)" class="form-control rounded @error('icon') is-invalid @enderror" wire:model="icon">
+                        <i class="position-absolute {{ $icon }}" style="top: 9px; left: 15px"></i>
                         @error('icon') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        <p class="mt-2 font-12">{{ __('More icons in') }} <a href="https://fontawesome.com/icons">{{ __('FontAwesome') }}</a></p>
                     </div>
                 </div>
             </div>
