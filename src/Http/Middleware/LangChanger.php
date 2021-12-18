@@ -13,7 +13,7 @@ class LangChanger
         $lang = config('easy_panel.lang') ?? 'en';
         
         // vorja: let use a session to change language.
-        $lang = !empty('easy_panel.lang') ? session('easy_panel.lang') : $lang;
+        $lang = !empty(session('easy_panel.lang')) ? session('easy_panel.lang') : $lang;
         
         $langFormat = $lang.'_panel';
 
