@@ -2,6 +2,7 @@
 
 namespace EasyPanel\Parsers;
 
+use EasyPanel\Parsers\HTMLInputs\Date;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use EasyPanel\Parsers\HTMLInputs\Password;
@@ -318,6 +319,7 @@ class StubParser
             'select' => Select::class,
             'ckeditor' => Ckeditor::class,
             'checkbox' => Checkbox::class,
+            'date' => Date::class,
         ];
 
         return $classMap[$type];
