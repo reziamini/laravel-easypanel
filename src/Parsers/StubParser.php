@@ -14,6 +14,7 @@ use EasyPanel\Parsers\HTMLInputs\Select;
 use EasyPanel\Parsers\HTMLInputs\Ckeditor;
 use EasyPanel\Parsers\HTMLInputs\Checkbox;
 use EasyPanel\Parsers\HTMLInputs\File as FileInput;
+use EasyPanel\Parsers\HTMLInputs\DateTime;
 
 class StubParser
 {
@@ -320,6 +321,7 @@ class StubParser
             'ckeditor' => Ckeditor::class,
             'checkbox' => Checkbox::class,
             'date' => Date::class,
+            'datetime' => DateTime::class,
         ];
 
         return $classMap[$type];
