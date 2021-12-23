@@ -3,7 +3,6 @@
 namespace EasyPanel\Http\Livewire\Todo;
 
 use EasyPanel\Models\Todo;
-use EasyPanel\Support\Contract\TodoFacade;
 use Livewire\Component;
 
 class Single extends Component
