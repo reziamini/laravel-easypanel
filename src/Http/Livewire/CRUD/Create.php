@@ -111,22 +111,38 @@ class Create extends Component
 
     private function getModels($query = null)
     {
-        $files = File::exists(app_path('/Models')) ? File::files(app_path('/Models')) : File::allFiles(app_path('/'));
+        $files = File::exists(app_path('/Models'))
+            ? File::files(app_path('/Models'))
+            : File::allFiles(app_path('/'));
+
         $array = [];
+
         foreach ($files as $file) {
-            if (!Str::contains($file->getFilename(), '.php') or (!is_null($query) and !Str::contains(Str::lower($file->getFilename()), Str::lower($query)))){
+
+            if ($this->fileCanNotBeListed($file->getFilename(), $query)){
                 continue;
             }
 
-            $namespace = File::exists(app_path('/Models')) ? "App\\Models" : "\\App";
-            $fileName = str_replace('.php', null, $file->getFilename());
-            $fullNamespace =  $namespace."\\{$fileName}";
+            $namespace = $this->fileNamespace($file->getFilename());
 
-            if (app()->make($fullNamespace) instanceof Model) {
-                $array[] = $fullNamespace;
+            if (app()->make($namespace) instanceof Model) {
+                $array[] = $namespace;
             }
         }
 
         return $array;
     }
+
+    private function fileCanNotBeListed($fileName, $searchedValued = null): bool
+    {
+        return !Str::contains($fileName, '.php') or (!is_null($searchedValued) and !Str::contains(Str::lower($fileName), Str::lower($searchedValued)));
+    }
+
+    private function fileNamespace($fileName): string
+    {
+        $namespace = File::exists(app_path('/Models')) ? "App\\Models" : "\\App";
+        $fileName = str_replace('.php', null, $fileName);
+        return $namespace."\\{$fileName}";
+    }
+
 }
