@@ -40,7 +40,7 @@
                 <div class="col-md-6">
                     <div class="form-group position-relative">
                         <input id="route" type="text" placeholder="{{ __('Icon of CRUD') }} (fa fa-user)" class="form-control rounded @error('icon') is-invalid @enderror" wire:model="icon">
-                        <i class="position-absolute {{ $icon }}" style="top: 9px; left: 15px"></i>
+                        <i class="position-absolute {{ $icon }}" style="top: 9px;@if(config('easy_panel.rtl_mode')) left: 15px @else right: 15px @endif"></i>
                         @error('icon') <div class="invalid-feedback">{{ $message }}</div> @enderror
                         <p class="mt-2 font-12">{{ __('More icons in') }} <a href="https://fontawesome.com/icons">{{ __('FontAwesome') }}</a></p>
                     </div>
