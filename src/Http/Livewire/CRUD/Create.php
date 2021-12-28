@@ -75,6 +75,7 @@ class Create extends Component
 
         try{
             $name = $this->getModelName($this->model);
+
             CRUD::create([
                 'model' => trim($this->model, '\\'),
                 'name' => strtolower($name),

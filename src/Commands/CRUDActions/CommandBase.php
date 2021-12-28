@@ -122,6 +122,10 @@ abstract class CommandBase extends GeneratorCommand
 
     protected function qualifyModel($model)
     {
+        if (class_exists($model)){
+            return $model;
+        }
+
         $model = ltrim($model, '\\/');
 
         $model = str_replace('/', '\\', $model);
