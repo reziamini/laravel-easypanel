@@ -16,6 +16,7 @@ use EasyPanel\Parsers\HTMLInputs\Checkbox;
 use EasyPanel\Parsers\HTMLInputs\File as FileInput;
 use EasyPanel\Parsers\HTMLInputs\DateTime;
 use EasyPanel\Parsers\HTMLInputs\Time;
+use EasyPanel\Parsers\HTMLInputs\InputList;
 
 class StubParser
 {
@@ -311,22 +312,7 @@ class StubParser
     {
         $type = is_array($type) ? array_key_first($type) : $type;
 
-        $classMap = [
-            'password' => Password::class,
-            'text' => Text::class,
-            'file' => FileInput::class,
-            'email' => Email::class,
-            'number' => Number::class,
-            'textarea' => Textarea::class,
-            'select' => Select::class,
-            'ckeditor' => Ckeditor::class,
-            'checkbox' => Checkbox::class,
-            'date' => Date::class,
-            'datetime' => DateTime::class,
-            'time' => Time::class,
-        ];
-
-        return $classMap[$type];
+        return InputList::get($type);
     }
 
 }
