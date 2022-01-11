@@ -173,7 +173,7 @@ class StubParser
         $str = '';
 
         foreach ($this->validationRules as $key => $rule) {
-            $str .= "'$key' => '$rule',".$this->makeTab(2, $rule != end($this->validationRules));
+            $str .= "'$key' => '$rule',".$this->makeTab(2, $key != array_key_last($this->validationRules));
         }
 
         return $str;
