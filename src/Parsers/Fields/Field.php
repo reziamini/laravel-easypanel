@@ -47,6 +47,11 @@ class Field
         return $this;
     }
 
+    public function roundedImage()
+    {
+        $this->style .= " rounded-circle ";
+    }
+
     public function alt($alt)
     {
         $this->alt = $alt;
