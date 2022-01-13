@@ -232,9 +232,7 @@ class StubParser
             $normalizedField = $this->normalizeField($field);
             $str .= $normalizedField->setModel($modelName)->setKey($key)->renderData();
 
-            if (array_key_first($fields) != $key){
-                $str .= $this->makeTab(1, array_key_last($fields) != $key);
-            }
+            $str .= $this->makeTab(1, array_key_last($fields) != $key);
         }
 
         return $str;
@@ -254,9 +252,7 @@ class StubParser
             $normalizedField = $this->normalizeField($field);
             $str .= $normalizedField->setModel($modelName)->setKey($key)->renderTitle();
 
-            if (array_key_first($fields) != $key){
-                $str .= $this->makeTab(6, array_key_last($fields) != $key);
-            }
+            $str .= $this->makeTab(6, array_key_last($fields) != $key);
 
             $this->texts[$field->getTitle()] = $field->getTitle();
         }
