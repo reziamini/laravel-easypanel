@@ -50,6 +50,8 @@ class Field
     public function roundedImage()
     {
         $this->style .= " rounded-circle ";
+
+        return $this;
     }
 
     public function alt($alt)
