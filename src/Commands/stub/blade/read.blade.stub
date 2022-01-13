@@ -35,18 +35,19 @@
             </div>
 
             <div class="card-body table-responsive p-0">
-                <table class="table table-hover">
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+                            {{ titles }}
+                            @if(getCrudConfig('{{ model }}')->delete or getCrudConfig('{{ model }}')->update)
+                                <th scope="col">{{ __('Action') }}</th>
+                            @endif
+                        </tr>
+                    </thead>
                     <tbody>
-                    <tr>
-                        {{ titles }}
-                        @if(getCrudConfig('{{ model }}')->delete or getCrudConfig('{{ model }}')->update)
-                            <td>{{ __('Action') }}</td>
-                        @endif
-                    </tr>
-
-                    @foreach(${{ model }}s as ${{ model }})
-                        @livewire('admin.{{ model }}.single', ['{{ model }}' => ${{ model }}], key(${{ model }}->id))
-                    @endforeach
+                        @foreach(${{ model }}s as ${{ model }})
+                            @livewire('admin.{{ model }}.single', ['{{ model }}' => ${{ model }}], key(${{ model }}->id))
+                        @endforeach
                     </tbody>
                 </table>
             </div>

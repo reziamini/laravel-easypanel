@@ -234,7 +234,7 @@ class StubParser
             $normalizedField = $this->normalizeField($field);
             $str .= $normalizedField->setModel($modelName)->setKey($key)->renderData();
 
-            $str .= $this->makeTab(1, array_key_last($fields) != $key);
+            $str .= $this->makeTab(1, false);
         }
 
         return $str;
@@ -259,7 +259,7 @@ class StubParser
             $str .= $normalizedField->setModel($modelName)->setKey($key)->renderTitle();
 
             // To show the rendered html tag more readable and cleaner in view we make some tab
-            $str .= $this->makeTab(6, array_key_last($fields) != $key);
+            $str .= $this->makeTab(7, false);
 
             // After all of this process, the Title will be pushed to the translatable list
             $this->texts[$field->getTitle()] = $field->getTitle();
