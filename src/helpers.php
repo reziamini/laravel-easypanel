@@ -13,11 +13,11 @@ if(! function_exists('getRouteName')) {
 
 if(! function_exists('getCrudConfig')) {
     function getCrudConfig($name){
-        
+
         $crudName=ucfirst($name);
         $namespace = "\\App\\CRUD\\{$crudName}Component";
 
-        if (!class_exists($namespace)){
+        if (!file_exists(app_path("/CRUD/{$crudName}Component.php")) or !class_exists($namespace)){
             abort(403, "Class with {$namespace} namespace doesn't exist");
         }
 
