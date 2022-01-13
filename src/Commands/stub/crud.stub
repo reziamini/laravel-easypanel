@@ -3,6 +3,7 @@
 namespace App\CRUD;
 
 use EasyPanel\Contracts\CRUDComponent;
+use EasyPanel\Parsers\Fields\Field;
 use {{ modelNamespace }};
 
 class {{ modelName }}Component implements CRUDComponent
