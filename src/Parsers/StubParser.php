@@ -229,7 +229,8 @@ class StubParser
         $str = '';
         $modelName = strtolower($this->getModelName($this->parsedModel));
         foreach ($fields as $key => $field) {
-            $str .= $field->setModel($modelName)->setKey($key)->renderData();
+            $normalizedField = $this->normalizeField($field);
+            $str .= $normalizedField->setModel($modelName)->setKey($key)->renderData();
 
             if (array_key_first($fields) != $key){
                 $str .= $this->makeTab(1, array_key_last($fields) != $key);
@@ -250,7 +251,8 @@ class StubParser
         $modelName = strtolower($this->getModelName($this->parsedModel));
 
         foreach ($fields as $key => $field) {
-            $str .= $field->setModel($modelName)->setKey($key)->renderTitle();
+            $normalizedField = $this->normalizeField($field);
+            $str .= $normalizedField->setModel($modelName)->setKey($key)->renderTitle();
 
             if (array_key_first($fields) != $key){
                 $str .= $this->makeTab(6, array_key_last($fields) != $key);
@@ -293,6 +295,17 @@ class StubParser
         $type = is_array($type) ? array_key_first($type) : $type;
 
         return InputList::get($type);
+    }
+
+    private function normalizeField($field)
+    {
+        if($field instanceof Field){
+            return $field;
+        }
+
+        $title = str_replace('.', ' ', $field);
+        $title = ucwords($title);
+        return Field::title($title);
     }
 
 }
