@@ -121,10 +121,34 @@ Now you have a TODO inside your panel for each admin.
 ## Examples:
 
 ### Fields:
+You can use the simplest mode for fields, like the below example:
 ```php
     public function fields()
     {
         return ['title', 'image', 'user.name'];
+    }
+```
+
+Or, there is a class called `Field` which has been imported in your CRUD component, and You can make your fields more customizable:
+
+```php
+    public function fields()
+    {
+        return [
+            'title' => Field::title('Title')
+                ->asBadge()
+                ->roundedBadge()
+                ->badgeType('primary')
+                ->style('font-14'),
+                
+            'image' => Field::title('Article Photo')
+                ->asImage()
+                ->alt('image')
+                ->width(70)
+                ->height(70),
+            
+            'user.name' => Field::title('Article writer')
+        ];
     }
 ```
 
@@ -168,7 +192,7 @@ Now you have a TODO inside your panel for each admin.
             'category' => ['select' => 
                 Category::where('active', true)
                     ->get()
-                    ->pluck('name', 'id') // [1 => 'IT', 2 => 'History', 2 => 'Medicine']
+                    ->pluck('name', 'id') // [1 => 'IT', 2 => 'History', 3 => 'Medicine']
             ],
         ];
     }
