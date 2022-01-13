@@ -17,6 +17,7 @@ use EasyPanel\Parsers\HTMLInputs\File as FileInput;
 use EasyPanel\Parsers\HTMLInputs\DateTime;
 use EasyPanel\Parsers\HTMLInputs\Time;
 use EasyPanel\Parsers\HTMLInputs\InputList;
+use EasyPanel\Parsers\Fields\Field;
 
 class StubParser
 {
@@ -227,16 +228,11 @@ class StubParser
         $fields = $this->fields;
         $str = '';
         $modelName = strtolower($this->getModelName($this->parsedModel));
-        foreach ($fields as $value) {
-            if (!Str::contains($value, '.')) {
-                if(!in_array($value, ['image', 'photo', 'profile', 'banner'])) {
-                    $str .= '<td> {{ $' . $modelName . '->' . $value . " }} </td>" . $this->makeTab(1, end($fields) != $value);
-                } else {
-                    $str .= '<td><a target="_blank" href="{{ asset($' . $modelName . '->' . $value . ') }}"><img class="rounded-circle img-fluid" width="50" height="50" src="{{ asset($' . $modelName . '->' . $value . ') }}" alt="'.$value.'"></a></td>' . $this->makeTab(1, end($fields) != $value);
-                }
-            } else {
-                $newValue = $this->parseDots($value);
-                $str .= '<td> {{ $' . $modelName . '->' . $newValue .' }} </td>' . $this->makeTab(1, end($fields) != $value);
+        foreach ($fields as $key => $field) {
+            $str .= $field->setModel($modelName)->setKey($key)->renderData();
+
+            if (array_key_first($fields) != $key){
+                $str .= $this->makeTab(1, array_key_last($fields) != $key);
             }
         }
 
@@ -250,17 +246,17 @@ class StubParser
     {
         $fields = $this->fields;
         $str = '';
-        foreach ($fields as $field) {
-            if (!Str::contains($field, '.')) {
-                $sortName = $field;
-                $field = ucfirst($field);
-                $str .= "<td style='cursor: pointer' wire:click=\"sort('$sortName')\"> <i class='fa @if(".'$sortType'." == 'desc' and ".'$sortColumn'." == '$sortName') fa-sort-amount-down ml-2 @elseif(".'$sortType == '."'asc' and ".'$sortColumn'." == '$sortName') fa-sort-amount-up ml-2 @endif'></i> {{ __('$field') }} </td>".$this->makeTab(6, end($fields) != $field);
-            } else {
-                $newLine = end($fields) != $field;
-                $field = $this->parseFieldNameWithDots($field);
-                $str .= "<td> {{ __('$field') }} </td>".$this->makeTab(6, $newLine);
+
+        $modelName = strtolower($this->getModelName($this->parsedModel));
+
+        foreach ($fields as $key => $field) {
+            $str .= $field->setModel($modelName)->setKey($key)->renderTitle();
+
+            if (array_key_first($fields) != $key){
+                $str .= $this->makeTab(6, array_key_last($fields) != $key);
             }
-            $this->texts[$field] = $field;
+
+            $this->texts[$field->getTitle()] = $field->getTitle();
         }
 
         return $str;
@@ -290,22 +286,6 @@ class StubParser
         $tabs = str_repeat(' ', $count);
 
         return $newLine ? "\n".$tabs : $tabs;
-    }
-
-    public function parseDots($string)
-    {
-        return str_replace('.', '->', $string);
-    }
-
-    public function parseFieldNameWithDots($field)
-    {
-        $array = explode('.', $field);
-        $str = '';
-        foreach ($array as $value){
-            $str .= ucfirst($value)." ";
-        }
-
-        return trim($str);
     }
 
     public function getInputClassNamespace($type)
