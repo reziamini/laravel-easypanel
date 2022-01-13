@@ -161,7 +161,8 @@ class StubParser
         $str = '';
         $action = $this->inputName;
         foreach ($fields as $field) {
-            $str .= '$this->'.$field.' = $this->'.$action.'->'.$field.';'.$this->makeTab(2, end($fields) != $field);
+            $str .= '$this->'.$field.' = $this->'.$action.'->'.$field.';';
+            $str .= $this->makeTab(2, end($fields) != $field);
         }
 
         return $str;
@@ -175,7 +176,8 @@ class StubParser
         $str = '';
 
         foreach ($this->validationRules as $key => $rule) {
-            $str .= "'$key' => '$rule',".$this->makeTab(2, $key != array_key_last($this->validationRules));
+            $str .= "'$key' => '$rule',";
+            $str .= $this->makeTab(2, $key != array_key_last($this->validationRules));
         }
 
         return $str;
@@ -244,16 +246,22 @@ class StubParser
     public function parseTitlesInBlade()
     {
         $fields = $this->fields;
+        $modelName = $this->getModelNameInLowerCase();
+
         $str = '';
-
-        $modelName = strtolower($this->getModelName($this->parsedModel));
-
         foreach ($fields as $key => $field) {
+            // We will normalize the field value because most of users prefer to use simple mode
+            // And they pass string and we will change it to a Field class object
             $normalizedField = $this->normalizeField($field);
+
+            // Then we set the model and key to render the stub and get the string
+            // The returned string concatenates with previous rendered fields
             $str .= $normalizedField->setModel($modelName)->setKey($key)->renderTitle();
 
+            // To show the rendered html tag more readable and cleaner in view we make some tab
             $str .= $this->makeTab(6, array_key_last($fields) != $key);
 
+            // After all of this process, the Title will be pushed to the translatable list
             $this->texts[$field->getTitle()] = $field->getTitle();
         }
 
@@ -302,6 +310,11 @@ class StubParser
         $title = str_replace('.', ' ', $field);
         $title = ucwords($title);
         return Field::title($title);
+    }
+
+    private function getModelNameInLowerCase()
+    {
+        return strtolower($this->getModelName($this->parsedModel));
     }
 
 }
