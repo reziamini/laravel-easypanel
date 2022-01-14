@@ -13,6 +13,7 @@ class Field
     protected $alt;
     protected $badgeType = 'info';
     protected $stub = 'text.stub';
+    protected $target = 'text.stub';
     protected $height = 50;
     protected $width = 50;
 
@@ -35,7 +36,17 @@ class Field
 
     public function asImage()
     {
-        $this->stub = 'image.stub';
+        if($this->stub != 'linked-image.stub'){
+            $this->stub = 'image.stub';
+        }
+
+        return $this;
+    }
+
+    public function clickableImage($target = '_blank')
+    {
+        $this->stub = 'linked-image.stub';
+        $this->target = $target;
 
         return $this;
     }
@@ -132,6 +143,7 @@ class Field
             '{{ style }}' => $this->style,
             '{{ alt }}' => $this->alt,
             '{{ badgeType }}' => $this->badgeType,
+            '{{ target }}' => $this->target,
         ];
 
         return str_replace(array_keys($array), array_values($array), $stubContent);
