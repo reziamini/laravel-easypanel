@@ -212,11 +212,9 @@ If you feel you can improve our package You are free to send a pull request or s
 - [ ] ACL System
 - [ ] Logging System
 - [x] CRUD Maker GUI
-- [ ] File manager
 - [x] RTL Style
 - [x] Translation
-- [ ] Custom menu
 - [x] Relational inputs
-- [ ] Multiple Templates
-- [ ] More input types & editors
-- [ ] Admin Manager page in panel
+- [x] More input types & editors
+- [x] Customizable inputs and fields
+- [ ] Multi languages support
