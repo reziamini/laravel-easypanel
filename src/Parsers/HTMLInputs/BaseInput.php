@@ -9,11 +9,22 @@ abstract class BaseInput
     protected $mode;
     protected $label;
     protected $placeholder;
+    protected $inputStyle;
 
     public function __construct($label)
     {
         $this->label = $label;
         $this->mode = config('easy_panel.lazy_mode') ? 'wire:model.lazy' : 'wire:model';
+    }
+
+    public static function label($label)
+    {
+        return new static($label);
+    }
+
+    public function inputStyle($inputStyle)
+    {
+        $this->inputStyle = $inputStyle;
     }
 
     public function setKey($key)
@@ -35,11 +46,6 @@ abstract class BaseInput
         $this->placeholder = $placeholder;
 
         return $this;
-    }
-
-    public static function label($label)
-    {
-        return new static($label);
     }
 
     public function lazyMode()
@@ -64,6 +70,7 @@ abstract class BaseInput
             '{{ Mode }}' => $this->mode,
             '{{ Action }}' => $this->action,
             '{{ placeholder }}' => $this->placeholder,
+            '{{ inputStyle }}' => $this->inputStyle,
         ];
 
         return str_replace(array_keys($array), array_values($array), file_get_contents(__DIR__.'/stubs/'.$this->stub));

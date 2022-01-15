@@ -2,7 +2,7 @@
             <div class='form-group'>
                 <label for='editor-{{ Name }}' class='col-sm-2 control-label'> {{ __('{{ Title }}') }}</label>
                 <div wire:ignore>
-                    <textarea class='form-control ckeditor' id='editor-{{ Name }}' wire:model='{{ Name }}'></textarea>
+                    <textarea class='form-control ckeditor {{ inputStyle }}' id='editor-{{ Name }}' wire:model='{{ Name }}'></textarea>
                 </div>
                 <script>
                     ClassicEditor.create(document.querySelector('#editor-{{ Name }}'), {
