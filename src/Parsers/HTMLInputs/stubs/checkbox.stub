@@ -1,8 +1,8 @@
             <!-- {{ Title }} Input -->
             <div class='form-group'>
                 <div class='form-check mt-4 mb-3'>
-                    <input {{ Mode }}='{{ Name }}' class='form-check-input' type='checkbox' id='input{{ Name }}'>
-                    <label class='form-check-label' for='input{{ Name }}'>{{ __('{{ Title }}') }}</label>
+                    <input {{ Mode }}='{{ Name }}' id='input-{{ Name }}' class='form-check-input' type='checkbox'>
+                    <label class='form-check-label' for='input-{{ Name }}'>{{ __('{{ Title }}') }}</label>
                 </div>
                 @error('{{ Name }}') <div class='invalid-feedback'>{{ $message }}</div> @enderror
             </div>
