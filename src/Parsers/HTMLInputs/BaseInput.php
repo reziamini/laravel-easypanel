@@ -26,6 +26,8 @@ abstract class BaseInput
     public function inputStyle($inputStyle)
     {
         $this->inputStyle = $inputStyle;
+
+        return $this;
     }
 
     public function setKey($key)
@@ -66,11 +68,15 @@ abstract class BaseInput
     public function withoutAutocomplete()
     {
         $this->autocomplete = 'off';
+
+        return $this;
     }
 
     public function withoutAutofill()
     {
         $this->withoutAutocomplete();
+
+        return $this;
     }
 
     public function render()
