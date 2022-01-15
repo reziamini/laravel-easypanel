@@ -2,20 +2,8 @@
 
 namespace EasyPanel\Parsers;
 
-use EasyPanel\Parsers\HTMLInputs\Date;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
-use EasyPanel\Parsers\HTMLInputs\Password;
-use EasyPanel\Parsers\HTMLInputs\Text;
-use EasyPanel\Parsers\HTMLInputs\Email;
-use EasyPanel\Parsers\HTMLInputs\Number;
-use EasyPanel\Parsers\HTMLInputs\Textarea;
-use EasyPanel\Parsers\HTMLInputs\Select;
-use EasyPanel\Parsers\HTMLInputs\Ckeditor;
-use EasyPanel\Parsers\HTMLInputs\Checkbox;
-use EasyPanel\Parsers\HTMLInputs\File as FileInput;
-use EasyPanel\Parsers\HTMLInputs\DateTime;
-use EasyPanel\Parsers\HTMLInputs\Time;
 use EasyPanel\Parsers\HTMLInputs\InputList;
 use EasyPanel\Parsers\Fields\Field;
 
