@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use EasyPanel\Parsers\HTMLInputs\InputList;
 use EasyPanel\Parsers\Fields\Field;
+use EasyPanel\Parsers\HTMLInputs\BaseInput;
 
 class StubParser
 {
@@ -262,11 +263,14 @@ class StubParser
     public function parseInputsInBlade()
     {
         $str = '';
-        foreach ($this->inputs as $name => $type) {
-            $title = ucfirst($name);
-            $this->texts[$title] = ucfirst($name);
-            $class = $this->getInputClassNamespace($type);
-            $str .= (new $class($name, $this->inputName))->render();
+        foreach ($this->inputs as $key => $type) {
+            $inputObject = $this->normalizeInput($key, $type);
+            $str .= $inputObject->setKey($key)->setAction($this->inputName)->render();
+
+            $this->texts[$inputObject->getTitle()] = $inputObject->getTitle();
+            if ($placeholder = $inputObject->getPlaceholder()){
+                $this->texts[$placeholder] = $placeholder;
+            }
         }
 
         return $str;
@@ -298,6 +302,17 @@ class StubParser
         $title = str_replace('.', ' ', $field);
         $title = ucwords($title);
         return Field::title($title);
+    }
+
+    private function normalizeInput($key, $input){
+        if ($input instanceof BaseInput){
+            return $input;
+        }
+
+        $type = is_array($input) ? array_key_first($input) : $input;
+        $title = ucwords($key);
+
+        return $this->getInputClassNamespace($type)::label($title);
     }
 
     private function getModelNameInLowerCase()
