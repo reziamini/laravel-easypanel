@@ -68,6 +68,11 @@ abstract class BaseInput
         $this->autocomplete = 'off';
     }
 
+    public function withoutAutofill()
+    {
+        $this->withoutAutocomplete();
+    }
+
     public function render()
     {
         $array = [
