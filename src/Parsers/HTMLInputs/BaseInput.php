@@ -58,6 +58,13 @@ abstract class BaseInput
         return $this;
     }
 
+    public function normalMode()
+    {
+        $this->mode = 'wire:model';
+
+        return $this;
+    }
+
     public function deferMode()
     {
         $this->mode = 'wire:model.defer';
