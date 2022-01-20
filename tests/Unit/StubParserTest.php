@@ -68,17 +68,13 @@ class StubParserTest extends \EasyPanelTest\TestCase
     }
 
     /** @test * */
-    public function data_string_will_be_replaced(){
+    public function data_string_will_be_normalized(){
         $this->parser->setFields(['title']);
-        $expected = '<td> {{ $article->title }} </td>';
+        $expected = '<td class="">{{ $article->title }}</td>';
         $this->assertStringContainsString($expected, $this->parser->parseDataInBlade());
 
         $this->parser->setFields(['user.name']);
-        $expected = '<td> {{ $article->user->name }} </td>';
-        $this->assertStringContainsString($expected, $this->parser->parseDataInBlade());
-
-        $this->parser->setFields(['image']);
-        $expected = '<img class="rounded-circle img-fluid" width="50" height="50" src="{{ asset($article->image) }}" alt="image">';
+        $expected = '<td class="">{{ $article->user->name }}</td>';
         $this->assertStringContainsString($expected, $this->parser->parseDataInBlade());
     }
 
@@ -95,24 +91,6 @@ class StubParserTest extends \EasyPanelTest\TestCase
         $expected = "{{ __('User Name') }}";
         $this->assertStringNotContainsString($notExpected, $this->parser->parseTitlesInBlade());
         $this->assertStringContainsString($expected, $this->parser->parseTitlesInBlade());
-    }
-
-    /** @test * */
-    public function relational_field_names_will_be_parsed_successfully(){
-        $field = 'user.name';
-        $expected = 'User Name';
-        $this->assertEquals($expected, $this->parser->parseFieldNameWithDots($field));
-
-        $field = 'user.image.file';
-        $expected = 'User Image File';
-        $this->assertEquals($expected, $this->parser->parseFieldNameWithDots($field));
-    }
-
-    /** @test * */
-    public function dots_will_be_replaced_with_arrow(){
-        $field = 'user.name';
-        $expected = 'user->name';
-        $this->assertEquals($expected, $this->parser->parseDots($field));
     }
 
     /** @test * */
