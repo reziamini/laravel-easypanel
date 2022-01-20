@@ -29,7 +29,8 @@ class Update extends Component
 
     public function update()
     {
-        $this->validate();
+        if($this->getRules())
+            $this->validate();
 
         $this->dispatchBrowserEvent('show-message', ['type' => 'success', 'message' => __('UpdatedMessage', ['name' => __('{{ modelName }}') ]) ]);
         {{ uploadFile }}

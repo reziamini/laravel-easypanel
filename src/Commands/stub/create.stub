@@ -22,7 +22,8 @@ class Create extends Component
 
     public function create()
     {
-        $this->validate();
+        if($this->getRules())
+            $this->validate();
 
         $this->dispatchBrowserEvent('show-message', ['type' => 'success', 'message' => __('CreatedMessage', ['name' => __('{{ modelName }}') ])]);
         {{ uploadFile }}
