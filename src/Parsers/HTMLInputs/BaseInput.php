@@ -10,6 +10,7 @@ abstract class BaseInput
     protected $label;
     protected $placeholder;
     protected $inputStyle;
+    protected $provider;
     protected $autocomplete = 'on';
 
     public function __construct($label)
@@ -96,6 +97,7 @@ abstract class BaseInput
             '{{ placeholder }}' => $this->placeholder,
             '{{ inputStyle }}' => $this->inputStyle,
             '{{ autocomplete }}' => $this->autocomplete,
+            '{{ Provider }}' => $this->provider,
         ];
 
         return str_replace(array_keys($array), array_values($array), file_get_contents(__DIR__.'/stubs/'.$this->stub));
