@@ -295,7 +295,7 @@ class StubParser
         return InputList::get($type);
     }
 
-    private function normalizeField($field)
+    public function normalizeField($field)
     {
         if($field instanceof Field){
             return $field;
@@ -306,7 +306,7 @@ class StubParser
         return Field::title($title);
     }
 
-    private function normalizeInput($key, $input){
+    public function normalizeInput($key, $input){
         if ($input instanceof BaseInput){
             return $input;
         }

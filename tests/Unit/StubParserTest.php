@@ -5,6 +5,10 @@ namespace EasyPanelTest\Unit;
 use App\Models\Article;
 use EasyPanelTest\Dependencies\User;
 use Illuminate\Support\Str;
+use EasyPanel\Parsers\HTMLInputs\Text;
+use EasyPanel\Parsers\HTMLInputs\Select;
+use EasyPanel\Parsers\Fields\Field;
+use EasyPanel\Parsers\HTMLInputs\Email;
 
 class StubParserTest extends \EasyPanelTest\TestCase
 {
@@ -124,8 +128,79 @@ class StubParserTest extends \EasyPanelTest\TestCase
         $this->assertContains('User Name', $this->parser->texts);
         $this->assertContains('Title', $this->parser->texts);
         $this->assertContains('Image', $this->parser->texts);
+    }
 
-        $this->assertCount(4, $this->parser->texts);
+    /** @test * */
+    public function translation_will_not_add_same_values(){
+        $this->parser->setInputs([
+            'name' => 'text',
+            'profile' => 'file',
+        ]);
+        $this->parser->parseInputsInBlade();
+        $this->assertCount(2, $this->parser->texts);
+
+        $this->parser->setFields(['email']);
+        $this->parser->parseTitlesInBlade();
+        $this->assertCount(3, $this->parser->texts);
+
+        // Name, email and profile has been stored previously
+        $this->parser->setFields(['name', 'email', 'profile']);
+        $this->parser->parseTitlesInBlade();
+        $this->assertCount(3, $this->parser->texts);
+    }
+
+    /** @test * */
+    public function placeholder_will_be_added_to_translation(){
+        $this->parser->setInputs([
+            'name' => Text::label('Name')->placeholder('User name..'),
+        ]);
+        $this->parser->parseInputsInBlade();
+        $this->assertCount(2, $this->parser->texts);
+        $this->assertContains('Name', $this->parser->texts);
+        $this->assertContains('User name..', $this->parser->texts);
+    }
+
+    /** @test * */
+    public function input_class_will_returned_based_on_name(){
+        $result = $this->parser->getInputClassNamespace('text');
+        $expected = Text::class;
+        $this->assertEquals($result, $expected);
+
+        $result = $this->parser->getInputClassNamespace(['select' => []]);
+        $expected = Select::class;
+        $this->assertEquals($result, $expected);
+    }
+
+    /** @test * */
+    public function if_the_input_name_is_incorrect_it_will_throw_exception(){
+        $this->expectException(\Exception::class);
+        $this->parser->getInputClassNamespace('dasdsadas');
+    }
+
+    /** @test * */
+    public function fields_will_be_normalized(){
+        $normalizedField = $this->parser->normalizeField('email');
+        $this->assertInstanceOf(Field::class, $normalizedField);
+
+        $this->assertEquals($normalizedField->getTitle(), 'Email');
+    }
+
+    /** @test * */
+    public function inputs_will_be_normalized(){
+        $normalizedField = $this->parser->normalizeInput('email', 'email');
+        $this->assertInstanceOf(Email::class, $normalizedField);
+        $this->assertEquals($normalizedField->getTitle(), 'Email');
+
+        $normalizedField = $this->parser->normalizeInput('name', 'text');
+        $this->assertInstanceOf(Text::class, $normalizedField);
+        $this->assertEquals($normalizedField->getTitle(), 'Name');
+
+        $normalizedField = $this->parser->normalizeInput('name', Text::label('Name'));
+        $this->assertInstanceOf(Text::class, $normalizedField);
+        $this->assertEquals($normalizedField->getTitle(), 'Name');
+
+        $normalizedField = $this->parser->normalizeInput('category', ['select' => []]);
+        $this->assertInstanceOf(Select::class, $normalizedField);
     }
 
 }
