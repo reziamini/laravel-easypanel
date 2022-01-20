@@ -221,6 +221,7 @@ class StubParser
         $modelName = strtolower($this->getModelName($this->parsedModel));
         foreach ($fields as $key => $field) {
             $normalizedField = $this->normalizeField($field);
+            $key = is_string($field) ? $field : $key;
             $str .= $normalizedField->setModel($modelName)->setKey($key)->renderData();
 
             $str .= $this->makeTab(1, false);
@@ -245,13 +246,14 @@ class StubParser
 
             // Then we set the model and key to render the stub and get the string
             // The returned string concatenates with previous rendered fields
+            $key = is_string($field) ? $field : $key;
             $str .= $normalizedField->setModel($modelName)->setKey($key)->renderTitle();
 
             // To show the rendered html tag more readable and cleaner in view we make some tab
             $str .= $this->makeTab(7, false);
 
             // After all of this process, the Title will be pushed to the translatable list
-            $this->texts[$field->getTitle()] = $field->getTitle();
+            $this->texts[$normalizedField->getTitle()] = $normalizedField->getTitle();
         }
 
         return $str;
