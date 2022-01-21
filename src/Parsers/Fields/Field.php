@@ -12,7 +12,8 @@ class Field
     protected $style;
     protected $alt;
     protected $badgeType = 'info';
-    protected $stub = 'text.stub';
+    protected $dataStub = 'text.stub';
+    protected $headStub = 'sortable.stub';
     protected $target = 'text.stub';
     protected $height = 50;
     protected $width = 50;
@@ -36,8 +37,8 @@ class Field
 
     public function asImage()
     {
-        if($this->stub != 'linked-image.stub'){
-            $this->stub = 'image.stub';
+        if($this->dataStub != 'linked-image.stub'){
+            $this->dataStub = 'image.stub';
         }
 
         return $this;
@@ -45,7 +46,7 @@ class Field
 
     public function clickableImage($target = '_blank')
     {
-        $this->stub = 'linked-image.stub';
+        $this->dataStub = 'linked-image.stub';
         $this->target = $target;
 
         return $this;
@@ -53,7 +54,7 @@ class Field
 
     public function asBadge()
     {
-        $this->stub = 'badge.stub';
+        $this->dataStub = 'badge.stub';
 
         return $this;
     }
@@ -131,6 +132,13 @@ class Field
         return str_replace(array_keys($array), array_values($array), $stubContent);
     }
 
+    public function withoutSorting()
+    {
+        $this->headStub = 'not-sortable.stub';
+
+        return $this;
+    }
+
     public function renderData()
     {
         $stubContent = $this->getDataStubContent();
@@ -151,16 +159,16 @@ class Field
 
     private function getDataStubContent()
     {
-        return file_get_contents(__DIR__.'/stubs/'.$this->stub);
+        return file_get_contents(__DIR__.'/stubs/'.$this->dataStub);
     }
 
     private function getTitleStubContent()
     {
         if ($this->isRelational()){
-            return file_get_contents(__DIR__.'/stubs/titles/relational.stub');
+            return file_get_contents(__DIR__.'/stubs/titles/not-sortable.stub');
         }
 
-        return file_get_contents(__DIR__.'/stubs/titles/normal.stub');
+        return file_get_contents(__DIR__.'/stubs/titles/'.$this->headStub);
     }
 
     private function isRelational()
