@@ -44,8 +44,17 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     protected function setUser()
     {
         $faker = Factory::create();
-        $user = User::create(['name' => $faker->name, 'password' => Hash::make('password'), 'is_superuser' => false]);
+        $user = User::create(['name' => $faker->name, 'password' => Hash::make('password')]);
         $this->user = $user;
+    }
+
+    public function getAdmin()
+    {
+        $this->user->panelAdmin()->create([
+            'is_superuser' => true
+        ]);
+
+        return $this->user->refresh();
     }
 
     private function setParser()
