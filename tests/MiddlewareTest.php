@@ -35,6 +35,16 @@ class MiddlewareTest extends TestCase
     }
 
     /** @test * */
+    public function a_default_guard_will_be_used_when_custom_guard_is_null(){
+        config()->set('easy_panel.redirect_unauthorized', null);
+
+        $this->actingAs($this->user);
+
+        $this->get('/test')
+            ->assertRedirect('/');
+    }
+
+    /** @test * */
     public function user_is_valid(){
         $this->withoutExceptionHandling();
 
@@ -90,6 +100,15 @@ class MiddlewareTest extends TestCase
         $this->actingAs($this->getAdmin())->get('/test');
 
         $this->assertEquals('::test_guard::', Auth::getDefaultDriver());
+    }
+
+    /** @test * */
+    public function auth_guard_is_set_when_its_null(){
+        config()->set('easy_panel.auth_guard', null);
+
+        $this->actingAs($this->getAdmin())->get('/test');
+
+        $this->assertEquals(config('auth.defaults.guard'), Auth::getDefaultDriver());
     }
 
     private function addRouteWithAdminMiddleware(){
