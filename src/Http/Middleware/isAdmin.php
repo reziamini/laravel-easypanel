@@ -10,14 +10,17 @@ class isAdmin
 
     public function handle($request, Closure $next)
     {
-        auth()->shouldUse(config('easy_panel.auth_guard', 'web'));
+        $defaultGuard = config('easy_panel.auth_guard') ?? config('auth.defaults.guard');
+        $redirectPath = config('easy_panel.redirect_unauthorized') ?? '/';
+
+        auth()->shouldUse($defaultGuard);
 
         if(auth()->guest()){
-            return redirect(config('easy_panel.redirect_unauthorized', '/'));
+            return redirect($redirectPath);
         }
 
         if(!AuthFacade::check(auth()->user()->id)){
-            return redirect(config('easy_panel.redirect_unauthorized', '/'));
+            return redirect($redirectPath);
         }
 
         return $next($request);
