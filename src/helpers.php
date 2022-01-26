@@ -36,30 +36,3 @@ if(! function_exists('crud')) {
         return \EasyPanel\Models\CRUD::query()->where('name', $name)->first();
     }
 }
-
-if(! function_exists('get_icon')) {
-    function get_icon($type){
-        $array = [
-            'file-text' => ['posts', 'article', 'stories', 'post', 'articles', 'story'],
-            'users' => ['users', 'user', 'accounts', 'account', 'admins', 'admin', 'employee', 'employees'],
-            'file' => ['files', 'file'],
-            'mic' => ['episode', 'episodes', 'voices', 'voice'],
-            'book' => ['book', 'books'],
-            'tag' => ['tag', 'tags'],
-            'bookmark' => ['bookmarks', 'bookmark'],
-            'heart' => ['likes', 'like', 'favorite', 'favorites'],
-            'music' => ['musics', 'music', 'audios', 'audio'],
-            'bell' => ['notifications', 'notification'],
-            'layers' => ['request', 'requests'],
-            'settings' => ['settings', 'setting'],
-            'truck' => ['product', 'products', 'shops', 'shop'],
-            'message-circle' => ['comments', 'messages', 'pm', 'comment', 'message', 'chats', 'chat'],
-        ];
-        foreach ($array as $key => $arrayValues){
-            if(in_array($type, $arrayValues)){
-                $val = $key;
-            }
-        }
-        return $val ?? 'grid';
-    }
-}
