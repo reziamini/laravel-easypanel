@@ -10,6 +10,7 @@ abstract class BaseInput
     protected $label;
     protected $placeholder;
     protected $inputStyle;
+    protected $labelStyle;
     protected $provider;
     protected $autocomplete = 'on';
 
@@ -27,6 +28,13 @@ abstract class BaseInput
     public function inputStyle($inputStyle)
     {
         $this->inputStyle = $inputStyle;
+
+        return $this;
+    }
+
+    public function labelStyle($labelStyle)
+    {
+        $this->labelStyle = $labelStyle;
 
         return $this;
     }
@@ -98,6 +106,7 @@ abstract class BaseInput
             '{{ inputStyle }}' => $this->inputStyle,
             '{{ autocomplete }}' => $this->autocomplete,
             '{{ Provider }}' => $this->provider,
+            '{{ labelStyle }}' => $this->labelStyle,
         ];
 
         return str_replace(array_keys($array), array_values($array), file_get_contents(__DIR__.'/stubs/'.$this->stub));

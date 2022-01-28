@@ -1,6 +1,6 @@
             <!-- {{ Title }} Input -->
             <div class='form-group'>
-                <label for='editor-{{ Name }}' class='col-sm-2 control-label'> {{ __('{{ Title }}') }}</label>
+                <label for='editor-{{ Name }}' class='col-sm-2 control-label {{ labelStyle }}'> {{ __('{{ Title }}') }}</label>
                 <div wire:ignore>
                     <textarea class='form-control ckeditor {{ inputStyle }}' id='editor-{{ Name }}' wire:model='{{ Name }}'></textarea>
                 </div>
