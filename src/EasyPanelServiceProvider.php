@@ -24,11 +24,7 @@ use EasyPanel\Http\Livewire\Todo\Single;
 use EasyPanel\Http\Middleware\isAdmin;
 use EasyPanel\Http\Middleware\LangChanger;
 use EasyPanel\Support\Contract\{UserProviderFacade, AuthFacade};
-use Illuminate\{
-    Routing\Router,
-    Support\Facades\Route,
-    Support\ServiceProvider
-};
+use Illuminate\{Routing\Router, Support\Facades\Blade, Support\Facades\Route, Support\ServiceProvider};
 use Livewire\Livewire;
 use EasyPanel\Models\PanelAdmin;
 use EasyPanelTest\Dependencies\User;
@@ -77,6 +73,8 @@ class EasyPanelServiceProvider extends ServiceProvider
 
         // Load relationship for administrators
         $this->loadRelations();
+
+        Blade::componentNamespace("\\EasyPanel\\ViewComponents", 'easypanel');
     }
 
     private function defineRoutes()
