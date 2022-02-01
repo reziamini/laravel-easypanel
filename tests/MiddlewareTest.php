@@ -94,6 +94,15 @@ class MiddlewareTest extends TestCase
     }
 
     /** @test * */
+    public function it_will_read_the_session_for_changing_lang(){
+        session()->put('easypanel_lang', 'fa_panel');
+
+        $this->actingAs($this->getAdmin())->get('/test');
+
+        $this->assertEquals('fa_panel', App::getLocale());
+    }
+
+    /** @test * */
     public function auth_guard_is_read_from_config(){
         config()->set('easy_panel.auth_guard', '::test_guard::');
 
