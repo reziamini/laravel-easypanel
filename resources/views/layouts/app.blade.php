@@ -103,6 +103,23 @@
 
                 <!-- Right side toggle and nav items -->
                 <ul class="navbar-nav float-right">
+                    <li class="nav-item d-none d-md-block">
+                        <a class="nav-link" href="javascript:void(0)">
+                            <div class="customize-input">
+                                <select id="langChanger" class="form-control bg-white custom-shadow border-0 h-25" style="border-radius: 6px">
+                                    @foreach(\EasyPanel\Services\LangManager::get() as $key => $value)
+                                        <option value="{{ $key }}" {{ \Illuminate\Support\Facades\App::getLocale() === $key ? 'selected' : '' }}>{{ $value }}</option>
+                                    @endforeach
+                                </select>
+                                <script>
+                                    document.getElementById('langChanger').addEventListener('change', function (){
+                                        window.location.href = "{{ route('admin.setLang') }}?lang=" + this.value;
+                                    });
+                                </script>
+                            </div>
+                        </a>
+                    </li>
+
                     <!-- User profile and search -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown"
@@ -120,9 +137,7 @@
                             <form id="logout" action="@route(getRouteName().'.logout')" method="post"> @csrf </form>
                         </div>
                     </li>
-                    <!-- ============================================================== -->
                     <!-- User profile and search -->
-                    <!-- ============================================================== -->
                 </ul>
             </div>
         </nav>
