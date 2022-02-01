@@ -44,3 +44,12 @@ Route::prefix('crud')->name('crud.')->group(function (){
     Route::get('/', \EasyPanel\Http\Livewire\CRUD\Lists::class)->name('lists');
     Route::get('/create', \EasyPanel\Http\Livewire\CRUD\Create::class)->name('create');
 });
+
+Route::get('setLang', function (){
+    $lang = request()->get('lang');
+
+    session()->put('easypanel_lang', $lang);
+    App::setLocale($lang);
+
+    return redirect()->back();
+})->name('setLang');
