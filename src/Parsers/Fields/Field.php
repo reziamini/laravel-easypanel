@@ -17,6 +17,10 @@ class Field
     protected $target = 'text.stub';
     protected $height = 50;
     protected $width = 50;
+    protected $trueColor = 'success';
+    protected $trueValue = 'True !';
+    protected $falseColor = 'danger';
+    protected $falseValue = 'False !';
 
     public function __construct($title)
     {
@@ -55,6 +59,41 @@ class Field
     public function asBadge()
     {
         $this->dataStub = 'badge.stub';
+
+        return $this;
+    }
+
+    public function asBooleanBadge()
+    {
+        $this->dataStub = 'bool-badge.stub';
+
+        return $this;
+    }
+
+    public function trueColor($color)
+    {
+        $this->trueColor = $color;
+
+        return $this;
+    }
+
+    public function falseColor($color)
+    {
+        $this->falseColor = $color;
+
+        return $this;
+    }
+
+    public function trueValue($value)
+    {
+        $this->trueValue = $value;
+
+        return $this;
+    }
+
+    public function falseValue($value)
+    {
+        $this->falseValue = $value;
 
         return $this;
     }
@@ -152,6 +191,10 @@ class Field
             '{{ alt }}' => $this->alt,
             '{{ badgeType }}' => $this->badgeType,
             '{{ target }}' => $this->target,
+            '{{ trueColor }}' => $this->trueColor,
+            '{{ trueValue }}' => $this->trueValue,
+            '{{ falseColor }}' => $this->falseColor,
+            '{{ falseValue }}' => $this->falseValue,
         ];
 
         return str_replace(array_keys($array), array_values($array), $stubContent);
