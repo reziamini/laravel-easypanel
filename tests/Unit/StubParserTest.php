@@ -112,55 +112,6 @@ class StubParserTest extends \EasyPanelTest\TestCase
     }
 
     /** @test * */
-    public function texts_will_be_set_to_translate(){
-        $this->parser->setInputs([
-            'title' => 'text',
-            'body' => 'ckeditor',
-            'image' => 'file',
-        ]);
-        $this->parser->parseInputsInBlade();
-        $this->assertContains('Title', $this->parser->texts);
-        $this->assertContains('Body', $this->parser->texts);
-        $this->assertContains('Image', $this->parser->texts);
-
-        $this->parser->setFields(['title', 'image', 'user.name']);
-        $this->parser->parseTitlesInBlade();
-        $this->assertContains('User Name', $this->parser->texts);
-        $this->assertContains('Title', $this->parser->texts);
-        $this->assertContains('Image', $this->parser->texts);
-    }
-
-    /** @test * */
-    public function translation_will_not_add_same_values(){
-        $this->parser->setInputs([
-            'name' => 'text',
-            'profile' => 'file',
-        ]);
-        $this->parser->parseInputsInBlade();
-        $this->assertCount(2, $this->parser->texts);
-
-        $this->parser->setFields(['email']);
-        $this->parser->parseTitlesInBlade();
-        $this->assertCount(3, $this->parser->texts);
-
-        // Name, email and profile has been stored previously
-        $this->parser->setFields(['name', 'email', 'profile']);
-        $this->parser->parseTitlesInBlade();
-        $this->assertCount(3, $this->parser->texts);
-    }
-
-    /** @test * */
-    public function placeholder_will_be_added_to_translation(){
-        $this->parser->setInputs([
-            'name' => Text::label('Name')->placeholder('User name..'),
-        ]);
-        $this->parser->parseInputsInBlade();
-        $this->assertCount(2, $this->parser->texts);
-        $this->assertContains('Name', $this->parser->texts);
-        $this->assertContains('User name..', $this->parser->texts);
-    }
-
-    /** @test * */
     public function input_class_will_returned_based_on_name(){
         $result = $this->parser->getInputClassNamespace('text');
         $expected = Text::class;
