@@ -20,6 +20,13 @@
                     </a>
                 </li>
 
+                <li class="sidebar-item @isActive(getRouteName().'.translation', 'selected')">
+                    <a class="sidebar-link @isActive(getRouteName().'.translation', 'active') " href="@route(getRouteName().'.translation')" aria-expanded="false">
+                        <i data-feather="globe" class="feather-icon"></i>
+                        <span class="hide-menu">{{ __('Translation') }}</span>
+                    </a>
+                </li>
+
                 @include('admin::layouts.child-sidebar-menu')
 
 
