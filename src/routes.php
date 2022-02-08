@@ -53,3 +53,6 @@ Route::get('setLang', function (){
 
     return redirect()->back();
 })->name('setLang');
+
+Route::get('translation', \EasyPanel\Http\Livewire\Translation\Manage::class)
+    ->name('translation');
