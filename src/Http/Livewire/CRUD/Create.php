@@ -101,7 +101,7 @@ class Create extends Component
     public function render()
     {
         return view('admin::livewire.crud.create')
-            ->layout('admin::layouts.app');
+            ->layout('admin::layouts.app', ['title' => __('CreateTitle', ['name' => __('CRUD') ])]);
     }
 
     private function getModelName($model){

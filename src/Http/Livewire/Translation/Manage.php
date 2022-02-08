@@ -26,7 +26,7 @@ class Manage extends Component
     public function render()
     {
         return view('admin::livewire.translation.manage')
-            ->layout('admin::layouts.app');
+            ->layout('admin::layouts.app', ['title' => __('Translation')]);
     }
 
     public function update()

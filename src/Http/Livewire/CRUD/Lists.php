@@ -45,6 +45,6 @@ class Lists extends Component
             ->paginate(20);
 
         return view('admin::livewire.crud.lists', compact('cruds'))
-            ->layout('admin::layouts.app');
+            ->layout('admin::layouts.app', ['title' => __('ListTitle', ['name' => __('CRUD')])]);
     }
 }
