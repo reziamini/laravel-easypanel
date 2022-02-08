@@ -37,4 +37,30 @@ class LangManager
     {
         return File::glob(resource_path('lang/*_panel.json'));
     }
+
+    public static function getTexts($lang)
+    {
+        return json_decode(static::getLang($lang), true);
+    }
+
+    public static function updateLanguage($lang, $texts)
+    {
+        $file = static::getLang($lang);
+
+        $decodedFile = json_decode($file, 1);
+
+        $array = array_merge($decodedFile, $texts);
+
+        File::put(static::getPath($lang), json_encode($array, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+    }
+
+    public static function getLang($lang)
+    {
+        return File::get(static::getPath($lang));
+    }
+
+    public static function getPath($lang)
+    {
+        return resource_path("lang/{$lang}.json");
+    }
 }
