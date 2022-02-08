@@ -2,8 +2,12 @@
 
 namespace EasyPanel\Parsers\HTMLInputs;
 
+use EasyPanel\Parsers\Translatable;
+
 abstract class BaseInput
 {
+    use Translatable;
+
     protected $key;
     protected $action;
     protected $mode;
@@ -18,6 +22,7 @@ abstract class BaseInput
     {
         $this->label = $label;
         $this->mode = config('easy_panel.lazy_mode') ? 'wire:model.lazy' : 'wire:model';
+        $this->addText($label);
     }
 
     public static function label($label)
@@ -56,6 +61,7 @@ abstract class BaseInput
     public function placeholder($placeholder)
     {
         $this->placeholder = $placeholder;
+        $this->addText($placeholder);
 
         return $this;
     }
@@ -108,6 +114,8 @@ abstract class BaseInput
             '{{ Provider }}' => $this->provider,
             '{{ labelStyle }}' => $this->labelStyle,
         ];
+
+        $this->translate();
 
         return str_replace(array_keys($array), array_values($array), file_get_contents(__DIR__.'/stubs/'.$this->stub));
     }

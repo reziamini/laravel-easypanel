@@ -7,11 +7,12 @@ use Illuminate\Support\Str;
 use EasyPanel\Parsers\HTMLInputs\InputList;
 use EasyPanel\Parsers\Fields\Field;
 use EasyPanel\Parsers\HTMLInputs\BaseInput;
+use EasyPanel\Services\LangManager;
 
 class StubParser
 {
+    use Translatable;
 
-    public $texts = [];
     private $inputName;
     private $parsedModel;
 
@@ -73,21 +74,10 @@ class StubParser
      */
     public function setLocaleTexts()
     {
-        $this->texts[ucfirst($this->inputName)] = ucfirst($this->inputName);
-        $this->texts[ucfirst(Str::plural($this->inputName))] = ucfirst(Str::plural($this->inputName));
-        $files = File::glob(resource_path('lang').'/*_panel.json');
+        $this->addText(ucfirst($this->inputName));
+        $this->addText(ucfirst(Str::plural($this->inputName)));
 
-        foreach ($files as $file) {
-            $decodedFile = json_decode(File::get($file), 1);
-            $texts = $this->texts;
-            foreach ($texts as $key => $text) {
-                if (array_key_exists($key, $decodedFile)){
-                    unset($texts[$text]);
-                }
-            }
-            $array = array_merge($decodedFile, $texts);
-            File::put($file, json_encode($array, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
-        }
+        $this->translate();
     }
 
     /**
@@ -251,9 +241,6 @@ class StubParser
 
             // To show the rendered html tag more readable and cleaner in view we make some tab
             $str .= $this->makeTab(7, false);
-
-            // After all of this process, the Title will be pushed to the translatable list
-            $this->texts[$normalizedField->getTitle()] = $normalizedField->getTitle();
         }
 
         return $str;
@@ -268,11 +255,6 @@ class StubParser
         foreach ($this->inputs as $key => $type) {
             $inputObject = $this->normalizeInput($key, $type);
             $str .= $inputObject->setKey($key)->setAction($this->inputName)->render();
-
-            $this->texts[$inputObject->getTitle()] = $inputObject->getTitle();
-            if ($placeholder = $inputObject->getPlaceholder()){
-                $this->texts[$placeholder] = $placeholder;
-            }
         }
 
         return $str;

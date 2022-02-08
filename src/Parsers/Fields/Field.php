@@ -4,8 +4,12 @@
 namespace EasyPanel\Parsers\Fields;
 
 
+use EasyPanel\Parsers\Translatable;
+
 class Field
 {
+    use Translatable;
+
     protected $title;
     protected $model;
     protected $key;
@@ -25,6 +29,7 @@ class Field
     public function __construct($title)
     {
         $this->title = $title;
+        $this->addText($title);
     }
 
     public static function title($title)
@@ -87,6 +92,7 @@ class Field
     public function trueValue($value)
     {
         $this->trueValue = $value;
+        $this->addText($value);
 
         return $this;
     }
@@ -94,6 +100,7 @@ class Field
     public function falseValue($value)
     {
         $this->falseValue = $value;
+        $this->addText($value);
 
         return $this;
     }
@@ -108,6 +115,7 @@ class Field
     public function alt($alt)
     {
         $this->alt = $alt;
+        $this->addText($alt);
 
         return $this;
     }
@@ -196,6 +204,8 @@ class Field
             '{{ falseColor }}' => $this->falseColor,
             '{{ falseValue }}' => $this->falseValue,
         ];
+
+        $this->translate();
 
         return str_replace(array_keys($array), array_values($array), $stubContent);
     }
