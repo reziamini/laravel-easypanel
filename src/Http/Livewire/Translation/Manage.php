@@ -6,11 +6,13 @@ namespace EasyPanel\Http\Livewire\Translation;
 
 use Livewire\Component;
 use EasyPanel\Services\LangManager;
+use Illuminate\Support\Facades\File;
 
 class Manage extends Component
 {
     public $selectedLang;
     public $texts;
+    public $language;
 
     public function mount()
     {
@@ -27,6 +29,28 @@ class Manage extends Component
     {
         return view('admin::livewire.translation.manage')
             ->layout('admin::layouts.app', ['title' => __('Translation')]);
+    }
+
+    protected function getRules()
+    {
+        return [
+            'language' => 'required|min:2|max:10|string'
+        ];
+    }
+
+    public function create()
+    {
+        $this->validate();
+        try {
+            $lang = strtolower($this->language) . '_panel';
+            File::copy(LangManager::getPath('en_panel'), LangManager::getPath($lang));
+
+            $this->dispatchBrowserEvent('show-message', ['type' => 'success', 'message' => __('CreatedMessage', ['name' => __('Translation') ])]);
+        } catch (\Exception $exception){
+            $this->dispatchBrowserEvent('show-message', ['type' => 'error', 'message' => $exception->getMessage()]);
+        }
+
+        $this->reset('language');
     }
 
     public function update()

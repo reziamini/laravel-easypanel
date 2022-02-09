@@ -23,6 +23,17 @@
 
             <div class="card-body">
                 <div class="row ">
+                    <div class="col-md-9 mb-3">
+                        <div class="form-group">
+                            <input id="route" type="text" placeholder="{{ __('Name of custom language') }}" class="form-control rounded @error('language') is-invalid @enderror" wire:model="language">
+                            @error('language') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="form-group position-relative">
+                            <input type="submit" value="{{ __('Create') }}" class="btn btn-success btn-block" wire:click.prevent="create">
+                        </div>
+                    </div>
                     @foreach($texts as $key => $text)
                         <div class="col-md-6">
                             <div class="form-group">
