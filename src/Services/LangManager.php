@@ -35,7 +35,7 @@ class LangManager
 
     public static function getFiles()
     {
-        return File::glob(resource_path('lang/*_panel.json'));
+        return File::glob(app()->langPath().DIRECTORY_SEPARATOR.'*_panel.json');
     }
 
     public static function getTexts($lang)
@@ -61,6 +61,6 @@ class LangManager
 
     public static function getPath($lang)
     {
-        return resource_path("lang/{$lang}.json");
+        return app()->langPath().DIRECTORY_SEPARATOR."{$lang}.json";
     }
 }

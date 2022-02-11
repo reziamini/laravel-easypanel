@@ -130,7 +130,7 @@ class EasyPanelServiceProvider extends ServiceProvider
             __DIR__ . '/../database/migrations/2021_12_17_999999_create_user_admins_table.php' => base_path('/database/migrations/' . date('Y_m_d') . '_999999_create_user_admins_table.php')
         ], 'easy-panel-migration');
 
-        $this->publishes([__DIR__.'/../resources/lang' => resource_path('/lang')], 'easy-panel-lang');
+        $this->publishes([__DIR__.'/../resources/lang' => app()->langPath()], 'easy-panel-lang');
 
         $this->publishes([__DIR__.'/Commands/stub' => base_path('/stubs/panel')], 'easy-panel-stubs');
     }
