@@ -66,40 +66,7 @@
             <!-- ============================================================== -->
 
             <div class="navbar-collapse collapse" id="navbarSupportedContent">
-                <!-- ============================================================== -->
-                <!-- toggle and nav items -->
-                <!-- ============================================================== -->
-                <ul class="navbar-nav float-left mr-auto ml-3 pl-1">
-                    <!-- Notification -->
-                    @if(config('easy_panel.todo'))
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle pl-md-3 position-relative" href="javascript:void(0)"
-                               id="bell" role="button" data-toggle="dropdown" aria-haspopup="true"
-                               aria-expanded="false">
-                                <span><i data-feather="bell" class="svg-icon"></i></span>
-                                <span class="badge badge-primary notify-no rounded-circle">{{ \EasyPanel\Models\Todo::where('user_id', auth()->user()->id)->where('checked', false)->count() }}</span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-left mailbox animated bounceInDown">
-                                <ul class="list-style-none">
-                                    <li>
-                                        <div class="message-center notifications position-relative">
-                                            <!-- Todos Messages -->
-                                            @include('admin::layouts.todo-message')
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <a class="nav-link pt-3 text-center text-dark"
-                                           href="@route(getRouteName().'.todo.lists')">
-                                            <strong>{{ __('See TODO list') }}</strong>
-                                            <i class="fa fa-angle-right"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                @endif
-                <!-- End Notification -->
-                </ul>
+
 
                 <!-- Right side toggle and nav items -->
                 <ul class="navbar-nav float-right">

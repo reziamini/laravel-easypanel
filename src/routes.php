@@ -33,13 +33,6 @@ if (\Illuminate\Support\Facades\Schema::hasTable('cruds')) {
     }
 }
 
-if(config('easy_panel.todo')){
-    Route::prefix('todo')->name('todo.')->group(function (){
-        Route::get('/', \EasyPanel\Http\Livewire\Todo\Lists::class)->name('lists');
-        Route::get('/create', \EasyPanel\Http\Livewire\Todo\Create::class)->name('create');
-    });
-}
-
 Route::prefix('crud')->name('crud.')->group(function (){
     Route::get('/', \EasyPanel\Http\Livewire\CRUD\Lists::class)->name('lists');
     Route::get('/create', \EasyPanel\Http\Livewire\CRUD\Create::class)->name('create');

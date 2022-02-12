@@ -18,9 +18,6 @@ use EasyPanel\Commands\{Actions\PublishStubs,
     UserActions\MakeAdmin,
     Actions\Migration,
     Actions\Uninstall};
-use EasyPanel\Http\Livewire\Todo\Create;
-use EasyPanel\Http\Livewire\Todo\Lists;
-use EasyPanel\Http\Livewire\Todo\Single;
 use EasyPanel\Http\Middleware\isAdmin;
 use EasyPanel\Http\Middleware\LangChanger;
 use EasyPanel\Support\Contract\{UserProviderFacade, AuthFacade};
@@ -104,10 +101,6 @@ class EasyPanelServiceProvider extends ServiceProvider
 
     private function loadLivewireComponent()
     {
-        Livewire::component('admin::livewire.todo.single', Single::class);
-        Livewire::component('admin::livewire.todo.create', Create::class);
-        Livewire::component('admin::livewire.todo.lists', Lists::class);
-
         Livewire::component('admin::livewire.crud.single', Http\Livewire\CRUD\Single::class);
         Livewire::component('admin::livewire.crud.create', Http\Livewire\CRUD\Create::class);
         Livewire::component('admin::livewire.crud.lists', Http\Livewire\CRUD\Lists::class);
@@ -122,8 +115,6 @@ class EasyPanelServiceProvider extends ServiceProvider
         $this->publishes([__DIR__ . '/../resources/views' => resource_path('/views/vendor/admin')], 'easy-panel-views');
 
         $this->publishes([__DIR__ . '/../resources/assets' => public_path('/assets/admin')], 'easy-panel-styles');
-
-        $this->publishes([__DIR__ . '/../database/migrations/2020_09_05_999999_create_todos_table.php' => base_path('/database/migrations/' . date('Y_m_d') . '_999999_create_admin_todos_table.php')], 'easy-panel-todo');
 
         $this->publishes([
             __DIR__ . '/../database/migrations/2021_07_17_999999_create_cruds_table.php' => base_path('/database/migrations/' . date('Y_m_d') . '_999999_create_cruds_table.php'),

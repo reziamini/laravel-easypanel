@@ -5,9 +5,6 @@ return [
     // Enable whole module
     'enable' => true,
 
-    // Enable the todo feature, it needs connection to db to run migration
-    'todo' => false,
-
     // RTL Style , If you are using a language like Persian or Arabic change it true
     'rtl_mode' => false,
 
