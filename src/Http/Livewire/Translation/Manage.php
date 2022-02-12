@@ -1,8 +1,6 @@
 <?php
 
-
 namespace EasyPanel\Http\Livewire\Translation;
-
 
 use Livewire\Component;
 use EasyPanel\Services\LangManager;

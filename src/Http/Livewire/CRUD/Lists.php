@@ -2,7 +2,6 @@
 
 namespace EasyPanel\Http\Livewire\CRUD;
 
-use EasyPanel\Models\Todo;
 use Livewire\Component;
 use Livewire\WithPagination;
 use EasyPanel\Models\CRUD;
