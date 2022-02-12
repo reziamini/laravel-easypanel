@@ -68,9 +68,11 @@ class Field
         return $this;
     }
 
-    public function asBooleanBadge()
+    public function asBooleanBadge($trueColor = 'success', $falseColor = 'danger')
     {
         $this->dataStub = 'bool-badge.stub';
+        $this->trueColor($trueColor);
+        $this->falseColor($falseColor);
 
         return $this;
     }
