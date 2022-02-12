@@ -65,7 +65,7 @@ class EasyPanelServiceProvider extends ServiceProvider
         // Define routes if doesn't cached
         $this->defineRoutes();
 
-        // Load Livewire TODOs components
+        // Load Livewire components
         $this->loadLivewireComponent();
 
         // Load relationship for administrators
