@@ -22,6 +22,23 @@ class Uninstall extends Command
             return;
         }
 
+        // Delete folders and files which EasyPanel published
+        $this->deleteFiles();
+
+        // Drop tables which has been created by EasyPanel
+        $this->dropTables();
+
+        $this->info("All files and components was deleted!");
+    }
+
+    private function dropTables()
+    {
+        Schema::dropIfExists('cruds');
+        Schema::dropIfExists('panel_admins');
+    }
+
+    private function deleteFiles()
+    {
         File::deleteDirectory(app_path('Http/Livewire/Admin'));
         File::deleteDirectory(app_path('CRUD'));
         File::deleteDirectory(resource_path('views/livewire/admin'));
@@ -30,11 +47,7 @@ class Uninstall extends Command
         File::deleteDirectory(public_path('assets/admin'));
         File::delete(config_path('easy_panel.php'));
         File::delete(LangManager::getFiles());
-
-        Schema::dropIfExists('cruds');
-        Schema::dropIfExists('panel_admins');
-
-        $this->info("All files and components was deleted!");
     }
+
 
 }
