@@ -4,6 +4,8 @@ namespace EasyPanel\Commands\Actions;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Schema;
+use EasyPanel\Services\LangManager;
 
 class Uninstall extends Command
 {
@@ -27,6 +29,11 @@ class Uninstall extends Command
         File::deleteDirectory(resource_path('cruds'));
         File::deleteDirectory(public_path('assets/admin'));
         File::delete(config_path('easy_panel.php'));
+        File::delete(LangManager::getFiles());
+
+        Schema::dropIfExists('cruds');
+        Schema::dropIfExists('panel_admins');
+
         $this->info("All files and components was deleted!");
     }
 
