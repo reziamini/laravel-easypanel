@@ -8,6 +8,7 @@ use EasyPanel\Parsers\HTMLInputs\InputList;
 use EasyPanel\Parsers\Fields\Field;
 use EasyPanel\Parsers\HTMLInputs\BaseInput;
 use EasyPanel\Services\LangManager;
+use EasyPanel\Concerns\Translatable;
 
 class StubParser
 {

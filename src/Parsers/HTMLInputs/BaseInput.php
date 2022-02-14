@@ -2,7 +2,7 @@
 
 namespace EasyPanel\Parsers\HTMLInputs;
 
-use EasyPanel\Parsers\Translatable;
+use EasyPanel\Concerns\Translatable;
 
 abstract class BaseInput
 {

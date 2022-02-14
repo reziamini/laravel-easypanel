@@ -4,7 +4,7 @@
 namespace EasyPanel\Parsers\Fields;
 
 
-use EasyPanel\Parsers\Translatable;
+use EasyPanel\Concerns\Translatable;
 
 class Field
 {

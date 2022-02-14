@@ -1,7 +1,7 @@
 <?php
 
 
-namespace EasyPanel\Parsers;
+namespace EasyPanel\Concerns;
 
 
 use EasyPanel\Services\LangManager;
