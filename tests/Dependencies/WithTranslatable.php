@@ -4,7 +4,7 @@
 namespace EasyPanelTest\Dependencies;
 
 
-use EasyPanel\Parsers\Translatable;
+use EasyPanel\Concerns\Translatable;
 
 class WithTranslatable
 {
