@@ -2,12 +2,10 @@
 
 namespace EasyPanel\Parsers;
 
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use EasyPanel\Parsers\HTMLInputs\InputList;
 use EasyPanel\Parsers\Fields\Field;
 use EasyPanel\Parsers\HTMLInputs\BaseInput;
-use EasyPanel\Services\LangManager;
 use EasyPanel\Concerns\Translatable;
 
 class StubParser
