@@ -1,9 +1,10 @@
 <?php
 
-namespace EasyPanelTest;
+namespace EasyPanelTest\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Artisan;
+use EasyPanelTest\TestCase;
 
 class ManageAdminWithCommandTest extends TestCase
 {

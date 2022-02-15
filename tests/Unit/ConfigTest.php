@@ -1,6 +1,8 @@
 <?php
 
-namespace EasyPanelTest;
+namespace EasyPanelTest\Unit;
+
+use EasyPanelTest\TestCase;
 
 class ConfigTest extends TestCase
 {

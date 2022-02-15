@@ -1,8 +1,8 @@
 <?php
 
+namespace EasyPanelTest\Unit;
 
-namespace EasyPanelTest;
-
+use EasyPanelTest\TestCase;
 
 class HelpersTest extends TestCase
 {

@@ -1,9 +1,10 @@
 <?php
 
-namespace EasyPanelTest;
+namespace EasyPanelTest\Feature;
 
 use EasyPanel\Support\Contract\UserProviderFacade;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use EasyPanelTest\TestCase;
 
 class UserProviderFacadeTest extends TestCase
 {
