@@ -8,7 +8,7 @@ use EasyPanelTest\TestCase;
 use EasyPanelTest\Dependencies\WithTranslatable;
 use EasyPanel\Services\LangManager;
 
-class SerializableTest extends TestCase
+class TranslatableTest extends TestCase
 {
     private $translatable;
 
