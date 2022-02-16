@@ -1,10 +1,8 @@
 <?php
 
-
 namespace EasyPanel\Concerns;
 
-
-use EasyPanel\Services\LangManager;
+use EasyPanel\Support\Contract\LangManager;
 
 trait Translatable
 {
@@ -21,7 +19,7 @@ trait Translatable
 
     public function translate()
     {
-        LangManager::update($this->texts);
+        LangManager::updateAll($this->texts);
     }
 
     public function getTexts()

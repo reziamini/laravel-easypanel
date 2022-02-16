@@ -20,7 +20,7 @@ use EasyPanel\Commands\{Actions\PublishStubs,
     Actions\Uninstall};
 use EasyPanel\Http\Middleware\isAdmin;
 use EasyPanel\Http\Middleware\LangChanger;
-use EasyPanel\Support\Contract\{UserProviderFacade, AuthFacade};
+use EasyPanel\Support\Contract\{LangManager, UserProviderFacade, AuthFacade};
 use Illuminate\{Routing\Router, Support\Facades\Blade, Support\Facades\Route, Support\ServiceProvider};
 use Livewire\Livewire;
 use EasyPanel\Models\PanelAdmin;
@@ -90,6 +90,7 @@ class EasyPanelServiceProvider extends ServiceProvider
     {
         AuthFacade::shouldProxyTo(config('easy_panel.auth_class'));
         UserProviderFacade::shouldProxyTo(config('easy_panel.admin_provider_class'));
+        LangManager::shouldProxyTo(config('easy_panel.lang_manager_class'));
     }
 
     private function registerMiddlewareAlias()

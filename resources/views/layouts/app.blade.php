@@ -74,7 +74,7 @@
                         <a class="nav-link" href="javascript:void(0)">
                             <div class="customize-input">
                                 <select id="langChanger" class="form-control bg-white custom-shadow border-0 h-25" style="border-radius: 6px">
-                                    @foreach(\EasyPanel\Services\LangManager::get() as $key => $value)
+                                    @foreach(\EasyPanel\Support\Contract\LangManager::getLanguages() as $key => $value)
                                         <option value="{{ $key }}" {{ \Illuminate\Support\Facades\App::getLocale() === $key ? 'selected' : '' }}>{{ $value }}</option>
                                     @endforeach
                                 </select>

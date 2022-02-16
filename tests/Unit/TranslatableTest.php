@@ -6,7 +6,6 @@ namespace EasyPanelTest\Unit;
 
 use EasyPanelTest\TestCase;
 use EasyPanelTest\Dependencies\WithTranslatable;
-use EasyPanel\Services\LangManager;
 
 class TranslatableTest extends TestCase
 {

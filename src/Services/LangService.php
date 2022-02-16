@@ -5,9 +5,9 @@ namespace EasyPanel\Services;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
-class LangManager
+class LangService
 {
-    public static function get()
+    public static function getLanguages()
     {
         $files = collect(static::getFiles());
 
@@ -19,7 +19,7 @@ class LangManager
         })->toArray();
     }
 
-    public static function update($texts)
+    public static function updateAll($texts)
     {
         foreach (static::getFiles() as $file) {
             $decodedFile = json_decode(File::get($file), 1);
@@ -40,12 +40,12 @@ class LangManager
 
     public static function getTexts($lang)
     {
-        return json_decode(static::getLang($lang), true);
+        return json_decode(static::getContent($lang), true);
     }
 
     public static function updateLanguage($lang, $texts)
     {
-        $file = static::getLang($lang);
+        $file = static::getContent($lang);
 
         $decodedFile = json_decode($file, 1);
 
@@ -54,7 +54,7 @@ class LangManager
         File::put(static::getPath($lang), json_encode($array, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
     }
 
-    public static function getLang($lang)
+    public static function getContent($lang)
     {
         return File::get(static::getPath($lang));
     }

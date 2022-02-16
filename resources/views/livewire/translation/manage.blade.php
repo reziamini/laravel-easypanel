@@ -5,7 +5,7 @@
                 <h3 class="card-title">{{ __('Translation') }}</h3>
                 <div class="customize-input">
                     <select id="langChanger" wire:model="selectedLang" class="custom-select text-dark custom-select-set form-control bg-white border-0 custom-shadow custom-radius" style="border-radius: 6px">
-                        @foreach(\EasyPanel\Services\LangManager::get() as $key => $value)
+                        @foreach(\EasyPanel\Services\LangService::getLanguages() as $key => $value)
                             <option value="{{ $key }}" selected>{{ $value }}</option>
                         @endforeach
                     </select>

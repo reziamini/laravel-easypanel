@@ -5,7 +5,7 @@ namespace EasyPanel\Commands\Actions;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
-use EasyPanel\Services\LangManager;
+use EasyPanel\Support\Contract\LangManager;
 
 class Uninstall extends Command
 {

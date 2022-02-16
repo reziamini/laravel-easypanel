@@ -3,8 +3,8 @@
 namespace EasyPanel\Http\Livewire\Translation;
 
 use Livewire\Component;
-use EasyPanel\Services\LangManager;
 use Illuminate\Support\Facades\File;
+use EasyPanel\Support\Contract\LangManager;
 
 class Manage extends Component
 {

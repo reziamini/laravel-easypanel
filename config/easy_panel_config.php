@@ -24,6 +24,9 @@ return [
     // With this class you can manage how to create a admin or remove it.
     'admin_provider_class' => \EasyPanel\Support\User\UserProvider::class,
 
+    //The namespace of lang manager class
+    'lang_manager_class' => \EasyPanel\Services\LangService::class,
+
     // it's a place where a user if not authenticated will be redirected
     'redirect_unauthorized' => '/',
 
