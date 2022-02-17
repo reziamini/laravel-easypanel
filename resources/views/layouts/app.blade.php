@@ -66,9 +66,9 @@
             <!-- ============================================================== -->
 
             <div class="navbar-collapse collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav float-left mr-auto ml-3 pl-1">
+                </ul>
 
-
-                <!-- Right side toggle and nav items -->
                 <ul class="navbar-nav float-right">
                     <li class="nav-item d-none d-md-block">
                         <a class="nav-link" href="javascript:void(0)">
@@ -146,7 +146,6 @@
 
 @livewireScripts
 <script>
-
     window.addEventListener('show-message', function (event) {
         let type = event.detail.type;
         let message = event.detail.message;
@@ -157,9 +156,7 @@
         let child = document.createElement('div');
         child.classList.add('notification', 'notification-' + type, 'animate__animated', 'animate__jackInTheBox');
         child.innerHTML = `<p>${message}</p>`;
-
         body.appendChild(child);
-
         setTimeout(function () {
             body.removeChild(child);
         }, 3000);
