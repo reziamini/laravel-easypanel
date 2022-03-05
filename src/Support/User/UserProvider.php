@@ -2,6 +2,8 @@
 
 namespace EasyPanel\Support\User;
 
+use App\Models\User;
+
 class UserProvider
 {
 
@@ -28,12 +30,12 @@ class UserProvider
 
     public function getAdmins()
     {
-        return config('easy_panel.user_model')::query()->whereHas('panelAdmin')->with('panelAdmin')->get();
+        return $this->getUserModel()::query()->whereHas('panelAdmin')->with('panelAdmin')->get();
     }
 
     public function findUser($id)
     {
-        return config('easy_panel.user_model')::query()->findOrFail($id);
+        return $this->getUserModel()::query()->findOrFail($id);
     }
 
     public function deleteAdmin($id)
@@ -41,6 +43,11 @@ class UserProvider
         $user = $this->findUser($id);
 
         $user->panelAdmin()->delete();
+    }
+
+    private function getUserModel()
+    {
+        return config('easy_panel.user_model') ?? User::class;
     }
 
 }
