@@ -29,7 +29,7 @@ class DeleteAdmin extends Command
         if($this->option('force')) {
             return true;
         }
-        $result = $this->confirm("Do you want to remove {$user} from administration", 'yes');
-        return $result;
+
+        return $this->confirm("Do you want to remove {$user} from administration", 'yes');
     }
 }
