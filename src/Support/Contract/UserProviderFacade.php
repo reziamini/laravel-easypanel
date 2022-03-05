@@ -5,10 +5,10 @@ namespace EasyPanel\Support\Contract;
 use EasyPanel\Support\User\UserProvider;
 
 /**
- * @method static makeAdmin(int $id, bool $is_superuser = false)
- * @method static findUser(int $id)
- * @method static deleteAdmin(int $id)
- * @method static getAdmins()
+ * @method static array makeAdmin(int $id, bool $is_superuser = false)
+ * @method static mixed findUser(int $id)
+ * @method static void deleteAdmin(int $id)
+ * @method static array getAdmins()
  * @see UserProvider
  */
 class UserProviderFacade extends BaseFacade
