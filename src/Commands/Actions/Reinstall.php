@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Artisan;
 class Reinstall extends Command
 {
 
-    protected $signature = 'panel:reinstall';
+    protected $signature = 'panel:reinstall {--acl : Install ACL system}';
     protected $description = 'Reinstall whole the package';
 
     public function handle()
@@ -23,7 +23,8 @@ class Reinstall extends Command
         Artisan::call("panel:uninstall", [
             '--force' => true,
         ]);
-        Artisan::call("panel:install");
+
+        Artisan::call("panel:install", ['--acl' => $this->option('acl')]);
 
         $this->info("The package was reinstalled!");
     }
