@@ -49,3 +49,8 @@ Route::get('setLang', function (){
 
 Route::get('translation', \EasyPanel\Http\Livewire\Translation\Manage::class)
     ->name('translation');
+
+Route::prefix('role')->name('role.')->group(function (){
+    Route::get('/', \EasyPanel\Http\Livewire\Role\Lists::class)->name('lists');
+    Route::get('/create', \EasyPanel\Http\Livewire\Role\Create::class)->name('create');
+});
