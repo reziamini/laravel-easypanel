@@ -3,6 +3,7 @@
 namespace EasyPanel\Commands\Actions;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
 use EasyPanel\Support\Contract\LangManager;
@@ -35,6 +36,11 @@ class Uninstall extends Command
     {
         Schema::dropIfExists('cruds');
         Schema::dropIfExists('panel_admins');
+        
+        DB::table('migrations')->whereIn('migration', [
+            "2022_04_12_999999_create_cruds_table",
+            "2022_04_12_999999_create_user_admins_table"
+        ])->delete();
     }
 
     private function deleteFiles()
