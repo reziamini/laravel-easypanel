@@ -29,6 +29,8 @@ class Uninstall extends Command
         // Drop tables which has been created by EasyPanel
         $this->dropTables();
 
+        $this->deleteMigrations();
+
         $this->info("All files and components was deleted!");
     }
 
@@ -36,11 +38,6 @@ class Uninstall extends Command
     {
         Schema::dropIfExists('cruds');
         Schema::dropIfExists('panel_admins');
-        
-        DB::table('migrations')->whereIn('migration', [
-            "2022_04_12_999999_create_cruds_table",
-            "2022_04_12_999999_create_user_admins_table"
-        ])->delete();
     }
 
     private function deleteFiles()
@@ -55,5 +52,17 @@ class Uninstall extends Command
         File::delete(LangManager::getFiles());
     }
 
+    private function deleteMigrations()
+    {
+        $migrationFiles = File::allFiles(__DIR__."/../../../database/migrations");
 
+        $migrationsTable = DB::table('migrations');
+        foreach ($migrationFiles as $migration) {
+            $migrationName = \Illuminate\Support\Str::between($migration->getFileName(), "999999", ".php");
+
+            $migrationsTable->orWhere('migration', 'like', "%$migrationName");
+        }
+
+        $migrationsTable->delete();
+    }
 }
