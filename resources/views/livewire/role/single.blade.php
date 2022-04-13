@@ -1,8 +1,6 @@
 <tr x-data="{ deleteModal : false, createModal : false }">
-    <td> <span class="text-primary">{{ $role->model }}</span>::<span class="text-danger">class</span> </td>
-    <td><span class="p-2 badge badge-light text-primary">/{{ $role->route }}</span> </td>
-    <td> @if($role->active) <span class="badge badge-success">Active</span> @else <span class="badge badge-warning">Inactive</span> @endif </td>
-    <td> @if($role->built) <span class="badge badge-primary">Yes</span> @else <span class="badge badge-danger">No</span> @endif </td>
+    <td> <span class="text-primary">{{ $role->name }}</span> </td>
+    <td><span class="text-primary">5</span> </td>
     <td>
         <button @click.prevent="deleteModal = true" class="btn text-danger mt-1">
             <i class="icon-trash"></i>
@@ -20,28 +18,7 @@
         </div>
 
         <button @click.prevent="createModal = true" class="btn text-info mt-1">
-            <i class="icon-rocket"></i>
+            <i class="icon-note"></i>
         </button>
-
-        <div x-show="createModal" class="cs-modal animate__animated animate__fadeIn">
-            <div class="bg-white shadow rounded p-5" @click.away="createModal = false" >
-                <h5 class="pb-2 border-bottom">{{ __('BuildTitle') }}</h5>
-                <p>{{ __('BuildMessage') }}</p>
-                <div class="mt-5 d-flex justify-content-between">
-                    <a @click.prevent="createModal = false" wire:click.prevent="build" class="text-white btn btn-success shadow">{{ __('Yes, Build it') }}</a>
-                    <a @click.prevent="createModal = false" class="text-white btn btn-danger shadow">{{ __('No, Cancel it.') }}</a>
-                </div>
-            </div>
-        </div>
-
-        @if($role->active)
-            <button wire:click.prevent="inactive" class="btn text-warning mt-1" title="Inactive Role">
-                <i class="fa fa-times"></i>
-            </button>
-        @else
-            <button wire:click.prevent="active" class="btn text-success mt-1" title="Aactive Role">
-                <i class="fa fa-check"></i>
-            </button>
-        @endif
     </td>
 </tr>

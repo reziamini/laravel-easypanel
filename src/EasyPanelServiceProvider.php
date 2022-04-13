@@ -107,6 +107,10 @@ class EasyPanelServiceProvider extends ServiceProvider
         Livewire::component('admin::livewire.crud.lists', Http\Livewire\CRUD\Lists::class);
 
         Livewire::component('admin::livewire.translation.manage', Http\Livewire\Translation\Manage::class);
+
+        Livewire::component('admin::livewire.role.single', Http\Livewire\Role\Single::class);
+        Livewire::component('admin::livewire.role.create', Http\Livewire\Role\Create::class);
+        Livewire::component('admin::livewire.role.lists', Http\Livewire\Role\Lists::class);
     }
 
     private function mergePublishes()
