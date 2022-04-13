@@ -31,7 +31,7 @@
                             <h4 class="card-title col-md-12">{{ str_replace('.', ' => ', $key) }}</h4>
                             @foreach($value as $keyAccess)
                             <div class="form-check text-left col-md-4">
-                                <input type="checkbox" class="form-check-input" id="permission_check_{{$keyAccess['name']}}" name="access[{{$key}}][{{$keyAccess['name']}}]">
+                                <input type="checkbox" class="form-check-input" id="permission_check_{{$keyAccess['name']}}" wire:model="access[{{$key}}][{{$keyAccess['name']}}]" name="access[{{$key}}][{{$keyAccess['name']}}]" value="1">
                                 <label class='form-check-label' for="permission_check_{{$keyAccess['name']}}">{{ $keyAccess['name'] }}</label>
                             </div>
                             @endforeach
