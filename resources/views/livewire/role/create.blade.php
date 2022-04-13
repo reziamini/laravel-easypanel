@@ -1,10 +1,10 @@
 <div class="card">
     <div class="card-header p-0">
-        <h3 class="card-title">{{ __('CreateTitle', ['name' => __('CRUD') ]) }}</h3>
+        <h3 class="card-title">{{ __('CreateTitle', ['name' => __('Role') ]) }}</h3>
         <div class="px-2 mt-4">
             <ul class="breadcrumb mt-3 py-3 px-4 rounded" style="background-color: #e9ecef!important;">
                 <li class="breadcrumb-item"><a href="@route(getRouteName().'.home')" class="text-decoration-none">{{ __('Dashboard') }}</a></li>
-                <li class="breadcrumb-item"><a href="@route(getRouteName().'.crud.lists')" class="text-decoration-none">{{ __('CRUD') }}</a></li>
+                <li class="breadcrumb-item"><a href="@route(getRouteName().'.role.lists')" class="text-decoration-none">{{ __('Role') }}</a></li>
                 <li class="breadcrumb-item active">{{ __('Create') }}</li>
             </ul>
         </div>
@@ -14,43 +14,37 @@
 
         <div class="card-body">
             <div class="row ">
-                <div class="col-md-12">
-                    <div class="form-group position-relative">
-                        <input id="model" wire:click="setModel" type="text" placeholder="{{ __('Model namespace') }}" class="form-control rounded @error('model') is-invalid @enderror" wire:model="model">
-                        @if($models and $dropdown)
-                            <div @click.away="Livewire.emit('closeModal')" class="bg-white position-absolute w-100 mt-2 rounded d-flex flex-column shadow" style="z-index: 10">
-                                @foreach($models as $key => $model)
-                                    <div class="px-3 py-2 autocomplete-item"  wire:click.prevent="setSuggestedModel({{ $key }})">
-                                        <a href="" class="py-2 ">{{ $model }}</a>
-                                    </div>
-                                @endforeach
-                            </div>
-                        @endif
-                        @error('model') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                    </div>
-                </div>
 
                 <div class="col-md-6">
                     <div class="form-group">
-                        <input id="route" type="text" placeholder="{{ __('Route of CRUD') }}" class="form-control rounded @error('route') is-invalid @enderror" wire:model="route">
-                        @error('route') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        <input id="route" type="text" placeholder="{{ __('Name of Role') }}" class="form-control rounded @error('name') is-invalid @enderror" wire:model="name">
+                        @error('name') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
                 </div>
+            </div>
 
-                <div class="col-md-6">
-                    <div class="form-group position-relative">
-                        <input id="route" type="text" placeholder="{{ __('Icon of CRUD') }} (fa fa-user)" class="form-control rounded @error('icon') is-invalid @enderror" wire:model="icon">
-                        <i class="position-absolute {{ $icon }}" style="top: 9px;@if(config('easy_panel.rtl_mode')) left: 15px @else right: 15px @endif"></i>
-                        @error('icon') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                        <p class="mt-2 font-12">{{ __('More icons in') }} <a href="https://fontawesome.com/icons">{{ __('FontAwesome') }}</a></p>
+            <div class="row">
+                @foreach($permissions as $key => $value)
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body row">
+                            <h4 class="card-title col-md-12">{{ str_replace('.', ' => ', $key) }}</h4>
+                            @foreach($value as $keyAccess)
+                            <div class="form-check text-left col-md-4">
+                                <input type="checkbox" class="form-check-input" id="permission_check_{{$keyAccess['name']}}" name="access[{{$key}}][{{$keyAccess['name']}}]">
+                                <label class='form-check-label' for="permission_check_{{$keyAccess['name']}}">{{ $keyAccess['name'] }}</label>
+                            </div>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
+                @endforeach
             </div>
         </div>
 
         <div class="card-footer">
             <button type="submit" class="btn btn-info ml-4">{{ __('Create') }}</button>
-            <a href="@route(getRouteName().'.crud.lists')" class="btn btn-default float-left">{{ __('Cancel') }}</a>
+            <a href="@route(getRouteName().'.role.lists')" class="btn btn-default float-left">{{ __('Cancel') }}</a>
         </div>
     </form>
 

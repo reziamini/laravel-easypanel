@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
+use Iya30n\DynamicAcl\ACL;
 
 class Create extends Component
 {
@@ -100,8 +101,10 @@ class Create extends Component
 
     public function render()
     {
-        return view('admin::livewire.crud.create')
-            ->layout('admin::layouts.app', ['title' => __('CreateTitle', ['name' => __('CRUD') ])]);
+        $permissions = ACL::getRoutes();
+
+        return view('admin::livewire.role.create', compact('permissions'))
+            ->layout('admin::layouts.app', ['title' => __('CreateTitle', ['name' => __('Role') ])]);
     }
 
     private function getModelName($model){
