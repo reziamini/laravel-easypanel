@@ -27,6 +27,13 @@
                     </a>
                 </li>
 
+                <li class="sidebar-item @isActive([getRouteName().'.role.lists', getRouteName().'.role.create'], 'selected')">
+                    <a class="sidebar-link @isActive([getRouteName().'.role.lists', getRouteName().'.role.create'], 'active') " href="@route(getRouteName().'.role.lists')" aria-expanded="false">
+                        <i data-feather="key" class="feather-icon"></i>
+                        <span class="hide-menu">{{ __('Role Manager') }}</span>
+                    </a>
+                </li>
+
                 @include('admin::layouts.child-sidebar-menu')
 
 

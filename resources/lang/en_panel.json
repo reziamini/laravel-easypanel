@@ -46,5 +46,9 @@
     "More icons in": "More icons in",
     "FontAwesome": "FontAwesome",
     "Name of custom language": "Name of custom language",
-    "Translation": "Translation"
+    "Translation": "Translation",
+    "Role": "Role",
+    "Role Manager": "Role Manager",
+    "There is no record for Role in database!": "There is no record for Role in database!",
+    "Users Count": "Users Count"
 }

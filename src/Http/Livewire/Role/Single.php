@@ -17,10 +17,11 @@ class Single extends Component
 
     public function delete()
     {
-        // sync users to []
-        // $this->role->delete();
+        $this->role->users()->sync([]);
+        
+        $this->role->delete();
 
-        $this->dispatchBrowserEvent('show-message', ['type' => 'error', 'message' => __('DeletedMessage', ['name' => __('Todo') ] )]);
+        $this->dispatchBrowserEvent('show-message', ['type' => 'error', 'message' => __('DeletedMessage', ['name' => __('Role') ] )]);
         $this->emit('roleUpdated');
     }
 

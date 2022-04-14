@@ -1,16 +1,16 @@
 <div class="card">
     <div class="card-header p-0">
-        <h3 class="card-title">{{ __('CreateTitle', ['name' => __('Role') ]) }}</h3>
+        <h3 class="card-title">{{ __('UpdateTitle', ['name' => __('Role') ]) }}</h3>
         <div class="px-2 mt-4">
             <ul class="breadcrumb mt-3 py-3 px-4 rounded" style="background-color: #e9ecef!important;">
                 <li class="breadcrumb-item"><a href="@route(getRouteName().'.home')" class="text-decoration-none">{{ __('Dashboard') }}</a></li>
                 <li class="breadcrumb-item"><a href="@route(getRouteName().'.role.lists')" class="text-decoration-none">{{ __('Role') }}</a></li>
-                <li class="breadcrumb-item active">{{ __('Create') }}</li>
+                <li class="breadcrumb-item active">{{ __('Update') }}</li>
             </ul>
         </div>
     </div>
 
-    <form class="form-horizontal" x-data="{}" wire:submit.prevent="create" autocomplete="off">
+    <form class="form-horizontal" x-data="{}" wire:submit.prevent="update" autocomplete="off">
 
         <div class="card-body">
             <div class="row ">
@@ -33,8 +33,14 @@
                                 $dashKey = str_replace('.', '-', $key);
                             @endphp
                             @foreach($value as $keyAccess)
+                            @php $check = isset($access[$dashKey][$keyAccess['name']]); @endphp
                             <div class="form-check text-left col-md-4">
-                                <input type="checkbox" class="form-check-input" id="permission_check_{{$keyAccess['name']}}" wire:model="access.{{$dashKey}}.{{$keyAccess['name']}}" value="1">
+                                <input type="checkbox" class="form-check-input"
+                                       id="permission_check_{{$keyAccess['name']}}"
+                                       wire:model="access.{{$dashKey}}.{{$keyAccess['name']}}"
+                                       {{ $check ? 'checked' : '' }}
+                                       value="1">
+
                                 <label class='form-check-label' for="permission_check_{{$keyAccess['name']}}">{{ $keyAccess['name'] }}</label>
                             </div>
                             @endforeach
@@ -46,7 +52,7 @@
         </div>
 
         <div class="card-footer">
-            <button type="submit" class="btn btn-info ml-4">{{ __('Create') }}</button>
+            <button type="submit" class="btn btn-info ml-4">{{ __('Update') }}</button>
             <a href="@route(getRouteName().'.role.lists')" class="btn btn-default float-left">{{ __('Cancel') }}</a>
         </div>
     </form>

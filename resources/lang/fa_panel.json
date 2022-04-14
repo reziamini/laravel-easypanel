@@ -46,5 +46,9 @@
     "FontAwesome": "فونت آوسم",
     "More icons in": "آیکون های بیشتر در",
     "Name of custom language": "نام زبان مورد نظر",
-    "Translation": "ترجمه"
+    "Translation": "ترجمه",
+    "Role": "نقش",
+    "Role Manager": "مدیریت نقش‌ها",
+    "There is no record for Role in database!": "هیچ نقشی در دیتابیس پیدا نشد!",
+    "Users Count": "تعداد کاربران"
 }

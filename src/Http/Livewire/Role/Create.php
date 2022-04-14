@@ -8,31 +8,32 @@ use Iya30n\DynamicAcl\Models\Role;
 
 class Create extends Component
 {
-    public $name, $access;
+    public $name;
+
+    public $access = [];
 
     protected $rules = [
         'name' => 'required|min:3|unique:roles',
         'access' => 'required'
     ];
 
-    public function updatingArray($value, $key)
+    private function fixAccessKeys()
     {
-        // if ($key == 'access')
+        foreach($this->access as $key => $value) {
+            unset($this->access[$key]);
+            $key = str_replace('-', '.', $key);
+            $this->access[$key] = $value;
+        }
 
+        return $this->access;
     }
 
     public function create()
     {
         $this->validate();
 
-        dd($this->name, $this->access);
-
-        Role::create(['name' => $this->name, 'permissions' => $this->access]);
-
-        $this->dispatchBrowserEvent('show-message', ['type' => 'success', 'message' => __('CreatedMessage', ['name' => __('Role') ])]);
-
         try {
-            Role::create(['name' => $this->name, 'permissions' => $this->access]);
+            Role::create(['name' => $this->name, 'permissions' => $this->fixAccessKeys()]);
 
             $this->dispatchBrowserEvent('show-message', ['type' => 'success', 'message' => __('CreatedMessage', ['name' => __('Role') ])]);
         } catch (\Exception $exception){
