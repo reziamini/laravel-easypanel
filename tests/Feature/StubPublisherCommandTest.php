@@ -12,6 +12,6 @@ class StubPublisherCommandTest extends TestCase
         $this->artisan('panel:publish')
             ->expectsOutput('Stubs was published successfully');
 
-        $this->assertDirectoryExists(app_path('/stubs/panel'));
+        $this->assertDirectoryExists(base_path('/stubs/panel'));
     }
 }
