@@ -3,6 +3,7 @@
 namespace EasyPanel\Commands\Actions;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
 use EasyPanel\Support\Contract\LangManager;
@@ -28,6 +29,8 @@ class Uninstall extends Command
         // Drop tables which has been created by EasyPanel
         $this->dropTables();
 
+        $this->deleteMigrations();
+
         $this->info("All files and components was deleted!");
     }
 
@@ -49,5 +52,17 @@ class Uninstall extends Command
         File::delete(LangManager::getFiles());
     }
 
+    private function deleteMigrations()
+    {
+        $migrationFiles = File::allFiles(__DIR__."/../../../database/migrations");
 
+        $migrationsTable = DB::table('migrations');
+        foreach ($migrationFiles as $migration) {
+            $migrationName = \Illuminate\Support\Str::between($migration->getFileName(), "999999", ".php");
+
+            $migrationsTable->orWhere('migration', 'like', "%$migrationName");
+        }
+
+        $migrationsTable->delete();
+    }
 }
