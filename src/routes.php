@@ -55,3 +55,9 @@ Route::prefix('role')->name('role.')->group(function (){
     Route::get('/create', \EasyPanel\Http\Livewire\Role\Create::class)->name('create');
     Route::get('/update/{role}', \EasyPanel\Http\Livewire\Role\Update::class)->name('update');
 });
+
+Route::prefix('admins')->name('admins.')->group(function (){
+    Route::get('/', \EasyPanel\Http\Livewire\Admins\Lists::class)->name('lists');
+    // Route::get('/create', \EasyPanel\Http\Livewire\Admins\Create::class)->name('create');
+    // Route::get('/update/{admin}', \EasyPanel\Http\Livewire\Admins\Update::class)->name('update');
+});
