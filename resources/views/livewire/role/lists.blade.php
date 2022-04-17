@@ -18,7 +18,7 @@
                     <table class="table table-hover">
                         <tbody>
                         <tr>
-                            <td>{{ __('Name') }}</td>
+                            <td>{{ __('name') }}</td>
                             <td>{{ __('Users Count') }}</td>
                             <td>{{ __('Action') }}</td>
                         </tr>

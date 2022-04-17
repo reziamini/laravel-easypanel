@@ -55,5 +55,7 @@
     "Admins": "Admins",
     "Admin Manager": "Admin Manager",
     "Select Roles": "Select Roles",
-    "Without Role": "Without Role"
+    "Without Role": "Without Role",
+    "name": "Name",
+    "email": "Email"
 }

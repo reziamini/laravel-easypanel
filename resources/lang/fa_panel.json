@@ -55,5 +55,7 @@
     "Admins": "مدیران",
     "Admin Manager": "مدیریت مدیران",
     "Select Roles": "انتخاب نقش‌ها",
-    "Without Role": "بدون نقش"
+    "Without Role": "بدون نقش",
+    "name": "نام",
+    "email": "ایمیل"
 }
