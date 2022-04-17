@@ -33,6 +33,11 @@ class UserProvider
         return $this->getUserModel()::query()->whereHas('panelAdmin')->with('panelAdmin')->get();
     }
 
+    public function paginateAdmins($perPage = 20)
+    {
+        return $this->getUserModel()::query()->whereHas('panelAdmin')->with('panelAdmin')->paginate($perPage);
+    }
+
     public function findUser($id)
     {
         return $this->getUserModel()::query()->findOrFail($id);

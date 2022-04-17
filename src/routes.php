@@ -59,5 +59,5 @@ Route::prefix('role')->name('role.')->group(function (){
 Route::prefix('admins')->name('admins.')->group(function (){
     Route::get('/', \EasyPanel\Http\Livewire\Admins\Lists::class)->name('lists');
     // Route::get('/create', \EasyPanel\Http\Livewire\Admins\Create::class)->name('create');
-    // Route::get('/update/{admin}', \EasyPanel\Http\Livewire\Admins\Update::class)->name('update');
+     Route::get('/update/{admin}', \EasyPanel\Http\Livewire\Admins\Update::class)->name('update');
 });

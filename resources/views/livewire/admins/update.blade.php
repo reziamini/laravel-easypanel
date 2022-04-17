@@ -1,10 +1,10 @@
 <div class="card">
     <div class="card-header p-0">
-        <h3 class="card-title">{{ __('UpdateTitle', ['name' => __('Role') ]) }}</h3>
+        <h3 class="card-title">{{ __('UpdateTitle', ['name' => __('Admins') ]) }}</h3>
         <div class="px-2 mt-4">
             <ul class="breadcrumb mt-3 py-3 px-4 rounded" style="background-color: #e9ecef!important;">
                 <li class="breadcrumb-item"><a href="@route(getRouteName().'.home')" class="text-decoration-none">{{ __('Dashboard') }}</a></li>
-                <li class="breadcrumb-item"><a href="@route(getRouteName().'.role.lists')" class="text-decoration-none">{{ __('Role') }}</a></li>
+                <li class="breadcrumb-item"><a href="@route(getRouteName().'.admins.lists')" class="text-decoration-none">{{ __('Admin') }}</a></li>
                 <li class="breadcrumb-item active">{{ __('Update') }}</li>
             </ul>
         </div>
@@ -13,47 +13,43 @@
     <form class="form-horizontal" x-data="{}" wire:submit.prevent="update" autocomplete="off">
 
         <div class="card-body">
+            <div class="card-title">{{__('Select Roles')}}</div>
             <div class="row ">
+                <div class="col-md-12">
+                    <div class="form-group position-relative">
+
+                        <select multiple="" class="form-control rounded @error('selectedRoles') is-invalid @enderror" wire:model="selectedRoles" id="exampleFormControlSelect2">
+                            <option value="null">{{__('Without Role')}}</option>
+                            @foreach($roles as $role)
+                                <option value="{{$role->id}}">{{$role->name}}</option>
+                            @endforeach
+                        </select>
+                        
+                        @error('selectedRoles') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                    </div>
+                </div>
+
+                {{--<div class="col-md-6">
+                    <div class="form-group">
+                        <input id="route" type="text" placeholder="{{ __('Route of CRUD') }}" class="form-control rounded @error('route') is-invalid @enderror" wire:model="route">
+                        @error('route') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                    </div>
+                </div>
 
                 <div class="col-md-6">
-                    <div class="form-group">
-                        <input id="route" type="text" placeholder="{{ __('Name of Role') }}" class="form-control rounded @error('name') is-invalid @enderror" wire:model="name">
-                        @error('name') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                    <div class="form-group position-relative">
+                        <input id="route" type="text" placeholder="{{ __('Icon of CRUD') }} (fa fa-user)" class="form-control rounded @error('icon') is-invalid @enderror" wire:model="icon">
+                        <i class="position-absolute {{ $icon }}" style="top: 9px;@if(config('easy_panel.rtl_mode')) left: 15px @else right: 15px @endif"></i>
+                        @error('icon') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        <p class="mt-2 font-12">{{ __('More icons in') }} <a href="https://fontawesome.com/icons">{{ __('FontAwesome') }}</a></p>
                     </div>
-                </div>
-            </div>
-
-            <div class="row">
-                @foreach($permissions as $key => $value)
-                <div class="col-md-4">
-                    <div class="card text-center">
-                        <div class="card-body row">
-                            <h4 class="card-title col-md-12">{{ str_replace('.', ' => ', $key) }}</h4>
-                            @php
-                                $dashKey = str_replace('.', '-', $key);
-                            @endphp
-                            @foreach($value as $keyAccess)
-                            @php $check = isset($access[$dashKey][$keyAccess['name']]); @endphp
-                            <div class="form-check text-left col-md-4">
-                                <input type="checkbox" class="form-check-input"
-                                       id="permission_check_{{$keyAccess['name']}}"
-                                       wire:model="access.{{$dashKey}}.{{$keyAccess['name']}}"
-                                       {{ $check ? 'checked' : '' }}
-                                       value="1">
-
-                                <label class='form-check-label' for="permission_check_{{$keyAccess['name']}}">{{ $keyAccess['name'] }}</label>
-                            </div>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-                @endforeach
+                </div>--}}
             </div>
         </div>
 
         <div class="card-footer">
             <button type="submit" class="btn btn-info ml-4">{{ __('Update') }}</button>
-            <a href="@route(getRouteName().'.role.lists')" class="btn btn-default float-left">{{ __('Cancel') }}</a>
+            <a href="@route(getRouteName().'.admins.lists')" class="btn btn-default float-left">{{ __('Cancel') }}</a>
         </div>
     </form>
 

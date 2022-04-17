@@ -50,5 +50,10 @@
     "Role": "Role",
     "Role Manager": "Role Manager",
     "There is no record for Role in database!": "There is no record for Role in database!",
-    "Users Count": "Users Count"
+    "Users Count": "Users Count",
+    "Admin": "Admin",
+    "Admins": "Admins",
+    "Admin Manager": "Admin Manager",
+    "Select Roles": "Select Roles",
+    "Without Role": "Without Role"
 }

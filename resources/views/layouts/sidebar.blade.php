@@ -34,10 +34,10 @@
                     </a>
                 </li>
 
-                <li class="sidebar-item @isActive([getRouteName().'.admins.lists'], 'selected')">
+                <li class="sidebar-item @isActive([getRouteName().'.admins.lists', getRouteName().'.admins.update'], 'selected')">
                     <a class="sidebar-link @isActive([getRouteName().'.admins.lists'], 'active') " href="@route(getRouteName().'.admins.lists')" aria-expanded="false">
                         <i data-feather="user" class="feather-icon"></i>
-                        <span class="hide-menu">{{ __('Admins Manager') }}</span>
+                        <span class="hide-menu">{{ __('Admin Manager') }}</span>
                     </a>
                 </li>
 

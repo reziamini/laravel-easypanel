@@ -114,6 +114,7 @@ class EasyPanelServiceProvider extends ServiceProvider
         Livewire::component('admin::livewire.role.lists', Http\Livewire\Role\Lists::class);
 
         Livewire::component('admin::livewire.admins.single', Http\Livewire\Admins\Single::class);
+        Livewire::component('admin::livewire.admins.update', Http\Livewire\Admins\Update::class);
     }
 
     private function mergePublishes()

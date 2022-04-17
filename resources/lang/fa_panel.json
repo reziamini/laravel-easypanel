@@ -50,5 +50,10 @@
     "Role": "نقش",
     "Role Manager": "مدیریت نقش‌ها",
     "There is no record for Role in database!": "هیچ نقشی در دیتابیس پیدا نشد!",
-    "Users Count": "تعداد کاربران"
+    "Users Count": "تعداد کاربران",
+    "Admin": "مدیر",
+    "Admins": "مدیران",
+    "Admin Manager": "مدیریت مدیران",
+    "Select Roles": "انتخاب نقش‌ها",
+    "Without Role": "بدون نقش"
 }

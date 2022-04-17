@@ -1,30 +1,32 @@
 <?php
 
-namespace EasyPanel\Http\Livewire\Role;
+namespace EasyPanel\Http\Livewire\Admins;
 
-use Iya30n\DynamicAcl\ACL;
+use EasyPanel\Support\Contract\UserProviderFacade;
 use Iya30n\DynamicAcl\Models\Role;
 use Livewire\Component;
 
 class Update extends Component
 {
-    public $role;
+    public $admin;
 
-    public $name;
+    public $roles = [];
 
-    public $access = [];
+    public $selectedRoles = [];
 
     protected $rules = [
-        'name' => 'min:3'
+        'roles' => 'required'
     ];
 
-    public function mount(Role $role)
+    public function mount($admin)
     {
-        $this->role = $role;
+        $this->roles = Role::all();
 
-        $this->name = $role->name;
+        $admin = UserProviderFacade::findUser($admin);
 
-        $this->access = $this->replaceArrayKeys($role->permissions, '.', '-');
+        $this->admin = $admin;
+
+        $this->selectedRoles = $admin->roles()->pluck('id');
     }
 
     public function updated($input)
@@ -37,30 +39,18 @@ class Update extends Component
         if ($this->getRules())
             $this->validate();
 
-        $this->role->update([
-            'name' => $this->name,
-            'permissions' => $this->replaceArrayKeys($this->access, '-', '.')
-        ]);
+        if ($this->selectedRoles[0] == "null")
+            $this->selectedRoles = [];
 
-        $this->dispatchBrowserEvent('show-message', ['type' => 'success', 'message' => __('UpdatedMessage', ['name' => __('Role')])]);
+        $this->admin->roles()->sync($this->selectedRoles);
+
+        $this->dispatchBrowserEvent('show-message', ['type' => 'success', 'message' => __('UpdatedMessage', ['name' => __('Admins')])]);
     }
 
     public function render()
     {
-        return view('admin::livewire.role.update', [
-            'role' => $this->role,
-            'permissions' => ACL::getRoutes(),
-        ])->layout('admin::layouts.app', ['title' => __('UpdateTitle', ['name' => __('Role')])]);
-    }
-
-    private function replaceArrayKeys($permissions, $from, $to)
-    {
-        foreach($permissions as $key => $value) {
-            unset($permissions[$key]);
-            $key = str_replace($from, $to, $key);
-            $permissions[$key] = $value;
-        }
-
-        return $permissions;
+        return view('admin::livewire.admins.update', [
+            // pass roles here.
+        ])->layout('admin::layouts.app', ['title' => __('UpdateTitle', ['name' => __('Admins')])]);
     }
 }
