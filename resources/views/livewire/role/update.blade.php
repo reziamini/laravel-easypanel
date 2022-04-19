@@ -44,6 +44,15 @@
                                 <label class='form-check-label' for="permission_check_{{$keyAccess['name']}}">{{ $keyAccess['name'] }}</label>
                             </div>
                             @endforeach
+                            <div class="form-check text-left col-md-4">
+                                <input type="checkbox" class="form-check-input"
+                                       id="permission_check_delete"
+                                       wire:model="access.{{$dashKey}}.delete"
+                                       {{ isset($access[$dashKey]['delete']) ? 'checked' : '' }}
+                                       value="1">
+
+                                <label class='form-check-label' for="permission_check_delete">delete</label>
+                            </div>
                         </div>
                     </div>
                 </div>
