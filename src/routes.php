@@ -15,7 +15,15 @@ if (\Illuminate\Support\Facades\Schema::hasTable('cruds')) {
         $name = ucfirst($crud->name);
         $component = "App\\Http\\Livewire\\Admin\\$name";
 
-        Route::prefix($crud->route)->name("{$crud->route}.")->group(function () use ($component, $crud, $crudConfig) {
+        $middleware = [];
+        if ($crud->with_acl) {
+            $middleware[] = "dynamicAcl";
+
+            if ($crud->with_policy)
+                $middleware[] = "authorize";
+        }
+
+        Route::prefix($crud->route)->middleware($middleware)->name("{$crud->route}.")->group(function () use ($component, $crud, $crudConfig) {
 
             if (@class_exists("$component\\Read")) {
                 Route::get('/', "$component\\Read")->name('read');
