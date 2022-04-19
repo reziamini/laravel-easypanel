@@ -2,6 +2,8 @@
     <td> <span class="text-primary">{{ $crud->model }}</span>::<span class="text-danger">class</span> </td>
     <td><span class="p-2 badge badge-light text-primary">/{{ $crud->route }}</span> </td>
     <td> @if($crud->active) <span class="badge badge-success">Active</span> @else <span class="badge badge-warning">Inactive</span> @endif </td>
+    <td> @if($crud->with_acl) <span class="badge badge-primary">Yes</span> @else <span class="badge badge-danger">No</span> @endif </td>
+    <td> @if($crud->with_policy) <span class="badge badge-primary">Yes</span> @else <span class="badge badge-danger">No</span> @endif </td>
     <td> @if($crud->built) <span class="badge badge-primary">Yes</span> @else <span class="badge badge-danger">No</span> @endif </td>
     <td>
         <button @click.prevent="deleteModal = true" class="btn text-danger mt-1">

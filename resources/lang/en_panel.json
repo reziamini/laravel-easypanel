@@ -49,6 +49,8 @@
     "Translation": "Translation",
     "Role": "Role",
     "Role Manager": "Role Manager",
+    "With ACL": "With ACL",
+    "With Policy": "With Policy",
     "There is no record for Role in database!": "There is no record for Role in database!",
     "Users Count": "Users Count",
     "Admin": "Admin",
