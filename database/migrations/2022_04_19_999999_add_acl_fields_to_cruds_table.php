@@ -27,7 +27,7 @@ class AddAclFieldsToCrudsTable extends Migration
     public function down()
     {
         Schema::table('cruds', function (Blueprint $table) {
-            //
+            $table->dropColumn(['with_acl', 'with_policy']);
         });
     }
 }
