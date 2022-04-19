@@ -36,3 +36,19 @@ if(! function_exists('crud')) {
         return \EasyPanel\Models\CRUD::query()->where('name', $name)->first();
     }
 }
+
+if (! function_exists('hasPermission')) {
+    function hasPermission($routeName, $withAcl, $withPolicy = false, $entity = []) {
+        $showButton = true;
+
+        if ($withAcl) {
+            if (!auth()->user()->hasPermission($routeName)) {
+                $showButton = false;
+            } else if ($withPolicy && !auth()->user()->hasPermission($routeName, $entity)) {
+                $showButton = false;
+            }
+        }
+
+        return $showButton;
+    }
+}
