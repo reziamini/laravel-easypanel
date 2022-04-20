@@ -1,6 +1,6 @@
 <tr x-data="{ deleteModal : false, createModal : false }">
     <td> <span class="text-primary">{{ $role->name }}</span> </td>
-    <td><span class="text-primary">5</span> </td>
+    <td><span class="text-primary">{{ $role->users()->count() }}</span> </td>
     <td>
 
         <a href="@route(getRouteName().'.role.update', ['role' => $role->id])" class="btn text-primary mt-1">
