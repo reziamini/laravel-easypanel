@@ -37,8 +37,6 @@ class Update extends Component
         if ($this->getRules())
             $this->validate();
 
-        dd($this->replaceArrayKeys($this->access, '-', '.'));
-
         $this->role->update([
             'name' => $this->name,
             'permissions' => $this->replaceArrayKeys($this->access, '-', '.')
