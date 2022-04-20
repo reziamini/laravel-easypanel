@@ -10,18 +10,12 @@ use Iya30n\DynamicAcl\Providers\DynamicAclServiceProvider;
 class Install extends Command
 {
 
-    protected $signature = 'panel:install {--acl : Install ACL system}';
+    protected $signature = 'panel:install';
     protected $description = 'Install panel';
 
     public function handle()
     {
         $this->warn("\nInstalling Admin panel ...");
-
-        if ($this->option('acl')) {
-            Artisan::call('vendor:publish', [
-                '--provider' => DynamicAclServiceProvider::class
-            ]);
-        }
 
         Artisan::call('vendor:publish', [
             '--provider' => EasyPanelServiceProvider::class,
@@ -51,6 +45,10 @@ class Install extends Command
         Artisan::call('vendor:publish', [
             '--provider' => EasyPanelServiceProvider::class,
             '--tag' => 'easy-panel-migration'
+        ]);
+
+        Artisan::call('vendor:publish', [
+            '--provider' => DynamicAclServiceProvider::class
         ]);
 
         Artisan::call('migrate');
