@@ -37,6 +37,8 @@ class Update extends Component
         if ($this->getRules())
             $this->validate();
 
+        dd($this->replaceArrayKeys($this->access, '-', '.'));
+
         $this->role->update([
             'name' => $this->name,
             'permissions' => $this->replaceArrayKeys($this->access, '-', '.')
@@ -58,7 +60,7 @@ class Update extends Component
         foreach($permissions as $key => $value) {
             unset($permissions[$key]);
             $key = str_replace($from, $to, $key);
-            $permissions[$key] = $value;
+            $permissions[$key] = array_filter($value);
         }
 
         return $permissions;
