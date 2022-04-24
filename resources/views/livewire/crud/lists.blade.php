@@ -34,6 +34,7 @@
                         </tbody>
                     </table>
                 </div>
+                @if(hasPermission(getRouteName().'.crud.create', true))
                 <a href="" class="btn btn-block my-3 btn-outline-success" @click.prevent="rebuildModal = true">{{ __('Re-Build All') }} <i class="ml-3 icon-rocket"></i></a>
                 <div x-show="rebuildModal" class="cs-modal animate__animated animate__fadeIn">
                     <div class="bg-white shadow rounded p-5" @click.away="rebuildModal = false" >
@@ -45,6 +46,7 @@
                         </div>
                     </div>
                 </div>
+                @endif
             @else
                 <div class="mt-3 alert alert-warning">
                     {{ __('There is no record for CRUD in database!') }}
