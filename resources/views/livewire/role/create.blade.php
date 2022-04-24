@@ -21,6 +21,19 @@
                         @error('name') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
                 </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="form-check text-left col-md-4">
+                            <input type="checkbox" class="form-check-input"
+                                    id="permission_check_fullAccess"
+                                    wire:model="access.fullAccess"
+                                    value="1">
+
+                            <label class='form-check-label' for="permission_check_fullAccess">{{__('Full Access')}}</label>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="row">

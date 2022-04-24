@@ -22,7 +22,7 @@ class Create extends Component
         foreach($this->access as $key => $value) {
             unset($this->access[$key]);
             $key = str_replace('-', '.', $key);
-            $this->access[$key] = array_filter($value);
+            $this->access[$key] = is_array($value) ? array_filter($value) : $value;
         }
 
         return $this->access;

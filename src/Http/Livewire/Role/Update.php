@@ -58,7 +58,12 @@ class Update extends Component
         foreach($permissions as $key => $value) {
             unset($permissions[$key]);
             $key = str_replace($from, $to, $key);
-            $permissions[$key] = array_filter($value);
+            $value = is_array($value) ? array_filter($value) : $value;
+
+            if (empty($value))
+                continue;
+
+            $permissions[$key] = $value;
         }
 
         return $permissions;
