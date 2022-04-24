@@ -16,6 +16,8 @@
     "DeletedMessage": ":Name حذف شد.",
     "CreatedMessage": ":Name ساخته شد.",
     "UpdatedMessage": ":Name ویرایش شد.",
+    "CannotUpdateMessage": ":Name مجاز به ویرایش نیست", 
+    "CannotDeleteMessage": ":Name مجاز به حذف نیست.", 
     "CreateTitle": "ساخت :Name",
     "UpdateTitle": "ویرایش :Name",
     "Search": "جستجو",
@@ -59,5 +61,6 @@
     "Select Roles": "انتخاب نقش‌ها",
     "Without Role": "بدون نقش",
     "name": "نام",
-    "email": "ایمیل"
+    "email": "ایمیل",
+    "Full Access": "دسترسی کامل"
 }

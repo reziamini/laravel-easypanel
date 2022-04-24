@@ -15,7 +15,9 @@
     "DeleteTitle": "Delete a :Name",
     "DeletedMessage": ":Name was deleted.",
     "CreatedMessage": ":Name was created.",
-    "UpdatedMessage": ":Name was updated.",
+    "UpdatedMessage": ":Name was updated.", 
+    "CannotUpdateMessage": ":Name can't be updated.", 
+    "CannotDeleteMessage": ":Name can't be deleted.", 
     "CreateTitle": "Create :Name",
     "UpdateTitle": "Update :Name",
     "Search": "Search",
@@ -59,5 +61,6 @@
     "Select Roles": "Select Roles",
     "Without Role": "Without Role",
     "name": "Name",
-    "email": "Email"
+    "email": "Email",
+    "Full Access": "Full Access"
 }

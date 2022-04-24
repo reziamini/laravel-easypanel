@@ -37,6 +37,11 @@ class Update extends Component
         if ($this->getRules())
             $this->validate();
 
+        if ($this->role->is_super_admin()) {
+            $this->dispatchBrowserEvent('show-message', ['type' => 'error', 'message' => __('CannotUpdateMessage', ['name' => __('Role')])]);
+            return;
+        }
+
         $this->role->update([
             'name' => $this->name,
             'permissions' => $this->replaceArrayKeys($this->access, '-', '.')
@@ -58,7 +63,12 @@ class Update extends Component
         foreach($permissions as $key => $value) {
             unset($permissions[$key]);
             $key = str_replace($from, $to, $key);
-            $permissions[$key] = array_filter($value);
+            $value = is_array($value) ? array_filter($value) : $value;
+
+            if (empty($value))
+                continue;
+
+            $permissions[$key] = $value;
         }
 
         return $permissions;

@@ -3,10 +3,13 @@
     <td> <span class="text-primary">{{ $admin->email }}</span> </td>
     <td>
 
+        @if(hasPermission(getRouteName().'.admins.update', true))
         <a href="@route(getRouteName().'.admins.update', ['admin' => $admin->id])" class="btn text-primary mt-1">
             <i class="icon-pencil"></i>
         </a>
+        @endif
 
+        @if(hasPermission(getRouteName().'.admins.delete', true))
         <button @click.prevent="deleteModal = true" class="btn text-danger mt-1">
             <i class="icon-trash"></i>
         </button>
@@ -21,5 +24,6 @@
                 </div>
             </div>
         </div>
+        @endif
     </td>
 </tr>
