@@ -3,10 +3,13 @@
     <td><span class="text-primary">{{ $role->users()->count() }}</span> </td>
     <td>
 
+        @if(hasPermission(getRouteName().'.role.update', true) && !$role->is_super_admin())
         <a href="@route(getRouteName().'.role.update', ['role' => $role->id])" class="btn text-primary mt-1">
             <i class="icon-pencil"></i>
         </a>
+        @endif
 
+        @if(hasPermission(getRouteName().'.role.delete', true) && !$role->is_super_admin())
         <button @click.prevent="deleteModal = true" class="btn text-danger mt-1">
             <i class="icon-trash"></i>
         </button>
@@ -21,5 +24,6 @@
                 </div>
             </div>
         </div>
+        @endif
     </td>
 </tr>
