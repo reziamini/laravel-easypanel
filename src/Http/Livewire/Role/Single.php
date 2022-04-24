@@ -17,6 +17,11 @@ class Single extends Component
 
     public function delete()
     {
+        if ($this->role->is_super_admin()) {
+            $this->dispatchBrowserEvent('show-message', ['type' => 'error', 'message' => __('CannotDeleteMessage', ['name' => __('Role')])]);
+            return;
+        }
+
         $this->role->users()->sync([]);
         
         $this->role->delete();

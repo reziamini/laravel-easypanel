@@ -3,13 +3,10 @@
     <td><span class="text-primary">5</span> </td>
     <td>
 
-        @if(hasPermission(getRouteName().'.role.update', true))
         <a href="@route(getRouteName().'.role.update', ['role' => $role->id])" class="btn text-primary mt-1">
             <i class="icon-pencil"></i>
         </a>
-        @endif
 
-        @if(hasPermission(getRouteName().'.role.delete', true))
         <button @click.prevent="deleteModal = true" class="btn text-danger mt-1">
             <i class="icon-trash"></i>
         </button>
@@ -24,6 +21,5 @@
                 </div>
             </div>
         </div>
-        @endif
     </td>
 </tr>

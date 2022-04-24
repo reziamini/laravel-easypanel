@@ -37,6 +37,11 @@ class Update extends Component
         if ($this->getRules())
             $this->validate();
 
+        if ($this->role->is_super_admin()) {
+            $this->dispatchBrowserEvent('show-message', ['type' => 'error', 'message' => __('CannotUpdateMessage', ['name' => __('Role')])]);
+            return;
+        }
+
         $this->role->update([
             'name' => $this->name,
             'permissions' => $this->replaceArrayKeys($this->access, '-', '.')

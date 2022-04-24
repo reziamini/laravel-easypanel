@@ -3,6 +3,7 @@
 namespace EasyPanel\Support\User;
 
 use App\Models\User;
+use Iya30n\DynamicAcl\Models\Role;
 
 class UserProvider
 {
@@ -21,6 +22,9 @@ class UserProvider
         $user->panelAdmin()->create([
             'is_superuser' => $is_super,
         ]);
+
+        if($is_super)
+            $this->makeSuperAdminRole($user);
 
         return [
             'type' => 'success',
@@ -53,6 +57,18 @@ class UserProvider
     private function getUserModel()
     {
         return config('easy_panel.user_model') ?? User::class;
+    }
+
+    private function makeSuperAdminRole($user)
+    {
+        $role = Role::firstOrCreate(['name' => 'super_admin'], [
+            'name' => 'super_admin',
+            'permissions' => [
+                'fullAccess' => 1
+            ]
+        ]);
+
+        $user->roles()->sync([$role->id]);
     }
 
 }
