@@ -51,6 +51,7 @@
     "Translation": "ترجمه",
     "Role": "نقش",
     "Role Manager": "مدیریت نقش‌ها",
+    "Name Of Role": "نام نقش",
     "With ACL": "دارای سطوح دسترسی",
     "With Policy": "چک کردن دسترسی‌ها",
     "There is no record for Role in database!": "هیچ نقشی در دیتابیس پیدا نشد!",
