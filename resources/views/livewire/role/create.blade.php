@@ -18,7 +18,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <input id="route" type="text" placeholder="{{ __('Name Of Role') }}" class="form-control rounded @error('name') is-invalid @enderror" wire:model="name">
-                        @error('name') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        @error('name') <div class="invalid-feedback">{{ __($message) }}</div> @enderror
                     </div>
                 </div>
 
@@ -49,7 +49,7 @@
                             <div class="col-10"><h4>{{ __($entityName) }}</h4></div>
     
                             <div class="form-check text-center col-md-1 ml-3">
-                                <input type="checkbox" class="form-check-input" wire:model="selectAll.{{$dashKey}}">
+                                <input type="checkbox" class="form-check-input selectAll" value="{{$dashKey}}">
                             </div>
                         </div>
                         <!-- /card header -->
@@ -63,7 +63,7 @@
                             </div>
 
                             <div class="form-check col-md-1">
-                                <input type="checkbox" class="form-check-input" id="permission_check_{{$dashKey}}_{{$keyAccess['name']}}" {{($selectAll[$dashKey] ?? false) ? 'checked' : ''}} wire:model="access.{{$dashKey}}.{{$keyAccess['name']}}" value="1">
+                                <input type="checkbox" class="form-check-input {{$dashKey}}" id="permission_check_{{$dashKey}}_{{$keyAccess['name']}}" wire:model="access.{{$dashKey}}.{{$keyAccess['name']}}" value="1">
                             </div>
                             @endforeach
                             <div class="form-check col-md-11">
@@ -71,7 +71,12 @@
                             </div>
 
                             <div class="form-check col-md-1">
-                                <input type="checkbox" class="form-check-input" {{($selectAll[$dashKey] ?? false) ? 'checked' : ''}} id="permission_check_{{$dashKey}}_delete" wire:model="access.{{$dashKey}}.delete" value="1">
+                                <input 
+                                    type="checkbox" 
+                                    class="form-check-input {{$dashKey}}" 
+                                    id="permission_check_{{$dashKey}}_delete" 
+                                    wire:model="access.{{$dashKey}}.delete" 
+                                    value="1">
                             </div>
                         </div>
                         <!-- /card-body -->
@@ -89,3 +94,17 @@
     </form>
 
 </div>
+
+
+<script>
+
+    document.querySelectorAll('.selectAll').forEach(selectAll => {
+        selectAll.addEventListener('click', e => {
+            document.querySelectorAll('.' + e.target.value).forEach(item => {
+                if(item.checked !== selectAll.checked)
+                    item.click()
+            })
+        })
+    })
+
+</script>

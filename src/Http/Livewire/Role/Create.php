@@ -17,8 +17,6 @@ class Create extends Component
         'access' => 'required'
     ];
 
-    public $selectAll = [];
-
     private function fixAccessKeys()
     {
         foreach($this->access as $key => $value) {
@@ -33,7 +31,6 @@ class Create extends Component
     public function create()
     {
         $this->validate();
-        dd($this->selectAll);
 
         try {
             Role::create(['name' => $this->name, 'permissions' => $this->fixAccessKeys()]);

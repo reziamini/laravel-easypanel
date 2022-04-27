@@ -18,7 +18,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <input id="route" type="text" placeholder="{{ __('Name of Role') }}" class="form-control rounded @error('name') is-invalid @enderror" wire:model="name">
-                        @error('name') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        @error('name') <div class="invalid-feedback">{{ __($message) }}</div> @enderror
                     </div>
                 </div>
 
@@ -37,39 +37,60 @@
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row mt-3" dir="ltr">
                 @foreach($permissions as $key => $value)
-                <div class="col-md-4">
-                    <div class="card text-center">
-                        <div class="card-body row">
-                            <h4 class="card-title col-md-12">{{ str_replace('.', ' => ', $key) }}</h4>
-                            @php
-                                $dashKey = str_replace('.', '-', $key);
-                            @endphp
-                            @foreach($value as $keyAccess)
-                            @php $check = isset($access[$dashKey][$keyAccess['name']]); @endphp
-                            <div class="form-check text-left col-md-4">
-                                <input type="checkbox" class="form-check-input"
-                                       id="permission_check_{{$dashKey}}_{{$keyAccess['name']}}"
-                                       wire:model="access.{{$dashKey}}.{{$keyAccess['name']}}"
-                                       {{ $check ? 'checked' : '' }}
-                                       value="1">
-
-                                <label class='form-check-label' for="permission_check_{{$dashKey}}_{{$keyAccess['name']}}">{{ $keyAccess['name'] }}</label>
-                            </div>
-                            @endforeach
-                            <div class="form-check text-left col-md-4">
-                                <input type="checkbox" class="form-check-input"
-                                       id="permission_check_{{$dashKey}}_delete"
-                                       wire:model="access.{{$dashKey}}.delete"
-                                       {{ isset($access[$dashKey]['delete']) ? 'checked' : '' }}
-                                       value="1">
-
-                                <label class='form-check-label' for="permission_check_{{$dashKey}}_delete">delete</label>
+                @php
+                    $dashKey = str_replace('.', '-', $key);
+                    $entityName = strpos($key, 'admin.') !== false ? ucfirst(str_replace('admin.', '', $key)) : ucfirst($key);
+                @endphp
+                <div class="col-md-4 col-sm-12">
+                    <div class="card text-left">
+                        
+                        <div class="row mt-3 ml-1">
+                            <div class="col-10"><h4>{{ __($entityName) }}</h4></div>
+    
+                            <div class="form-check text-center col-md-1 ml-3">
+                                <input type="checkbox" class="form-check-input selectAll" value="{{$dashKey}}">
                             </div>
                         </div>
+                        <!-- /card header -->
+
+                        <hr style="width:98%;">
+
+                        <div class="card-body row" style="height: 140px;">
+                            @foreach($value as $keyAccess)
+							@php $check = isset($access[$dashKey][$keyAccess['name']]); @endphp
+                            <div class="form-check col-md-11">
+                                <label class='form-check-label' for="permission_check_{{$dashKey}}_{{$keyAccess['name']}}">{{ __($keyAccess['name']) }}</label>
+                            </div>
+
+                            <div class="form-check col-md-1">
+                                <input type="checkbox" 
+									class="form-check-input {{$dashKey}}" 
+									id="permission_check_{{$dashKey}}_{{$keyAccess['name']}}" 
+									wire:model="access.{{$dashKey}}.{{$keyAccess['name']}}" 
+									{{ $check ? 'checked' : '' }}
+									value="1">
+                            </div>
+                            @endforeach
+                            <div class="form-check col-md-11">
+                                <label class='form-check-label' for="permission_check_{{$dashKey}}_delete">{{__('delete')}}</label>
+                            </div>
+
+                            <div class="form-check col-md-1">
+                                <input 
+                                    type="checkbox" 
+                                    class="form-check-input {{$dashKey}}" 
+                                    id="permission_check_{{$dashKey}}_delete" 
+                                    wire:model="access.{{$dashKey}}.delete" 
+									{{ isset($access[$dashKey]['delete']) ? 'checked' : '' }}
+                                    value="1">
+                            </div>
+                        </div>
+                        <!-- /card-body -->
                     </div>
                 </div>
+                <!-- /col-md-4 -->
                 @endforeach
             </div>
         </div>
@@ -81,3 +102,16 @@
     </form>
 
 </div>
+
+<script>
+
+    document.querySelectorAll('.selectAll').forEach(selectAll => {
+        selectAll.addEventListener('click', e => {
+            document.querySelectorAll('.' + e.target.value).forEach(item => {
+                if(item.checked !== selectAll.checked)
+                    item.click()
+            })
+        })
+    })
+
+</script>
