@@ -45,11 +45,18 @@
                 <div class="col-md-4 col-sm-12">
                     <div class="card text-left">
                         
-                        <div class="row mt-3 ml-1">
-                            <div class="col-10"><h4>{{ __($entityName) }}</h4></div>
-    
-                            <div class="form-check text-center col-md-1 ml-3">
-                                <input type="checkbox" class="form-check-input selectAll" value="{{$dashKey}}">
+                        <div class="mt-3 ml-1">
+
+                            <div class="form-check d-flex justify-content-between w-100">
+                                                
+                                <div>
+                                    <h4 class="align-self-center">{{ __($entityName) }}</h4>
+                                </div>
+                            
+                                <div>
+                                    <input type="checkbox" class="form-check-input selectAll" value="{{$dashKey}}">
+                                </div>
+                            
                             </div>
                         </div>
                         <!-- /card header -->
@@ -58,25 +65,32 @@
 
                         <div class="card-body row" style="height: 140px;">
                             @foreach($value as $keyAccess)
-                            <div class="form-check col-md-11">
-                                <label class='form-check-label' for="permission_check_{{$dashKey}}_{{$keyAccess['name']}}">{{ __($keyAccess['name']) }}</label>
-                            </div>
-
-                            <div class="form-check col-md-1">
-                                <input type="checkbox" class="form-check-input {{$dashKey}}" id="permission_check_{{$dashKey}}_{{$keyAccess['name']}}" wire:model="access.{{$dashKey}}.{{$keyAccess['name']}}" value="1">
+                            <div class="form-check d-flex justify-content-between w-100">
+                                                
+                                <div>
+                                    <label class="form-check-label align-self-center"
+                                    for="permission_check_{{$dashKey}}_{{$keyAccess['name']}}">{{ __($keyAccess['name']) }}</label>
+                                </div>
+                            
+                                <div>
+                                    <input type="checkbox" class="form-check-input {{$dashKey}}"
+                                    id="permission_check_{{$dashKey}}_{{$keyAccess['name']}}" wire:model="access.{{$dashKey}}.{{$keyAccess['name']}}" value="1">
+                                </div>
+                            
                             </div>
                             @endforeach
-                            <div class="form-check col-md-11">
-                                <label class='form-check-label' for="permission_check_{{$dashKey}}_delete">{{__('delete')}}</label>
-                            </div>
-
-                            <div class="form-check col-md-1">
-                                <input 
-                                    type="checkbox" 
-                                    class="form-check-input {{$dashKey}}" 
-                                    id="permission_check_{{$dashKey}}_delete" 
-                                    wire:model="access.{{$dashKey}}.delete" 
-                                    value="1">
+                            <div class="form-check d-flex justify-content-between w-100">
+                                                
+                                <div>
+                                    <label class="form-check-label align-self-center"
+                                    for="permission_check_{{$dashKey}}_delete">{{ __('delete') }}</label>
+                                </div>
+                            
+                                <div>
+                                    <input type="checkbox" class="form-check-input {{$dashKey}}"
+                                    id="permission_check_{{$dashKey}}_delete" wire:model="access.{{$dashKey}}.delete" value="1">
+                                </div>
+                            
                             </div>
                         </div>
                         <!-- /card-body -->
@@ -94,6 +108,16 @@
     </form>
 
 </div>
+
+<style>
+    .form-check {
+        padding: 0;
+    }
+
+    .selectAll {
+        margin-left: -30px;
+    }
+</style>
 
 
 <script>
