@@ -37,7 +37,7 @@
                 </div>
             </div>
 
-            <div class="row mt-3" dir="ltr">
+            <div class="row mt-3"  dir="@if(config('easy_panel.rtl_mode')) rtl @else ltr @endif">
                 @foreach($permissions as $key => $value)
                 @php
                     $dashKey = str_replace('.', '-', $key);
@@ -50,11 +50,11 @@
             
                             <div class="form-check d-flex justify-content-between w-100">
                                                 
-                                <div>
+                                <div class="@if(config('easy_panel.rtl_mode')) mr-2 @endif">
                                     <h4 class="align-self-center">{{ __($entityName) }}</h4>
                                 </div>
                             
-                                <div>
+                                <div class="@if(config('easy_panel.rtl_mode')) ml-1 @endif">
                                     <input type="checkbox" class="form-check-input selectAll" value="{{$dashKey}}">
                                 </div>
                             
@@ -118,9 +118,11 @@
 </div>
 
 <style>
+    @if(!config('easy_panel.rtl_mode'))
     .form-check {
         padding: 0;
     }
+    @endif
 
     .selectAll {
         margin-left: -30px;
