@@ -9,7 +9,7 @@
         </a>
         @endif
 
-        @if(hasPermission(getRouteName().'.admins.delete', true))
+        @if(hasPermission(getRouteName().'.admins.delete', true) && auth()->id() !== $admin->id)
         <button @click.prevent="deleteModal = true" class="btn text-danger mt-1">
             <i class="icon-trash"></i>
         </button>

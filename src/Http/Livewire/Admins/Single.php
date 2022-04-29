@@ -17,6 +17,11 @@ class Single extends Component
 
     public function delete()
     {
+        if (auth()->id() == $this->admin->id) {
+            $this->dispatchBrowserEvent('show-message', ['type' => 'error', 'message' => __('CannotDeleteMessage', ['name' => __('Admin')])]);
+            return;
+        }
+
         $this->admin->roles()->sync([]);
 
         UserProviderFacade::deleteAdmin($this->admin->id);
