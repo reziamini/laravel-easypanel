@@ -42,6 +42,8 @@
                 @php
                     $dashKey = str_replace('.', '-', $key);
                     $entityName = strpos($key, 'admin.') !== false ? ucfirst(str_replace('admin.', '', $key)) : ucfirst($key);
+
+                    $value = array_merge($value, [['name'=>'delete']])
                 @endphp
                 <div class="col-md-4 col-sm-12">
                     <div class="card text-left">
@@ -55,7 +57,7 @@
                                 </div>
                             
                                 <div class="@if(config('easy_panel.rtl_mode')) ml-1 @endif">
-                                    <input type="checkbox" class="form-check-input selectAll" value="{{$dashKey}}">
+                                    <input type="checkbox" class="form-check-input" wire:model="selectedAll.{{$dashKey}}" onchange="selectAll(this, '{{$dashKey}}')">
                                 </div>
                             
                             </div>
@@ -78,28 +80,13 @@
                                            class="form-check-input {{$dashKey}}"
                                            id="permission_check_{{$dashKey}}_{{$keyAccess['name']}}" 
                                            wire:model="access.{{$dashKey}}.{{$keyAccess['name']}}" 
+                                           wire:click="checkSelectedAll('{{$key}}', '{{$dashKey}}')"
                                            {{ $check ? 'checked' : '' }} 
                                            value="1">
                                 </div>
                             
                             </div>
                             @endforeach
-                            <div class="form-check d-flex justify-content-between w-100">
-                                                
-                                <div>
-                                    <label class="form-check-label align-self-center"
-                                    for="permission_check_{{$dashKey}}_delete">{{ __('delete') }}</label>
-                                </div>
-                            
-                                <div>
-                                    <input type="checkbox" class="form-check-input {{$dashKey}}"
-                                           id="permission_check_{{$dashKey}}_delete" 
-                                           wire:model="access.{{$dashKey}}.delete" 
-                                           {{ isset($access[$dashKey]['delete']) ? 'checked' : '' }}
-                                           value="1">
-                                </div>
-                            
-                            </div>
                         </div>
                         <!-- /card-body -->
                     </div>
@@ -131,13 +118,11 @@
 
 <script>
 
-    document.querySelectorAll('.selectAll').forEach(selectAll => {
-        selectAll.addEventListener('click', e => {
-            document.querySelectorAll('.' + e.target.value).forEach(item => {
-                if(item.checked !== selectAll.checked)
-                    item.click()
-            })
-        })
-    })
+    function selectAll(selectAll, dashKey) {
+        document.querySelectorAll('.' + dashKey).forEach(item => {
+            if(item.checked !== selectAll.checked)
+                item.click()
+        }) 
+    }
 
 </script>

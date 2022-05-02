@@ -10,7 +10,11 @@ class Create extends Component
 {
     public $name;
 
+    public $permissionsData = [];
+
     public $access = [];
+
+    public $selectedAll = [];
 
     protected $rules = [
         'name' => 'required|min:3|unique:roles',
@@ -26,6 +30,24 @@ class Create extends Component
         }
 
         return $this->access;
+    }
+
+    /** 
+     * this method checks if whole checkboxes checked, set value true for SelectAll checkbox
+     * 
+     * @param string $key
+     * 
+     * @param string $dashKey
+     */
+    public function checkSelectedAll($key, $dashKey)
+    {
+        $selectedRoutes = array_filter($this->access[$dashKey]);
+
+        // we don't have delete route in cruds but we have a button for it. that's why i added 1
+        if(count($selectedRoutes) == count($this->permissionsData[$key]) + 1)
+            $this->selectedAll[$dashKey] = true;
+        else
+            unset($this->selectedAll[$dashKey]);
     }
 
     public function create()
@@ -46,6 +68,8 @@ class Create extends Component
     public function render()
     {
         $permissions = ACL::getRoutes();
+
+        $this->permissionsData = $permissions;
 
         return view('admin::livewire.role.create', compact('permissions'))
             ->layout('admin::layouts.app', ['title' => __('CreateTitle', ['name' => __('Role') ])]);

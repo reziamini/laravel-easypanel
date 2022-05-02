@@ -12,7 +12,11 @@ class Update extends Component
 
     public $name;
 
+    public $permissionsData = [];
+
     public $access = [];
+
+    public $selectedAll = [];
 
     protected $rules = [
         'name' => 'min:3'
@@ -25,6 +29,24 @@ class Update extends Component
         $this->name = $role->name;
 
         $this->access = $this->replaceArrayKeys($role->permissions, '.', '-');
+    }
+
+    /** 
+     * this method checks if whole checkboxes checked, set value true for SelectAll checkbox
+     * 
+     * @param string $key
+     * 
+     * @param string $dashKey
+     */
+    public function checkSelectedAll($key, $dashKey)
+    {
+        $selectedRoutes = array_filter($this->access[$dashKey]);
+
+        // we don't have delete route in cruds but we have a button for it. that's why i added 1
+        if(count($selectedRoutes) == count($this->permissionsData[$key]) + 1)
+            $this->selectedAll[$dashKey] = true;
+        else
+            unset($this->selectedAll[$dashKey]);
     }
 
     public function updated($input)
@@ -52,9 +74,13 @@ class Update extends Component
 
     public function render()
     {
+        $permissions = ACL::getRoutes();
+
+        $this->permissionsData = $permissions;
+
         return view('admin::livewire.role.update', [
             'role' => $this->role,
-            'permissions' => ACL::getRoutes(),
+            'permissions' => $permissions,
         ])->layout('admin::layouts.app', ['title' => __('UpdateTitle', ['name' => __('Role')])]);
     }
 
