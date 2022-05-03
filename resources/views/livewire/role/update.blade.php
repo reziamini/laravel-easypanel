@@ -40,10 +40,13 @@
             <div class="row mt-3"  dir="@if(config('easy_panel.rtl_mode')) rtl @else ltr @endif">
                 @foreach($permissions as $key => $value)
                 @php
-                    $dashKey = str_replace('.', '-', $key);
-                    $entityName = strpos($key, 'admin.') !== false ? ucfirst(str_replace('admin.', '', $key)) : ucfirst($key);
+                    $hasAdminDotPrefix = strpos($key, 'admin.') !== false;
 
-                    $value = array_merge($value, [['name'=>'delete']])
+                    $dashKey = str_replace('.', '-', $key);
+                    $entityName = $hasAdminDotPrefix ? ucfirst(str_replace('admin.', '', $key)) : ucfirst($key);
+
+                    if($hasAdminDotPrefix)
+                        $value = array_merge($value, [['name'=>'delete']]);
                 @endphp
                 <div class="col-md-4 col-sm-12">
                     <div class="card text-left">
