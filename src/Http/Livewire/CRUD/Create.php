@@ -78,7 +78,7 @@ class Create extends Component
 
             CRUD::create([
                 'model' => trim($this->model, '\\'),
-                'name' => strtolower($name),
+                'name' => $name,
                 'route' => trim($this->route, '\\'),
                 'icon' => $this->icon ?? 'fas fa-bars'
             ]);

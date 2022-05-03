@@ -46,7 +46,7 @@
                     </thead>
                     <tbody>
                         @foreach(${{ model }}s as ${{ model }})
-                            @livewire('admin.{{ model }}.single', ['{{ model }}' => ${{ model }}], key(${{ model }}->id))
+                            @livewire('admin.{{ model }}.single', [${{ model }}], key(${{ model }}->id))
                         @endforeach
                     </tbody>
                 </table>
