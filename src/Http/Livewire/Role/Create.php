@@ -44,10 +44,7 @@ class Create extends Component
         $selectedRoutes = array_filter($this->access[$dashKey]);
 
         // we don't have delete route in cruds but we have a button for it. that's why i added 1
-        if(count($selectedRoutes) == count($this->permissionsData[$key]) + 1)
-            $this->selectedAll[$dashKey] = true;
-        else
-            unset($this->selectedAll[$dashKey]);
+        $this->selectedAll[$dashKey] = count($selectedRoutes) == count($this->permissionsData[$key]) + 1;
     }
 
     public function create()
@@ -67,11 +64,9 @@ class Create extends Component
 
     public function render()
     {
-        $permissions = ACL::getRoutes();
+        $this->permissionsData = ACL::getRoutes();
 
-        $this->permissionsData = $permissions;
-
-        return view('admin::livewire.role.create', compact('permissions'))
+        return view('admin::livewire.role.create', ['permissions' => $this->permissionsData])
             ->layout('admin::layouts.app', ['title' => __('CreateTitle', ['name' => __('Role') ])]);
     }
 }

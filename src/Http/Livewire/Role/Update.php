@@ -12,7 +12,7 @@ class Update extends Component
 
     public $name;
 
-    public $permissionsData = [];
+    public $permissions = [];
 
     public $access = [];
 
@@ -28,7 +28,9 @@ class Update extends Component
 
         $this->name = $role->name;
 
-        $this->access = $this->replaceArrayKeys($role->permissions, '.', '-');
+        $this->permissions = ACL::getRoutes();
+
+        $this->setSelectedAccess($role->permissions);
     }
 
     /** 
@@ -43,10 +45,7 @@ class Update extends Component
         $selectedRoutes = array_filter($this->access[$dashKey]);
 
         // we don't have delete route in cruds but we have a button for it. that's why i added 1
-        if(count($selectedRoutes) == count($this->permissionsData[$key]) + 1)
-            $this->selectedAll[$dashKey] = true;
-        else
-            unset($this->selectedAll[$dashKey]);
+        $this->selectedAll[$dashKey] = count($selectedRoutes) == count($this->permissions[$key]) + 1;
     }
 
     public function updated($input)
@@ -74,29 +73,23 @@ class Update extends Component
 
     public function render()
     {
-        $permissions = ACL::getRoutes();
-
-        $this->permissionsData = $permissions;
-
         return view('admin::livewire.role.update', [
             'role' => $this->role,
-            'permissions' => $permissions,
         ])->layout('admin::layouts.app', ['title' => __('UpdateTitle', ['name' => __('Role')])]);
     }
 
-    private function replaceArrayKeys($permissions, $from, $to)
+    private function setSelectedAccess($rolePermissions)
     {
-        foreach($permissions as $key => $value) {
-            unset($permissions[$key]);
-            $key = str_replace($from, $to, $key);
-            $value = is_array($value) ? array_filter($value) : $value;
+        foreach($rolePermissions as $key => $value) { 
+            $dashKey = str_replace('.', '-', $key);
+            $value = is_array($value) ? array_filter($value) : $value; 
 
             if (empty($value))
                 continue;
 
-            $permissions[$key] = $value;
-        }
+            $this->access[$dashKey] = $value;
 
-        return $permissions;
+            $this->checkSelectedAll($key, $dashKey);
+        }
     }
 }
