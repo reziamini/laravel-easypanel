@@ -12,13 +12,6 @@ class Lists extends Component
 
     protected $paginationTheme = 'bootstrap';
 
-    // protected $listeners = ['adminUpdated'];
-
-    public function roleUpdated()
-    {
-        // There is nothing to do, just update It.
-    }
-
     public function render()
     {
         $admins = UserProviderFacade::paginateAdmins();
