@@ -24,7 +24,7 @@ class Single extends Component
         ]);
 
         $this->crud->delete();
-        $this->dispatchBrowserEvent('show-message', ['type' => 'error', 'message' => __('DeletedMessage', ['name' => __('Todo') ] )]);
+        $this->dispatchBrowserEvent('show-message', ['type' => 'error', 'message' => __('DeletedMessage', ['name' => __('CRUD') ] )]);
         $this->emit('crudUpdated');
     }
 

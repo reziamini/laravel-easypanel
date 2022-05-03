@@ -10,8 +10,8 @@ class Single extends Component
 
     public ${{ model }};
 
-    public function mount({{ modelName }} ${{ model }}){
-        $this->{{ model }} = ${{ model }};
+    public function mount({{ modelName }} ${{ modelName }}){
+        $this->{{ model }} = ${{ modelName }};
     }
 
     public function delete()

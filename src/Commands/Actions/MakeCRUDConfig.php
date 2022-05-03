@@ -20,7 +20,7 @@ class MakeCRUDConfig extends GeneratorCommand
 
     public function handle()
     {
-        $name = ucfirst($this->getNameInput());
+        $name = $this->getNameInput();
 
         $path = base_path("app/CRUD/{$name}Component.php");
 
@@ -42,7 +42,7 @@ class MakeCRUDConfig extends GeneratorCommand
     {
         $array = [
             '{{ modelNamespace }}' => $this->parseModel(),
-            '{{ modelName }}' => ucfirst($this->getNameInput()),
+            '{{ modelName }}' => $this->getNameInput(),
             '{{ withAuth }}' => $this->withAuth(),
             '{{ fields }}' => $this->parseSearchFields(),
         ];
