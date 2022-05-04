@@ -29,7 +29,7 @@ class Create extends Component
             $this->access[$key] = is_array($value) ? array_filter($value) : $value;
         }
 
-        return $this->access;
+        return array_filter($this->access);
     }
 
     /** 
