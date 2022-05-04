@@ -95,12 +95,14 @@ class Update extends Component
 
     private function getSelectedAccess()
     {
-        foreach($this->access as $key => $value) {
-            unset($this->access[$key]);
+        $access = $this->access;
+        
+        foreach($access as $key => $value) {
+            unset($access[$key]);
             $key = str_replace('-', '.', $key);
-            $this->access[$key] = is_array($value) ? array_filter($value) : $value;
+            $access[$key] = is_array($value) ? array_filter($value) : $value;
         }
 
-        return $this->access;
+        return $access;
     }
 }
