@@ -68,7 +68,7 @@ class UserProvider
             ]
         ]);
 
-        $user->roles()->sync([$role->id]);
+        $role->users()->sync([$user->id]);
     }
 
 }

@@ -7,6 +7,8 @@ use EasyPanel\Parsers\StubParser;
 use EasyPanelTest\Dependencies\User;
 use Faker\Factory;
 use Illuminate\Support\Facades\Hash;
+use Iya30n\DynamicAcl\Providers\DynamicAclServiceProvider;
+use Javoscript\MacroableModels\MacroableModelsServiceProvider;
 use Livewire\LivewireServiceProvider;
 
 abstract class TestCase extends \Orchestra\Testbench\TestCase
@@ -27,8 +29,10 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         parent::setUp();
 
         $this->loadMigrationsFrom(__DIR__.'/Dependencies/database/migrations');
+        $this->loadMigrationsFrom(__DIR__.'/../vendor/iya30n/dynamic-acl/database/migrations');
         $this->setUser();
         $this->setParser();
+        
         config()->set('easy_panel.user_model', User::class);
     }
 
@@ -36,10 +40,11 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     {
         return [
             EasyPanelServiceProvider::class,
-            LivewireServiceProvider::class
+            LivewireServiceProvider::class,
+            MacroableModelsServiceProvider::class,
+            DynamicAclServiceProvider::class,
         ];
     }
-
 
     protected function setUser()
     {
