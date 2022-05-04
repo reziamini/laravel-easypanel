@@ -65,7 +65,7 @@ class Update extends Component
 
         $this->role->update([
             'name' => $this->name,
-            'permissions' => $this->replaceArrayKeys($this->access, '-', '.')
+            'permissions' => $this->getSelectedAccess()
         ]);
 
         $this->dispatchBrowserEvent('show-message', ['type' => 'success', 'message' => __('UpdatedMessage', ['name' => __('Role')])]);
@@ -91,5 +91,16 @@ class Update extends Component
 
             $this->checkSelectedAll($key, $dashKey);
         }
+    }
+
+    private function getSelectedAccess()
+    {
+        foreach($this->access as $key => $value) {
+            unset($this->access[$key]);
+            $key = str_replace('-', '.', $key);
+            $this->access[$key] = is_array($value) ? array_filter($value) : $value;
+        }
+
+        return $this->access;
     }
 }
