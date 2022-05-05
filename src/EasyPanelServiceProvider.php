@@ -126,9 +126,8 @@ class EasyPanelServiceProvider extends ServiceProvider
         $this->publishes([__DIR__ . '/../resources/assets' => public_path('/assets/admin')], 'easy-panel-styles');
 
         $this->publishes([
-            __DIR__ . '/../database/migrations/2021_07_17_999999_create_cruds_table.php' => base_path('/database/migrations/' . date('Y_m_d') . '_999999_create_cruds_table.php'),
-            __DIR__ . '/../database/migrations/2021_12_17_999999_create_user_admins_table.php' => base_path('/database/migrations/' . date('Y_m_d') . '_999999_create_user_admins_table.php'),
-            __DIR__ . '/../database/migrations/2022_04_19_999999_add_acl_fields_to_cruds_table.php' => base_path('/database/migrations/' . now()->tomorrow()->format('Y_m_d') . '_999999_add_acl_fields_to_cruds_table.php')
+            __DIR__ . '/../database/migrations/cruds_table.php' => base_path('/database/migrations/' . date('Y_m_d') . '_999999_create_cruds_table_easypanel.php'),
+            __DIR__ . '/../database/migrations/panel_admins_table.php' => base_path('/database/migrations/' . date('Y_m_d') . '_999999_create_panel_admins_table_easypanel.php'),
         ], 'easy-panel-migration');
 
         $this->publishes([__DIR__.'/../resources/lang' => app()->langPath()], 'easy-panel-lang');

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserAdminsTable extends Migration
+class CreatePanelAdminsTableEasypanel extends Migration
 {
     /**
      * Run the migrations.
@@ -30,6 +30,6 @@ class CreateUserAdminsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cruds');
+        Schema::dropIfExists('panel_admins');
     }
 }

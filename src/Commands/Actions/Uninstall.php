@@ -38,6 +38,8 @@ class Uninstall extends Command
     {
         Schema::dropIfExists('cruds');
         Schema::dropIfExists('panel_admins');
+        Schema::dropIfExists('role_user');
+        Schema::dropIfExists('roles');
     }
 
     private function deleteFiles()
@@ -55,15 +57,12 @@ class Uninstall extends Command
 
     private function deleteMigrations()
     {
-        $migrationFiles = File::allFiles(__DIR__."/../../../database/migrations");
+        $migrationFiles = File::glob(database_path('migrations/*easypanel.php'));
 
-        $migrationsTable = DB::table('migrations');
-        foreach ($migrationFiles as $migration) {
-            $migrationName = \Illuminate\Support\Str::between($migration->getFileName(), "999999", ".php");
+        File::delete($migrationFiles);
 
-            $migrationsTable->orWhere('migration', 'like', "%$migrationName");
-        }
-
-        $migrationsTable->delete();
+        DB::table('migrations')
+            ->where('migration', 'like', '%easypanel')
+            ->delete();
     }
 }
