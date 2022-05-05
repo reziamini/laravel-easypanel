@@ -21,6 +21,8 @@ class CreateCrudsTable extends Migration
             $table->string('icon')->default('fas fa-bars');
             $table->boolean('active')->default(true);
             $table->boolean('built')->default(false);
+            $table->boolean('with_acl')->default(false);
+            $table->boolean('with_policy')->default(false);
             $table->timestamps();
         });
     }
