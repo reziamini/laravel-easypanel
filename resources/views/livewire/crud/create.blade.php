@@ -51,12 +51,15 @@
                         <input type="checkbox" class="form-check-input" id="with_acl" wire:model="withAcl" value="1">
                         <label class='form-check-label' for="with_acl">With ACL</label>
                     </div>
+                    <span class="text-info font-12">Needs to be protected using roles and permissions.</span>
+
                 </div>
                 <div class="col-md-6">
                     <div class="form-check text-left">
                         <input type="checkbox" {{$withAcl ? '' : 'disabled'}} class="form-check-input" id="with_policy" wire:model="withPolicy" value="1">
                         <label class='form-check-label' for="with_policy">With Policy</label>
                     </div>
+                    <span class="text-info font-12">Admin can only delete its own data in table.</span>
                 </div>
             </div>
         </div>
