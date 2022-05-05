@@ -23,6 +23,7 @@ class Reinstall extends Command
         Artisan::call("panel:uninstall", [
             '--force' => true,
         ]);
+
         Artisan::call("panel:install");
 
         $this->info("The package was reinstalled!");

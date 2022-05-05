@@ -45,6 +45,19 @@
                         <p class="mt-2 font-12">{{ __('More icons in') }} <a href="https://fontawesome.com/icons">{{ __('FontAwesome') }}</a></p>
                     </div>
                 </div>
+
+                <div class="col-md-6">
+                    <div class="form-check text-left">
+                        <input type="checkbox" class="form-check-input" id="with_acl" wire:model="withAcl" value="1">
+                        <label class='form-check-label' for="with_acl">With ACL</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-check text-left">
+                        <input type="checkbox" {{$withAcl ? '' : 'disabled'}} class="form-check-input" id="with_policy" wire:model="withPolicy" value="1">
+                        <label class='form-check-label' for="with_policy">With Policy</label>
+                    </div>
+                </div>
             </div>
         </div>
 

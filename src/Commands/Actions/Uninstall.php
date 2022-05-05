@@ -49,6 +49,7 @@ class Uninstall extends Command
         File::deleteDirectory(resource_path('cruds'));
         File::deleteDirectory(public_path('assets/admin'));
         File::delete(config_path('easy_panel.php'));
+        File::delete(config_path('dynamicACL.php'));
         File::delete(LangManager::getFiles());
     }
 

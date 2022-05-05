@@ -107,6 +107,14 @@ class EasyPanelServiceProvider extends ServiceProvider
         Livewire::component('admin::livewire.crud.lists', Http\Livewire\CRUD\Lists::class);
 
         Livewire::component('admin::livewire.translation.manage', Http\Livewire\Translation\Manage::class);
+
+        Livewire::component('admin::livewire.role.single', Http\Livewire\Role\Single::class);
+        Livewire::component('admin::livewire.role.create', Http\Livewire\Role\Create::class);
+        Livewire::component('admin::livewire.role.update', Http\Livewire\Role\Update::class);
+        Livewire::component('admin::livewire.role.lists', Http\Livewire\Role\Lists::class);
+
+        Livewire::component('admin::livewire.admins.single', Http\Livewire\Admins\Single::class);
+        Livewire::component('admin::livewire.admins.update', Http\Livewire\Admins\Update::class);
     }
 
     private function mergePublishes()
@@ -119,7 +127,8 @@ class EasyPanelServiceProvider extends ServiceProvider
 
         $this->publishes([
             __DIR__ . '/../database/migrations/2021_07_17_999999_create_cruds_table.php' => base_path('/database/migrations/' . date('Y_m_d') . '_999999_create_cruds_table.php'),
-            __DIR__ . '/../database/migrations/2021_12_17_999999_create_user_admins_table.php' => base_path('/database/migrations/' . date('Y_m_d') . '_999999_create_user_admins_table.php')
+            __DIR__ . '/../database/migrations/2021_12_17_999999_create_user_admins_table.php' => base_path('/database/migrations/' . date('Y_m_d') . '_999999_create_user_admins_table.php'),
+            __DIR__ . '/../database/migrations/2022_04_19_999999_add_acl_fields_to_cruds_table.php' => base_path('/database/migrations/' . now()->tomorrow()->format('Y_m_d') . '_999999_add_acl_fields_to_cruds_table.php')
         ], 'easy-panel-migration');
 
         $this->publishes([__DIR__.'/../resources/lang' => app()->langPath()], 'easy-panel-lang');

@@ -186,13 +186,17 @@ class StubParser
     public function parseBlade($stub){
         $modelName = $this->getModelName($this->parsedModel);
 
+        $crud = crud(strtolower($modelName));
+
         $array = [
             '{{ model }}' => strtolower($modelName),
             '{{ modelName }}' => ucfirst($modelName),
             '{{ data }}' => $this->parseDataInBlade(),
             '{{ titles }}' => $this->parseTitlesInBlade(),
             '{{ inputs }}' => $this->parseInputsInBlade(),
-            '{{ routeName }}' => crud(strtolower($modelName))->route,
+            '{{ routeName }}' => $crud->route,
+            '{{ with_acl }}' => $crud->with_acl,
+            '{{ with_policy }}' => $crud->with_policy,
         ];
 
         $this->setLocaleTexts();

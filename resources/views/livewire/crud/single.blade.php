@@ -2,8 +2,11 @@
     <td> <span class="text-primary">{{ $crud->model }}</span>::<span class="text-danger">class</span> </td>
     <td><span class="p-2 badge badge-light text-primary">/{{ $crud->route }}</span> </td>
     <td> @if($crud->active) <span class="badge badge-success">Active</span> @else <span class="badge badge-warning">Inactive</span> @endif </td>
+    <td> @if($crud->with_acl) <span class="badge badge-primary">Yes</span> @else <span class="badge badge-danger">No</span> @endif </td>
+    <td> @if($crud->with_policy) <span class="badge badge-primary">Yes</span> @else <span class="badge badge-danger">No</span> @endif </td>
     <td> @if($crud->built) <span class="badge badge-primary">Yes</span> @else <span class="badge badge-danger">No</span> @endif </td>
     <td>
+        @if(hasPermission(getRouteName().'.crud.delete', true))
         <button @click.prevent="deleteModal = true" class="btn text-danger mt-1">
             <i class="icon-trash"></i>
         </button>
@@ -18,7 +21,9 @@
                 </div>
             </div>
         </div>
+        @endif
 
+        @if(hasPermission(getRouteName().'.crud.create', true))
         <button @click.prevent="createModal = true" class="btn text-info mt-1">
             <i class="icon-rocket"></i>
         </button>
@@ -33,15 +38,18 @@
                 </div>
             </div>
         </div>
+        @endif
 
-        @if($crud->active)
-            <button wire:click.prevent="inactive" class="btn text-warning mt-1" title="Inactive CRUD">
-                <i class="fa fa-times"></i>
-            </button>
-        @else
-            <button wire:click.prevent="active" class="btn text-success mt-1" title="Aactive CRUD">
-                <i class="fa fa-check"></i>
-            </button>
+        @if(hasPermission(getRouteName().'.crud.create', true))
+            @if($crud->active)
+                <button wire:click.prevent="inactive" class="btn text-warning mt-1" title="Inactive CRUD">
+                    <i class="fa fa-times"></i>
+                </button>
+            @else
+                <button wire:click.prevent="active" class="btn text-success mt-1" title="Aactive CRUD">
+                    <i class="fa fa-check"></i>
+                </button>
+            @endif
         @endif
     </td>
 </tr>

@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
 
 class Create extends Component
 {
-    public $model, $route, $icon;
+    public $model, $route, $icon, $withAcl, $withPolicy;
     public $models;
     public $dropdown;
     protected $listeners = ['closeModal'];
@@ -80,7 +80,9 @@ class Create extends Component
                 'model' => trim($this->model, '\\'),
                 'name' => $name,
                 'route' => trim($this->route, '\\'),
-                'icon' => $this->icon ?? 'fas fa-bars'
+                'icon' => $this->icon ?? 'fas fa-bars',
+                'with_acl' => $this->withAcl == 1,
+                'with_policy' => $this->withAcl == 1 && $this->withPolicy == 1
             ]);
 
             Artisan::call('panel:config', [
