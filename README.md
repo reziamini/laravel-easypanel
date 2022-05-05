@@ -36,14 +36,3 @@ To see how to install EasyPanel and use it, please checkout the documentation of
 
 ## Contribution: 
 If you feel you can improve our package You are free to send a pull request or submit an issue :)
-
-## V2 Path 
-- [x] ACL System
-- [ ] Logging System
-- [x] CRUD Maker GUI
-- [x] RTL Style
-- [x] Translation
-- [x] Relational inputs
-- [x] More input types & editors
-- [x] Customizable inputs and fields
-- [ ] Multi languages support
