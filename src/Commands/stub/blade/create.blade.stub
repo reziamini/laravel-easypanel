@@ -2,7 +2,7 @@
     <div class="card-header p-0">
         <h3 class="card-title">{{ __('CreateTitle', ['name' => __('{{ modelName }}') ]) }}</h3>
         <div class="px-2 mt-4">
-            <ul class="breadcrumb mt-3 py-3 px-4 rounded" style="background-color: #e9ecef!important;">
+            <ul class="breadcrumb mt-3 py-3 px-4 rounded">
                 <li class="breadcrumb-item"><a href="@route(getRouteName().'.home')" class="text-decoration-none">{{ __('Dashboard') }}</a></li>
                 <li class="breadcrumb-item"><a href="@route(getRouteName().'.{{ routeName }}.read')" class="text-decoration-none">{{ __(\Illuminate\Support\Str::plural('{{ modelName }}')) }}</a></li>
                 <li class="breadcrumb-item active">{{ __('Create') }}</li>

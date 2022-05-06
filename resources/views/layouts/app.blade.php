@@ -26,7 +26,7 @@
     @endif
 </head>
 
-<body>
+<body {{ session('easypanel_theme') === 'dark' ? 'class=dark' : ''  }}>
 
 <div class="preloader">
     <div class="lds-ripple">
@@ -35,7 +35,8 @@
     </div>
 </div>
 
-<div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+<div id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+     data-theme="{{ session('easypanel_theme') === 'dark' ? 'dark' : ''  }}"
      data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
 
     <!-- Topbar header - style you can find in pages.scss -->
@@ -51,6 +52,17 @@
                     <a href="@route(getRouteName().'.home')">
                         <span class="logo-text">{{ __('EasyPanel') }}</span>
                     </a>
+
+                    <div class="container-checkbox">
+                        <label class="switch-checkbox">
+                            <div class="switch-box">
+                                <input type="checkbox" id="dark-switch" name="theme"
+                                        {{ session('easypanel_theme') === 'dark' ? 'checked' : ''  }}>
+                                <div class="toggle"><span></span></div>
+                            </div>
+                        </label>
+                    </div>
+
                 </div>
                 <!-- End Logo -->
 
@@ -160,6 +172,12 @@
         setTimeout(function () {
             body.removeChild(child);
         }, 3000);
+    });
+
+    document.querySelector('#dark-switch')
+    && document.querySelector('#dark-switch').addEventListener('change', function (e) {
+        let theme = e.target.checked === true ? 'dark' : 'light';
+        window.location.href = "{{ route('admin.setTheme') }}?theme=" + theme;
     });
 </script>
 
