@@ -57,12 +57,12 @@ class Uninstall extends Command
 
     private function deleteMigrations()
     {
-        $migrationFiles = File::glob(database_path('migrations/*easypanel.php'));
+        $migrationFiles = File::glob(database_path('migrations/*999999*.php'));
 
         File::delete($migrationFiles);
 
         DB::table('migrations')
-            ->where('migration', 'like', '%easypanel')
+            ->where('migration', 'like', '%999999%')
             ->delete();
     }
 }
