@@ -26,7 +26,7 @@
     @endif
 </head>
 
-<body {{ session('easypanel_theme') === 'dark' ? 'class=dark' : ''  }}>
+<body>
 
 <div class="preloader">
     <div class="lds-ripple">
@@ -36,7 +36,6 @@
 </div>
 
 <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
-     data-theme="{{ session('easypanel_theme') === 'dark' ? 'dark' : ''  }}"
      data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
 
     <!-- Topbar header - style you can find in pages.scss -->
@@ -56,8 +55,7 @@
                     <div class="container-checkbox">
                         <label class="switch-checkbox">
                             <div class="switch-box">
-                                <input type="checkbox" id="dark-switch" name="theme"
-                                        {{ session('easypanel_theme') === 'dark' ? 'checked' : ''  }}>
+                                <input type="checkbox" id="dark-switch" name="theme">
                                 <div class="toggle"><span></span></div>
                             </div>
                         </label>
@@ -174,11 +172,26 @@
         }, 3000);
     });
 
+    let theme = localStorage.getItem('theme');
+    setThemeAttributes(theme);
+
     document.querySelector('#dark-switch')
     && document.querySelector('#dark-switch').addEventListener('change', function (e) {
         let theme = e.target.checked === true ? 'dark' : 'light';
-        window.location.href = "{{ route('admin.setTheme') }}?theme=" + theme;
+        setThemeAttributes(theme);
+        localStorage.setItem('theme', theme);
     });
+
+    function setThemeAttributes(theme){
+        if (theme === 'dark') {
+            document.querySelector('body').classList.add('dark');
+            document.querySelector('#main-wrapper').setAttribute('data-theme', 'dark');
+            document.querySelector('#dark-switch').checked = true;
+        } else {
+            document.querySelector('body').classList.remove('dark');
+            document.querySelector('#main-wrapper').setAttribute('data-theme', 'light');
+        }
+    }
 </script>
 
 </body>

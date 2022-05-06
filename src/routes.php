@@ -55,13 +55,6 @@ Route::get('setLang', function (){
     return redirect()->back();
 })->name('setLang');
 
-Route::get('setTheme', function (){
-    $theme = request()->get('theme');
-    session()->put('easypanel_theme', $theme);
-
-    return redirect()->back();
-})->name('setTheme');
-
 Route::get('translation', \EasyPanel\Http\Livewire\Translation\Manage::class)
     ->middleware('dynamicAcl')
     ->name('translation');
