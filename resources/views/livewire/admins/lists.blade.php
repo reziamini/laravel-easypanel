@@ -6,7 +6,7 @@
                 {{--<a href="@route(getRouteName().'.admins.create')" class="btn btn-info">{{ __('CreateTitle', ['name' => __('Admins') ]) }}</a>--}}
             </div>
 
-            <ul class="breadcrumb mt-3 py-3 px-4 rounded" style="background-color: #e9ecef!important;">
+            <ul class="breadcrumb mt-3 py-3 px-4 rounded">
                 <li class="breadcrumb-item"><a href="@route(getRouteName().'.home')" class="text-decoration-none">{{ __('Dashboard') }}</a></li>
                 <li class="breadcrumb-item active">{{ __('Admin Manager') }}</li>
             </ul>
