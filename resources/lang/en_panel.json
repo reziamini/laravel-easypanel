@@ -15,9 +15,9 @@
     "DeleteTitle": "Delete a :Name",
     "DeletedMessage": ":Name was deleted.",
     "CreatedMessage": ":Name was created.",
-    "UpdatedMessage": ":Name was updated.", 
-    "CannotUpdateMessage": ":Name can't be updated.", 
-    "CannotDeleteMessage": ":Name can't be deleted.", 
+    "UpdatedMessage": ":Name was updated.",
+    "CannotUpdateMessage": ":Name can't be updated.",
+    "CannotDeleteMessage": ":Name can't be deleted.",
     "CreateTitle": "Create :Name",
     "UpdateTitle": "Update :Name",
     "Search": "Search",
@@ -54,6 +54,8 @@
     "Name Of Role": "Name Of Role",
     "With ACL": "With ACL",
     "With Policy": "With Policy",
+    "Needs to be protected using roles and permissions.": "Needs to be protected using roles and permissions.",
+    "Admin can only delete its own data in table.": "Admin can only delete its own data in table.",
     "There is no record for Role in database!": "There is no record for Role in database!",
     "Users Count": "Users Count",
     "Admin": "Admin",
@@ -63,5 +65,7 @@
     "Without Role": "Without Role",
     "name": "Name",
     "email": "Email",
-    "Full Access": "Full Access"
+    "Full Access": "Full Access",
+    "Lists": "Lists",
+    "Delete": "Delete"
 }

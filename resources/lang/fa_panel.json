@@ -16,8 +16,8 @@
     "DeletedMessage": ":Name حذف شد.",
     "CreatedMessage": ":Name ساخته شد.",
     "UpdatedMessage": ":Name ویرایش شد.",
-    "CannotUpdateMessage": ":Name مجاز به ویرایش نیست", 
-    "CannotDeleteMessage": ":Name مجاز به حذف نیست.", 
+    "CannotUpdateMessage": ":Name مجاز به ویرایش نیست",
+    "CannotDeleteMessage": ":Name مجاز به حذف نیست.",
     "CreateTitle": "ساخت :Name",
     "UpdateTitle": "ویرایش :Name",
     "Search": "جستجو",
@@ -60,6 +60,8 @@
     "Name Of Role": "نام نقش",
     "With ACL": "دارای سطوح دسترسی",
     "With Policy": "چک کردن دسترسی‌ها",
+    "Needs to be protected using roles and permissions.": "در صورت فعال بودن، سطوح دسترسی بررسی میشود.",
+    "Admin can only delete its own data in table.": "کاربر فقط اطلاعات ساخته شده توسط خود را میتواند مدیریت کند.",
     "There is no record for Role in database!": "هیچ نقشی در دیتابیس پیدا نشد!",
     "Users Count": "تعداد کاربران",
     "Admin": "مدیر",
@@ -69,5 +71,7 @@
     "Without Role": "بدون نقش",
     "name": "نام",
     "email": "ایمیل",
-    "Full Access": "دسترسی کامل"
+    "Full Access": "دسترسی کامل",
+    "Lists": "لیست",
+    "Delete": "حذف"
 }

@@ -49,20 +49,20 @@
                 @endphp
                 <div class="col-md-4 col-sm-12">
                     <div class="card text-left">
-                        
+
                         <div class="mt-3 ml-1">
 
                             <div class="form-check d-flex justify-content-between w-100">
-                                                
+
                                 <div class="@if(config('easy_panel.rtl_mode')) mr-2 @endif">
                                     <h4 class="align-self-center">{{ __($entityName) }}</h4>
                                 </div>
-                            
+
                                 <div class="@if(config('easy_panel.rtl_mode')) ml-1 @endif">
-                                    <input type="checkbox" 
+                                    <input type="checkbox"
                                     class="form-check-input" wire:model="selectedAll.{{$dashKey}}" onchange="selectAll(this, '{{$dashKey}}')">
                                 </div>
-                            
+
                             </div>
                         </div>
                         <!-- /card header -->
@@ -72,20 +72,20 @@
                         <div class="card-body row" style="height: 140px;">
                             @foreach($value as $keyAccess)
                             <div class="form-check d-flex justify-content-between w-100">
-                                                
+
                                 <div>
                                     <label class="form-check-label align-self-center"
-                                    for="permission_check_{{$dashKey}}_{{$keyAccess['name']}}">{{ __($keyAccess['name']) }}</label>
+                                    for="permission_check_{{$dashKey}}_{{$keyAccess['name']}}">{{ __(ucfirst($keyAccess['name'])) }}</label>
                                 </div>
-                            
+
                                 <div>
                                     <input type="checkbox" class="form-check-input {{$dashKey}}"
-                                    id="permission_check_{{$dashKey}}_{{$keyAccess['name']}}" 
+                                    id="permission_check_{{$dashKey}}_{{$keyAccess['name']}}"
                                     wire:model="access.{{$dashKey}}.{{$keyAccess['name']}}"
                                     wire:click="checkSelectedAll('{{$key}}', '{{$dashKey}}')"
                                     value="1">
                                 </div>
-                            
+
                             </div>
                             @endforeach
                         </div>
@@ -124,7 +124,7 @@
         document.querySelectorAll('.' + dashKey).forEach(item => {
             if(item.checked !== selectAll.checked)
                 item.click()
-        }) 
+        })
     }
 
 </script>
