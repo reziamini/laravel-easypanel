@@ -137,7 +137,7 @@ class StubParser
     {
         $fields = array_keys($this->inputs);
         $str = '';
-        $action = $this->inputName;
+        $action = strtolower($this->inputName);
         foreach ($fields as $field) {
             $str .= '$this->'.$field.' = $this->'.$action.'->'.$field.';';
             $str .= $this->makeTab(2, end($fields) != $field);
