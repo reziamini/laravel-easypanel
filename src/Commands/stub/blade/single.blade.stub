@@ -1,15 +1,15 @@
 <tr x-data="{ modalIsOpen : false }">
     {{ data }}
-    @if(getCrudConfig('{{ model }}')->delete or getCrudConfig('{{ model }}')->update)
+    @if(getCrudConfig('{{ modelName }}')->delete or getCrudConfig('{{ modelName }}')->update)
         <td>
 
-            @if(getCrudConfig('{{ model }}')->update && hasPermission(getRouteName().'.{{ routeName }}.update', {{ with_acl }}, {{ with_policy }}, ${{ model }}))
+            @if(getCrudConfig('{{ modelName }}')->update && hasPermission(getRouteName().'.{{ routeName }}.update', {{ with_acl }}, {{ with_policy }}, ${{ model }}))
                 <a href="@route(getRouteName().'.{{ routeName }}.update', ${{ model }}->id)" class="btn text-primary mt-1">
                     <i class="icon-pencil"></i>
                 </a>
             @endif
 
-            @if(getCrudConfig('{{ model }}')->delete && hasPermission(getRouteName().'.{{ routeName }}.delete', {{ with_acl }}, {{ with_policy }}, ${{ model }}))
+            @if(getCrudConfig('{{ modelName }}')->delete && hasPermission(getRouteName().'.{{ routeName }}.delete', {{ with_acl }}, {{ with_policy }}, ${{ model }}))
                 <button @click.prevent="modalIsOpen = true" class="btn text-danger mt-1">
                     <i class="icon-trash"></i>
                 </button>

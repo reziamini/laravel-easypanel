@@ -12,12 +12,12 @@
                     </ul>
 
                     <div class="row justify-content-between mt-4 mb-4">
-                        @if(getCrudConfig('{{ model }}')->create && hasPermission(getRouteName().'.{{ routeName }}.create', {{ with_acl }}, {{ with_policy }}))
+                        @if(getCrudConfig('{{ modelName }}')->create && hasPermission(getRouteName().'.{{ routeName }}.create', {{ with_acl }}, {{ with_policy }}))
                         <div class="col-md-4 right-0">
                             <a href="@route(getRouteName().'.{{ routeName }}.create')" class="btn btn-success">{{ __('CreateTitle', ['name' => __('{{ modelName }}') ]) }}</a>
                         </div>
                         @endif
-                        @if(getCrudConfig('{{ model }}')->searchable())
+                        @if(getCrudConfig('{{ modelName }}')->searchable())
                         <div class="col-md-4">
                             <div class="input-group">
                                 <input type="text" class="form-control" @if(config('easy_panel.lazy_mode')) wire:model.lazy="search" @else wire:model="search" @endif placeholder="{{ __('Search') }}" value="{{ request('search') }}">
@@ -39,7 +39,7 @@
                     <thead>
                         <tr>
                             {{ titles }}
-                            @if(getCrudConfig('{{ model }}')->delete or getCrudConfig('{{ model }}')->update)
+                            @if(getCrudConfig('{{ modelName }}')->delete or getCrudConfig('{{ modelName }}')->update)
                                 <th scope="col">{{ __('Action') }}</th>
                             @endif
                         </tr>
