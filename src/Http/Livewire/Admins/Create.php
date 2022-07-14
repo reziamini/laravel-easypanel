@@ -1,6 +1,6 @@
 <?php
 
-namespace EasyPanel\Http\Livewire\Role;
+namespace EasyPanel\Http\Livewire\Admins;
 
 use Livewire\Component;
 use Iya30n\DynamicAcl\ACL;
