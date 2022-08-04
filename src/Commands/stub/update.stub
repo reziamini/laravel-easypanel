@@ -17,8 +17,8 @@ class Update extends Component
         {{ rules }}
     ];
 
-    public function mount({{ modelName }} ${{ model }}){
-        $this->{{ model }} = ${{ model }};
+    public function mount({{ modelName }} ${{ modelName }}){
+        $this->{{ model }} = ${{ modelName }};
         {{ setProperties }}
     }
 
