@@ -7,13 +7,21 @@ use Illuminate\Support\Facades\Schema;
 class CreateCrudsTableEasypanel extends Migration
 {
     /**
+     * {@inheritdoc}
+     */
+    public function getConnection()
+    {
+        return config('easy_panel_config.database.connection') ?: config('database.default');
+    }
+
+    /**
      * Run the migrations.
      *
      * @return void
      */
     public function up()
     {
-        Schema::create('cruds', function (Blueprint $table) {
+        Schema::create(config('easy_panel_config.database.crud_table'), function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
             $table->string('model')->unique();
@@ -34,6 +42,6 @@ class CreateCrudsTableEasypanel extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cruds');
+        Schema::dropIfExists(config('easy_panel_config.database.crud_table'));
     }
 }
