@@ -41,4 +41,11 @@ return [
 
     // Lazy validation for Livewire components
     'lazy_mode' => true,
+
+    // database configure
+    'database'=>[
+        'connection'=> env('EZ_PANEL_DB_CONNECTION'),
+        'panel_admin_table'=>'panel_admins',
+        'crud_table'=> 'cruds'
+    ]
 ];
