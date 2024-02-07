@@ -9,7 +9,7 @@ Route::post('/logout', function (){
     return redirect(config('easy_panel.redirect_unauthorized'));
 })->name('logout');
 
-if (\Illuminate\Support\Facades\Schema::hasTable('cruds')) {
+if (\Illuminate\Support\Facades\Schema::connection(config('easy_panel.database.connection') ?: config('database.default'))->hasTable(config('easy_panel.database.crud_table'))) {
     foreach (\EasyPanel\Models\CRUD::active() as $crud) {
         $crudConfig = getCrudConfig($crud->name);
         $name = ucfirst($crud->name);
