@@ -44,7 +44,7 @@ return [
 
     // database configure
     'database'=>[
-        'connection'=> env('EZ_PANEL_DB_CONNECTION'),
+        'connection'=> env('EASY_PANEL_DB_CONNECTION'),
         'panel_admin_table'=>'panel_admins',
         'crud_table'=> 'cruds'
     ]
