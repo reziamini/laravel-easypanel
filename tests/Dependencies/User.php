@@ -10,6 +10,6 @@ class User extends \Illuminate\Foundation\Auth\User
 
     protected $guarded = [];
 
-    protected $casts = ['is_superuser'];
+    protected $casts = ['is_superuser'=>'boolean'];
     public $timestamps = false;
 }
