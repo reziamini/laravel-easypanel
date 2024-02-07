@@ -11,7 +11,7 @@ class CreatePanelAdminsTableEasypanel extends Migration
      */
     public function getConnection()
     {
-        return config('easy_panel_config.database.connection') ?: config('database.default');
+        return config('easy_panel.database.connection') ?: config('database.default');
     }
     /**
      * Run the migrations.
@@ -20,7 +20,7 @@ class CreatePanelAdminsTableEasypanel extends Migration
      */
     public function up()
     {
-        Schema::create(config('easy_panel_config.database.panel_admin_table'), function (Blueprint $table) {
+        Schema::create(config('easy_panel.database.panel_admin_table'), function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->boolean('is_superuser');
@@ -37,6 +37,6 @@ class CreatePanelAdminsTableEasypanel extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(config('easy_panel_config.database.panel_admin_table'));
+        Schema::dropIfExists(config('easy_panel.database.panel_admin_table'));
     }
 }
