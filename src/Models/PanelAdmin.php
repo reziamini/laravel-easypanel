@@ -16,11 +16,12 @@ class PanelAdmin extends Model
     */
     public function __construct(array $attributes = [])
     {
-        $connection = config('easy_panel_config.database.connection') ?: config('database.default');
+        $connection = config('easy_panel.database.connection') ?: config('database.default');
+        $table = config('easy_panel.database.panel_admin_table') ?: 'panel_admins';
 
         $this->setConnection($connection);
 
-        $this->setTable(config('easy_panel_config.database.panel_admin_table'));
+        $this->setTable($table);
 
         parent::__construct($attributes);
     }
