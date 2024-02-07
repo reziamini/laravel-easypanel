@@ -3,28 +3,34 @@
 
 namespace EasyPanel;
 
-use EasyPanel\Commands\{Actions\PublishStubs,
-    Actions\Reinstall,
-    CRUDActions\MakeCreate,
-    UserActions\GetAdmins,
+use EasyPanel\Commands\{Actions\DeleteCRUD,
+    Actions\Install,
+    Actions\MakeCRUD,
     Actions\MakeCRUDConfig,
+    Actions\Migration,
+    Actions\PublishStubs,
+    Actions\Reinstall,
+    Actions\Uninstall,
+    CRUDActions\MakeCreate,
     CRUDActions\MakeRead,
     CRUDActions\MakeSingle,
     CRUDActions\MakeUpdate,
-    Actions\DeleteCRUD,
-    Actions\MakeCRUD,
     UserActions\DeleteAdmin,
-    Actions\Install,
-    UserActions\MakeAdmin,
-    Actions\Migration,
-    Actions\Uninstall};
+    UserActions\GetAdmins,
+    UserActions\MakeAdmin};
 use EasyPanel\Http\Middleware\isAdmin;
 use EasyPanel\Http\Middleware\LangChanger;
-use EasyPanel\Support\Contract\{LangManager, UserProviderFacade, AuthFacade};
-use Illuminate\{Routing\Router, Support\Facades\Blade, Support\Facades\Route, Support\ServiceProvider};
-use Livewire\Livewire;
 use EasyPanel\Models\PanelAdmin;
+use EasyPanel\Support\Contract\{AuthFacade, LangManager, UserProviderFacade};
 use EasyPanelTest\Dependencies\User;
+use Exception;
+use Illuminate\{Routing\Router,
+    Support\Facades\Blade,
+    Support\Facades\DB,
+    Support\Facades\Log,
+    Support\Facades\Route,
+    Support\ServiceProvider};
+use Livewire\Livewire;
 
 class EasyPanelServiceProvider extends ServiceProvider
 {
@@ -34,7 +40,7 @@ class EasyPanelServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__ . '/../config/easy_panel_config.php', 'easy_panel');
 
         // Check the status of module
-        if(!config('easy_panel.enable')) {
+        if (!config('easy_panel.enable')) {
             return;
         }
 
@@ -42,14 +48,22 @@ class EasyPanelServiceProvider extends ServiceProvider
         $this->defineFacades();
     }
 
+    private function defineFacades()
+    {
+        AuthFacade::shouldProxyTo(config('easy_panel.auth_class'));
+        UserProviderFacade::shouldProxyTo(config('easy_panel.admin_provider_class'));
+        LangManager::shouldProxyTo(config('easy_panel.lang_manager_class'));
+    }
+
     public function boot()
     {
-        if(!config('easy_panel.enable')) {
+        if (!config('easy_panel.enable')) {
             return;
         }
 
         // Here we register publishes and Commands
-        if ($this->app->runningInConsole()) {
+        $isRunningInConsole = $this->app->runningInConsole();
+        if ($isRunningInConsole) {
             $this->mergePublishes();
         }
 
@@ -62,35 +76,61 @@ class EasyPanelServiceProvider extends ServiceProvider
         // Register Middleware
         $this->registerMiddlewareAlias();
 
-        // Define routes if doesn't cached
-        $this->defineRoutes();
-
         // Load Livewire components
         $this->loadLivewireComponent();
 
-        // Load relationship for administrators
-        $this->loadRelations();
+        // check if database is connected to work with DB
+        $isDBConnected = $this->isDBConnected();
+        if ($isDBConnected) {
+            // Define routes if doesn't cache
+            $this->defineRoutes();
+            // Load relationship for administrators
+            $this->loadRelations();
+        } else if ($isRunningInConsole) {
+            echo "\033[31m ** Please check your DB connection \033[0m\n";
+            echo "\033[31m ** Can not load routes of EasyPanel \033[0m\n";
+        }
 
         Blade::componentNamespace("\\EasyPanel\\ViewComponents", 'easypanel');
     }
 
-    private function defineRoutes()
+    private function mergePublishes()
     {
-        if(!$this->app->routesAreCached()) {
-            $middlewares = array_merge(['web', 'isAdmin', 'LangChanger'], config('easy_panel.additional_middlewares'));
+        $this->publishes([__DIR__ . '/../config/easy_panel_config.php' => config_path('easy_panel.php')], 'easy-panel-config');
 
-            Route::prefix(config('easy_panel.route_prefix'))
-                ->middleware($middlewares)
-                ->name(getRouteName() . '.')
-                ->group(__DIR__ . '/routes.php');
-        }
+        $this->publishes([__DIR__ . '/../resources/views' => resource_path('/views/vendor/admin')], 'easy-panel-views');
+
+        $this->publishes([__DIR__ . '/../resources/assets' => public_path('/assets/admin')], 'easy-panel-styles');
+
+        $this->publishes([
+            __DIR__ . '/../database/migrations/cruds_table.php' => base_path('/database/migrations/' . date('Y_m_d') . '_999999_create_cruds_table_easypanel.php'),
+            __DIR__ . '/../database/migrations/panel_admins_table.php' => base_path('/database/migrations/' . date('Y_m_d') . '_999999_create_panel_admins_table_easypanel.php'),
+        ], 'easy-panel-migration');
+
+        $this->publishes([__DIR__ . '/../resources/lang' => app()->langPath()], 'easy-panel-lang');
+
+        $this->publishes([__DIR__ . '/Commands/stub' => base_path('/stubs/panel')], 'easy-panel-stubs');
     }
 
-    private function defineFacades()
+    private function bindCommands()
     {
-        AuthFacade::shouldProxyTo(config('easy_panel.auth_class'));
-        UserProviderFacade::shouldProxyTo(config('easy_panel.admin_provider_class'));
-        LangManager::shouldProxyTo(config('easy_panel.lang_manager_class'));
+        $this->commands([
+            MakeAdmin::class,
+            DeleteAdmin::class,
+            Install::class,
+            MakeCreate::class,
+            MakeUpdate::class,
+            MakeRead::class,
+            MakeSingle::class,
+            MakeCRUD::class,
+            DeleteCRUD::class,
+            MakeCRUDConfig::class,
+            GetAdmins::class,
+            Migration::class,
+            Uninstall::class,
+            Reinstall::class,
+            PublishStubs::class
+        ]);
     }
 
     private function registerMiddlewareAlias()
@@ -117,50 +157,37 @@ class EasyPanelServiceProvider extends ServiceProvider
         Livewire::component('admin::livewire.admins.update', Http\Livewire\Admins\Update::class);
     }
 
-    private function mergePublishes()
+    private function isDBConnected()
     {
-        $this->publishes([__DIR__ . '/../config/easy_panel_config.php' => config_path('easy_panel.php')], 'easy-panel-config');
+        try {
+            $connection = config('easy_panel.database.connection') ?: config('database.default');
+            DB::connection($connection)->getPDO();
+        } catch (Exception $e) {
+            Log::error('Please check your DB connection \n  Can not load routes of EasyPanel');
+            Log::error($e->getMessage());
+            return false;
+        }
+        return true;
 
-        $this->publishes([__DIR__ . '/../resources/views' => resource_path('/views/vendor/admin')], 'easy-panel-views');
-
-        $this->publishes([__DIR__ . '/../resources/assets' => public_path('/assets/admin')], 'easy-panel-styles');
-
-        $this->publishes([
-            __DIR__ . '/../database/migrations/cruds_table.php' => base_path('/database/migrations/' . date('Y_m_d') . '_999999_create_cruds_table_easypanel.php'),
-            __DIR__ . '/../database/migrations/panel_admins_table.php' => base_path('/database/migrations/' . date('Y_m_d') . '_999999_create_panel_admins_table_easypanel.php'),
-        ], 'easy-panel-migration');
-
-        $this->publishes([__DIR__.'/../resources/lang' => app()->langPath()], 'easy-panel-lang');
-
-        $this->publishes([__DIR__.'/Commands/stub' => base_path('/stubs/panel')], 'easy-panel-stubs');
     }
 
-    private function bindCommands()
+    private function defineRoutes()
     {
-        $this->commands([
-            MakeAdmin::class,
-            DeleteAdmin::class,
-            Install::class,
-            MakeCreate::class,
-            MakeUpdate::class,
-            MakeRead::class,
-            MakeSingle::class,
-            MakeCRUD::class,
-            DeleteCRUD::class,
-            MakeCRUDConfig::class,
-            GetAdmins::class,
-            Migration::class,
-            Uninstall::class,
-            Reinstall::class,
-            PublishStubs::class
-        ]);
+        if (!$this->app->routesAreCached()) {
+            $middlewares = array_merge(['web', 'isAdmin', 'LangChanger'], config('easy_panel.additional_middlewares'));
+
+            Route::prefix(config('easy_panel.route_prefix'))
+                ->middleware($middlewares)
+                ->name(getRouteName() . '.')
+                ->group(__DIR__ . '/routes.php');
+        }
     }
 
     private function loadRelations()
     {
         $model = !$this->app->runningUnitTests() ? config('easy_panel.user_model') : User::class;
 
-        $model::resolveRelationUsing('panelAdmin', function ($userModel){
+        $model::resolveRelationUsing('panelAdmin', function ($userModel) {
             return $userModel->hasOne(PanelAdmin::class)->latest();
         });
     }
