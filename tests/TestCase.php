@@ -2,10 +2,13 @@
 
 namespace EasyPanelTest;
 
+use App\Models\Article;
 use EasyPanel\EasyPanelServiceProvider;
 use EasyPanel\Parsers\StubParser;
 use EasyPanelTest\Dependencies\User;
 use Faker\Factory;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
 use Iya30n\DynamicAcl\Providers\DynamicAclServiceProvider;
 use Javoscript\MacroableModels\MacroableModelsServiceProvider;
@@ -15,7 +18,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
 {
 
     /**
-     * @var \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+     * @var Collection|Model
      */
     protected $user;
 
@@ -23,35 +26,6 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
      * @var StubParser
      */
     protected $parser;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->loadMigrationsFrom(__DIR__.'/Dependencies/database/migrations');
-        $this->loadMigrationsFrom(__DIR__.'/../vendor/iya30n/dynamic-acl/database/migrations');
-        $this->setUser();
-        $this->setParser();
-        
-        config()->set('easy_panel.user_model', User::class);
-    }
-
-    protected function getPackageProviders($app)
-    {
-        return [
-            EasyPanelServiceProvider::class,
-            LivewireServiceProvider::class,
-            MacroableModelsServiceProvider::class,
-            DynamicAclServiceProvider::class,
-        ];
-    }
-
-    protected function setUser()
-    {
-        $faker = Factory::create();
-        $user = User::create(['name' => $faker->name, 'password' => Hash::make('password')]);
-        $this->user = $user;
-    }
 
     public function getAdmin()
     {
@@ -62,8 +36,40 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         return $this->user->refresh();
     }
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->loadMigrationsFrom(__DIR__ . '/Dependencies/database/migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/../vendor/iya30n/dynamic-acl/database/migrations');
+        $this->setUser();
+        $this->setParser();
+
+        config()->set('easy_panel.user_model', User::class);
+        config()->set('easy_panel.database.panel_admin_table', 'panel_admins');
+        config()->set('easy_panel.database.crud_table', 'cruds');
+
+    }
+
+    protected function setUser()
+    {
+        $faker = Factory::create();
+        $user = User::create(['name' => $faker->name, 'password' => Hash::make('password')]);
+        $this->user = $user;
+    }
+
     private function setParser()
     {
-        $this->parser = new StubParser('article', \App\Models\Article::class);
+        $this->parser = new StubParser('article', Article::class);
+    }
+
+    protected function getPackageProviders($app)
+    {
+        return [
+            EasyPanelServiceProvider::class,
+            LivewireServiceProvider::class,
+            MacroableModelsServiceProvider::class,
+            DynamicAclServiceProvider::class,
+        ];
     }
 }
