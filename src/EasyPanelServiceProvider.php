@@ -160,8 +160,7 @@ class EasyPanelServiceProvider extends ServiceProvider
     private function isDBConnected()
     {
         try {
-            $connection = config('easy_panel.database.connection') ?: config('database.default');
-            DB::connection($connection)->getPDO();
+            DB::connection(config('easy_panel.database.connection'))->getPDO();
         } catch (Exception $e) {
             Log::error('Please check your DB connection \n  Can not load routes of EasyPanel');
             Log::error($e->getMessage());

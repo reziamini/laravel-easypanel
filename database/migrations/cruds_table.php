@@ -11,7 +11,7 @@ class CreateCrudsTableEasypanel extends Migration
      */
     public function getConnection()
     {
-        return config('easy_panel.database.connection') ?: config('database.default');
+        return config('easy_panel.database.connection');
     }
 
     /**

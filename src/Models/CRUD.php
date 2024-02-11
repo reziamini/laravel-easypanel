@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class CRUD extends Model
 {
+    protected $guarded = [];
+
     /**
      * Create a new Eloquent model instance.
      *
@@ -15,17 +17,12 @@ class CRUD extends Model
      */
     public function __construct(array $attributes = [])
     {
-        $connection = config('easy_panel.database.connection') ?: config('database.default');
-        $table = config('easy_panel.database.crud_table') ?: 'cruds';
-
-        $this->setConnection($connection);
-
-        $this->setTable($table);
+        
+        $this->setConnection(config('easy_panel.database.connection'));
+        $this->setTable(config('easy_panel.database.crud_table'));
 
         parent::__construct($attributes);
     }
-
-    protected $guarded = [];
 
     public function scopeActive($query)
     {

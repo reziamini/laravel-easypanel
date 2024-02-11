@@ -11,8 +11,9 @@ class CreatePanelAdminsTableEasypanel extends Migration
      */
     public function getConnection()
     {
-        return config('easy_panel.database.connection') ?: config('database.default');
+        return config('easy_panel.database.connection');
     }
+
     /**
      * Run the migrations.
      *
