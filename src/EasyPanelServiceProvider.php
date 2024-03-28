@@ -102,14 +102,64 @@ class EasyPanelServiceProvider extends ServiceProvider
 
         $this->publishes([__DIR__ . '/../resources/assets' => public_path('/assets/admin')], 'easy-panel-styles');
 
-        $this->publishes([
-            __DIR__ . '/../database/migrations/cruds_table.php' => base_path('/database/migrations/' . date('Y_m_d') . '_999999_create_cruds_table_easypanel.php'),
-            __DIR__ . '/../database/migrations/panel_admins_table.php' => base_path('/database/migrations/' . date('Y_m_d') . '_999999_create_panel_admins_table_easypanel.php'),
-        ], 'easy-panel-migration');
+        $migrationForCopy = $this->publishMigration();
+        if ($migrationForCopy) {
+            $this->publishes($migrationForCopy, 'easy-panel-migration');
+        }
 
         $this->publishes([__DIR__ . '/../resources/lang' => app()->langPath()], 'easy-panel-lang');
 
         $this->publishes([__DIR__ . '/Commands/stub' => base_path('/stubs/panel')], 'easy-panel-stubs');
+    }
+
+    /**
+     * Scans the target migration directory and copies migrations from the package that do not exist in the target project.
+     *
+     * This method performs several key operations:
+     * 1. It fetches the current migration files from the target project's migration directory.
+     * 2. It identifies migrations related to this package within the target project by looking for files with a specific naming convention (i.e., containing '_999999_' in the filename).
+     * 3. It then scans the package's migration directory for all available migrations.
+     * 4. For each migration in the package, it checks if a corresponding migration (with a modified naming convention indicating it belongs to the EasyPanel package) does not already exist in the target project.
+     * 5. If such a migration does not exist, it prepares to copy the migration file from the package to the target project, renaming it according to the target project's naming convention and appending '_easypanel' to indicate its origin.
+     *
+     * The method ultimately returns an associative array where the keys are the full paths to the source migration files in the package, and the values are the intended full paths for these migrations once copied to the target project. This array can then be used to perform the actual file copy operations.
+     *
+     * @return array An associative array mapping source migration file paths to target file paths for migrations that need to be copied. The structure is ['sourceFilePath' => 'targetFilePath'].
+     */
+    private function publishMigration(): array
+    {
+        // 1- fetch current migration files
+        // 1-1- scan project
+        $projectMigrations = array_slice(scandir(base_path('/database/migrations/')), 2);
+        $packageMigrationInProject = [];
+        foreach ($projectMigrations as $migrationName) {
+            if (str_contains($migrationName, '_999999_')) {
+                // 2024_03_28_999999_migration_name.php
+                // convert to migration_name
+                $candidateMigrationName = substr(explode('_999999_', $migrationName)[1], 0, -4);
+                $packageMigrationInProject[] = $candidateMigrationName;
+
+            }
+        }
+
+        // 1-2- current migration
+        $packageMigration = [];
+        foreach (array_slice(scandir(__DIR__ . '/../database/migrations'), 2) as $migrationName) {
+            // migration_name.php
+            // convert to migration_name
+            $packageMigration[] = substr($migrationName, 0, -4);
+        }
+        // copy not existence files:
+        $migrationForCopy = [];
+        foreach ($packageMigration as $migrationName) {
+            $targetMigrationName = 'create_' . $migrationName . '_easypanel';
+            if (!in_array($targetMigrationName, $packageMigrationInProject)) {
+                $migrationForCopy[dirname(__DIR__) . '/database/migrations/' . $migrationName . '.php'] = base_path('/database/migrations/' . date('Y_m_d') . '_999999_create_' . $migrationName . '_easypanel.php');
+            }
+        }
+        return $migrationForCopy;
+
+
     }
 
     private function bindCommands()
