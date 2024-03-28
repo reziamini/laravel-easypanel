@@ -9,23 +9,21 @@ use Illuminate\Database\Eloquent\Model;
 class PanelAdmin extends Model
 {
 
+    protected $guarded = [];
+
     /**
-    * Create a new Eloquent model instance.
-    *
-    * @param array $attributes
-    */
+     * Create a new Eloquent model instance.
+     *
+     * @param array $attributes
+     */
     public function __construct(array $attributes = [])
     {
-        $connection = config('easy_panel_config.database.connection') ?: config('database.default');
 
-        $this->setConnection($connection);
-
-        $this->setTable(config('easy_panel_config.database.panel_admin_table'));
+        $this->setConnection(config('easy_panel.database.connection'));
+        $this->setTable(config('easy_panel.database.panel_admin_table'));
 
         parent::__construct($attributes);
     }
-
-    protected $guarded = [];
 
     public function user()
     {

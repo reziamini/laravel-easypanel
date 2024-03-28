@@ -11,7 +11,7 @@ class CreateCrudsTableEasypanel extends Migration
      */
     public function getConnection()
     {
-        return config('easy_panel_config.database.connection') ?: config('database.default');
+        return config('easy_panel.database.connection');
     }
 
     /**
@@ -21,7 +21,7 @@ class CreateCrudsTableEasypanel extends Migration
      */
     public function up()
     {
-        Schema::create(config('easy_panel_config.database.crud_table'), function (Blueprint $table) {
+        Schema::create(config('easy_panel.database.crud_table'), function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
             $table->string('model')->unique();
@@ -42,6 +42,6 @@ class CreateCrudsTableEasypanel extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(config('easy_panel_config.database.crud_table'));
+        Schema::dropIfExists(config('easy_panel.database.crud_table'));
     }
 }
